@@ -331,6 +331,8 @@
                     page : {
                         curr : 1 //重新从第 1 页开始
                     },
+                    method:"post"
+                    ,
                     where : {
                         "name" : name
                     }

@@ -283,7 +283,7 @@ layui.use(['table','form'], function(){
     	layer.open({
             type:2,
             title:'新建跟踪',
-            area:['500px','750px'],
+            area:['500px','92%'],
             closeBtn:1,
             shadeClose:false,
             content:'${pageContext.request.contextPath}/views/customer/editfollowup.jsp?type=add',

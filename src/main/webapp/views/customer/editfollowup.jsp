@@ -194,11 +194,7 @@ layui.use(['form','upload','laydate'],function(){
     
       }
     });   
-	
-	
-	
-	
-	
+
 	//判断添加还是更新
 	if(parm.type == 'add'){
 		//如果是从客户列表进来的，就加载客户可选列表
@@ -217,7 +213,7 @@ layui.use(['form','upload','laydate'],function(){
 	        });
 			
 		}else{
-			 
+
 			 $('select[name=customerId]').html('<option value="' + parm.customerId + '">--请选择客户--</option>')
 			 form.render('select');
 			 //console.log($('select[name=customerId]').val());

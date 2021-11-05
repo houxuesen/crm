@@ -6,6 +6,15 @@
 <!-- 搜索框 -->
 <form class="layui-form">
     <blockquote class="layui-elem-quote quoteBox">
+
+        <label style="margin-left: 20px;" style="" class="layui-label">合同编号：</label>
+
+        <div style="width: 120px;" class="layui-inline">
+            <input type="text" name="contractNo" placeholder="合同编号"
+                   autocomplete="off" class="layui-input">
+        </div>
+
+
         <div class="layui-inline">
             <button type="button" class="layui-btn" id="search-btn">
                 <i class="layui-icon  layui-icon-search"></i>搜索
@@ -15,26 +24,10 @@
 		<div class="layui-inline" id="add-btn-div">
             <ul>
                 <li id="add-btn">
-	               <button type="button" class="layui-btn">
-	                   <i class="layui-icon  layui-icon-add-1"></i>新建
+	               <button type="button" class="layui-btn" id="add-contract-btn">
+	                   <i class="layui-icon  layui-icon-add-1"></i>新建合同
 	               </button>
                 </li>
-            </ul>
-            <ul id="add-btn-more" style="z-index: 999;position: fixed;display: none;" class="layui-bg-green">
-                <shiro:hasPermission name="5002">
-                    <li>
-	                    <button type="button" class="layui-btn" id="add-contract-btn">
-	                        <i class="layui-icon  layui-icon-add-1"></i>新建客户
-	                    </button>    
-                    </li>
-                </shiro:hasPermission>
-                <shiro:hasPermission name="6002">
-	                <li>
-	                    <button type="button" class="layui-btn" id="add-followup-btn">
-	                        <i class="layui-icon  layui-icon-add-1"></i>新建跟踪记录
-	                    </button>    
-	                </li>
-                </shiro:hasPermission>
             </ul>
 		</div>
 		
@@ -46,13 +39,13 @@
 	        </div>  
         </shiro:hasPermission>
         
-        <shiro:hasPermission name="7007">
+        <%--<shiro:hasPermission name="7007">
 			<div class="layui-inline">
 		        <button type="button" class="layui-btn layui-bg-orange"  id="contract-transfer-button">
 		            <i class="layui-icon  layui-icon-senior" ></i>转移
 		        </button>
 	        </div> 
-	    </shiro:hasPermission>
+	    </shiro:hasPermission>--%>
 	    
 	    <shiro:hasPermission name="7004">
 	        <div class="layui-inline">
@@ -62,11 +55,11 @@
 			</div>
 		</shiro:hasPermission>
 		
-        <div class="layui-inline">
+      <%--  <div class="layui-inline">
             <button type="button" id="export-button" class="layui-btn layui-btn-danger">
                     <i class="layui-icon  layui-icon-delete"></i>导出
             </button>
-        </div>		
+        </div>	--%>
 	</blockquote>
 </form>
 
@@ -76,13 +69,6 @@
 
 
 <div class="layui-hide">
-    <input type="text" name="name" />
-    <input type="text" name="status" />
-    <input type="text" name="type" />
-    <input type="text" name="source" />
-    <input type="text" name="level" />
-    <input type="text" name="credit" />
-    <input type="text" name="maturity" />
     <button type="button" data-type="reload" id="search-button">搜索</button>
 </div>
 
@@ -107,14 +93,12 @@ layui.use(['table','form'], function(){
       ,page: {layout: ['limit', 'count', 'prev', 'page', 'next', 'skip','refresh'],groups: 1 }
       ,cols: [[ //表头
           {type:'checkbox'}
-          ,{field:'name',title:'客户名称',templet:function(data){
-        	  return str = '<a style="color:blue;" href="javascript:" lay-event="detail">' +data.name + '</a>';
-          }}
-          ,{field:'status',title:'客户状态'}
-          ,{field:'type',title:'客户类别'}
-          ,{field:'maturity',title:'客户成熟度'}
-          ,{field:'level',title:'客户等级'}
-          ,{field:'description',title:'客户描述'}
+          ,{field:'customerName',title:'客户姓名'}
+          ,{field:'contractNo',title:'合同编号'}
+          ,{field:'signUserName',title:'签约人'}
+          ,{field:'signDate',title:'签约时间'}
+          ,{field:'manageName',title:'负责人'}
+          ,{field:'totalAmount',title:'总额'}
         
       ]],
       done: function(){
@@ -125,18 +109,7 @@ layui.use(['table','form'], function(){
 
     //搜索按钮点击事件
     $('#search-btn').click(function(){
-    	
-    	layer.open({
-            type:2,
-            title:'搜索条件',
-            area:['700px','400px'],
-            clostBtn:1,
-            shadeClose: true,
-            maxmin: false,
-            //offset:'r',
-            content:'views/contract/search.jsp?'
-        });
-    	//console.log(layer.getChildFrame());
+        $('#search-button').click();
     });
     
     //搜索功能
@@ -146,23 +119,14 @@ layui.use(['table','form'], function(){
           page: {
             curr: 1 //重新从第 1 页开始
           }
+          ,method: "post"
           ,where: {
-              'name': $('input[name=name]').val(),
-              'status':$('input[name=status]').val(),
-              'type':$('input[name=type]').val(),
-              'source':$('input[name=source]').val(),
-              'level':$('input[name=level]').val(),
-              'credit':$('input[name=credit]').val(),
-              'maturity':$('input[name=maturity]').val()
+              'contractNo': $("input[name='contractNo']").val()
           }
         });
       });
-    
-    
-    
-    
-    
-    
+
+
     //详情弹出窗
     table.on('tool(contract-table)',function(obj){
     	var data = obj.data;
@@ -270,7 +234,7 @@ layui.use(['table','form'], function(){
     		area:['750px','92%'],
     		shadeClose:false,
     		closeBtn:1,
-    		content:'views/contract/addcontract.jsp',
+    		content:'views/contract/addContract.jsp',
     		end:function(){
     			table.reload('contract-table');
     		}

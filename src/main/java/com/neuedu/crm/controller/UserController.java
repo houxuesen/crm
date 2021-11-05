@@ -112,6 +112,28 @@ public class UserController {
         map.put("count", count);
         return map;
     }
+
+    /**
+     * 描述：查找用户
+     * @return
+     */
+    @Operation(name="查找用户")
+    @RequiresPermissions("1001")
+    @RequestMapping("/allUser")
+    @ResponseBody
+    public Map<String, Object> findUser(){
+        Map<String, Object> map = new HashMap<String,Object>(16);
+        //创建用户模板类
+        UserExample userExample = new UserExample();
+        Long count = userService.countByExample(userExample);
+        List<User> list = userService.findByExample(userExample);
+        logger.info(list.toString());
+        map.put("data", list);
+        map.put("code", 0);
+        map.put("msg", "success");
+        map.put("count", count);
+        return map;
+    }
     
     /**
      * 

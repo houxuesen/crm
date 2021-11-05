@@ -1,25 +1,21 @@
 package com.neuedu.crm.controller;
 
-import com.neuedu.crm.pojo.Customer;
-import com.neuedu.crm.pojo.CustomerExample;
-import com.neuedu.crm.pojo.CustomerExample.Criteria;
-import com.neuedu.crm.pojo.Linkman;
-import com.neuedu.crm.pojo.User;
+import com.neuedu.crm.pojo.*;
+import com.neuedu.crm.pojo.ContractExample.Criteria;
+import com.neuedu.crm.service.IContractService;
 import com.neuedu.crm.service.ICustomerService;
 import com.neuedu.crm.utils.Operation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 
@@ -30,7 +26,11 @@ import java.util.Map;
 @RequestMapping("contract")
 public class ContractController {
     @Autowired
+    private IContractService contractService;
+    
+    @Autowired
     private ICustomerService customerService;
+    
     
     private User user = null;
 
@@ -47,25 +47,25 @@ public class ContractController {
 
     /**
      * 
-     * 描述：分页查询客户
+     * 描述：分页查询合同
      * @author huangwanzong
      * @date 2018/07/06
      * @version 1.0
      * @param page 可选参数，查询的页数，默认值 1
      * @param limit 可选参数，分页的大小，默认值 10
-     * @param customer 可选参数，查询的条件
-     * @param findtype 可选参数，该参数值为 all 时不执行分页查询，返回全部符合条件的客户
+     * @param contract 可选参数，查询的条件
+     * @param findtype 可选参数，该参数值为 all 时不执行分页查询，返回全部符合条件的合同
      * @param request
      * @return Map<String,Object>
      * @since 1.8
      *
      */
     
-    @RequiresPermissions("5001")
-    @Operation(name="分页查询客户")
+    @RequiresPermissions("80001")
+    @Operation(name="分页查询合同")
     @RequestMapping("list")
     @ResponseBody
-    public Map<String, Object> listCustomer(Integer page,Integer limit,Customer customer,String findtype,HttpServletRequest request){
+    public Map<String, Object> listContract(Integer page,Integer limit,Contract contract,String findtype,HttpServletRequest request){
         Map<String, Object> map = new HashMap<String,Object>(16);
         
         //获取用户
@@ -77,7 +77,7 @@ public class ContractController {
             return map;
         }
         
-        CustomerExample example = new CustomerExample();
+        ContractExample example = new ContractExample();
         Criteria criteria = example.createCriteria();
         
         //设置分页参数
@@ -96,39 +96,20 @@ public class ContractController {
 
         //设置管理者ID
         criteria.andManagerIdEqualTo(user.getId());
-        //只查询未删除的客户
+        //只查询未删除的合同
         criteria.andDeleteStatusEqualTo(0);
-        System.out.println(customer);
+        System.out.println(contract);
         //检测属性是否存在，存在则进行条件查询
-        if(customer != null) {
-            if(customer.getName() != null) {
-                criteria.andNameLike("%" + customer.getName() + "%");
-            }
-            
-            if(customer.getType() != null && !"".equals(customer.getType())) {
-                criteria.andTypeEqualTo(customer.getType()); 
-            }
-            if(customer.getStatus() != null && !"".equals(customer.getStatus())) {
-                criteria.andStatusEqualTo(customer.getStatus());
-            }
-            if(customer.getSource() != null && !"".equals(customer.getSource())) {
-                criteria.andSourceEqualTo(customer.getSource());
-            }
-            if(customer.getLevel() != null && !"".equals(customer.getLevel())) {
-                criteria.andLevelEqualTo(customer.getLevel());
-            }
-            if(customer.getCredit() != null && !"".equals(customer.getCredit())) {
-                criteria.andCreditEqualTo(customer.getCredit());
-            }
-            if(customer.getMaturity() != null && !"".equals(customer.getMaturity())) {
-                criteria.andMaturityEqualTo(customer.getMaturity());
+        if(contract != null) {
+            if(!StringUtils.isEmpty(contract.getContractNo()) ) {
+                criteria.andContractNoLike("%" + contract.getContractNo() + "%");
             }
         }
         
-        Long count = customerService.countByCustomerExample(example);
-        List<Customer> customers = customerService.selectByCustomerExample(example);
+        Long count = contractService.countByContractExample(example);
+        List<Contract> contracts = contractService.selectByContractExample(example);
         
-        map.put("data", customers);
+        map.put("data", contracts);
         map.put("count", count);
         map.put("code", 0);
         
@@ -138,69 +119,52 @@ public class ContractController {
     
     /**
      * 
-     * 描述：添加一个客户
+     * 描述：添加一个合同
      * @author huangwanzong
      * @date 2018/07/17
      * @version 1.0
-     * @param customer 客户信息
-     * @param linkman 联系人信息
-     * @param customerName 客户名称
-     * @param linkmanName 联系人名称
-     * @param customerLevel 客户等级
+     * @param contract 合同信息
      * @param request
      * @return Map<String,Object>
      * @since 1.8
      *
      */
-    @RequiresPermissions("5002")
-    @Operation(name="添加客户")
+    @RequiresPermissions("80002")
+    @Operation(name="添加合同")
     @RequestMapping("add")
     @ResponseBody
-    public Map<String, Object> addCustomer(Customer customer,Linkman linkman,String customerName,String linkmanName,String customerLevel,HttpServletRequest request){
+    public Map<String, Object> addContract(Contract contract,HttpServletRequest request){
         Map<String, Object> map = new HashMap<String,Object>(16);
         
         this.getUser(request);
-        
-        //检测是否存在customer对象
-        if(customer == null || linkman == null) {
+        //检测是否存在contract对象
+        if(contract == null ) {
             map.put("msg", "参数为空");
             map.put("success", false);
             return map;
         }
-        
-        //检测客户名是否存在
-        if(customerName == null || "".equals(customerName)) {
-            map.put("msg", "用户名称参数不能为空");
+        //合同编号
+        if(StringUtils.isEmpty(contract.getContractNo())) {
+            map.put("msg", "合同编号参数不能为空");
             map.put("success", false);
             return map;
         }
-        
-        //检测联系人姓名是否存在
-        if(linkmanName == null || "".equals(linkmanName)) {
-            map.put("msg", "联系人名称参数不能为空");
-            map.put("success", false);
-            return map;
-        }
-        
-        //客户所属者默认为创建者
-        customer.setManagerId(user.getId());
+        //合同所属者默认为创建者
+        contract.setManageId(user.getId());
         //设置创建者id
-        customer.setCreater(user.getId());
+        contract.setCreateUserId(user.getId());
         //设置创建时间
-        customer.setCreateTime(LocalDateTime.now());
-        //设置客户名称
-        customer.setName(customerName);
-        //设置客户等级
-        customer.setLevel(customerLevel);
+        contract.setCreateDate(new Date());
+        if(contract.getCustomerId() != null){
+            Customer customer = customerService.selectCustomerByPrimaryKey(contract.getCustomerId());
+            //设置合同名称
+            contract.setCustomerName(customer.getName());
+        }
         //设置未删除
-        customer.setDeleteStatus(0);
-        
-        //设置联系人名称
-        linkman.setName(linkmanName);
-     
+        contract.setDelFlag(0);
         
         //进行数据插入
-        if(customerService.insertSelective(customer,linkman)) {
+        if(contractService.insertSelective(contract)) {
             map.put("msg", "添加成功");
             map.put("success", true);
         }else {
@@ -212,29 +176,29 @@ public class ContractController {
     }
     
     @RequiresPermissions("7009")
-    @Operation(name="检测客户名称是否存在")
+    @Operation(name="检测合同名称是否存在")
     @RequestMapping("checkname")
     @ResponseBody
-    public boolean checkCustomerName(String name){
+    public boolean checkContractName(String name){
         
-        CustomerExample example = new CustomerExample();
+        ContractExample example = new ContractExample();
         example.createCriteria().andNameEqualTo(name);
         
-        List<Customer> list = customerService.selectByCustomerExample(example);
+        List<Contract> list = contractService.selectByContractExample(example);
         if(list.size()>0) {
             return true;
         }
         return false;
     }
     
-    @RequiresPermissions("5003")
-    @Operation(name="更新客户信息")
+    @RequiresPermissions("80003")
+    @Operation(name="更新合同信息")
     @RequestMapping("update")
     @ResponseBody
-    public Map<String, Object> updateCustomer(Customer customer){
+    public Map<String, Object> updateContract(Contract contract){
         Map<String, Object> map = new HashMap<String,Object>(16);
  
-        if(customerService.updateCustomerByPrimaryKeySelective(customer)) {
+        if(contractService.updateContractByPrimaryKeySelective(contract)) {
             map.put("msg", "更新成功");
             map.put("success", true);
         }else {
@@ -244,16 +208,16 @@ public class ContractController {
         return map;
     }
     
-    @RequiresPermissions("5004")
-    @Operation(name="删除客户")
+    @RequiresPermissions("80004")
+    @Operation(name="删除合同")
     @RequestMapping("delete")
     @ResponseBody
-    public Map<String, Object> deleteCustomer(int[] ids){
+    public Map<String, Object> deleteContract(int[] ids){
         Map<String, Object> map = new HashMap<String,Object>(16);
         List<Integer> success = new ArrayList<Integer>();
         List<Integer> fail = new ArrayList<Integer>();
         for(int id : ids) {
-            if(customerService.deleteByPrimaryKey(id)) {
+            if(contractService.deleteByPrimaryKey(id)) {
                 success.add(id);
             }else {
                 fail.add(id);
@@ -269,12 +233,12 @@ public class ContractController {
     }
     
     @RequiresPermissions("7010")
-    @Operation(name="id查找客户")
+    @Operation(name="id查找合同")
     @RequestMapping("find")
     @ResponseBody
-    public Map<String, Object> findCustomer(Integer id){
+    public Map<String, Object> findContract(Integer id){
         Map<String, Object> map = new HashMap<String,Object>(16);
-        Customer customer = null;
+        Contract contract = null;
         
         if(id == null) {
             map.put("msg", "非法操作");
@@ -282,12 +246,12 @@ public class ContractController {
             return map;
         }
         
-        customer = customerService.selectCustomerByPrimaryKey(id);
+        contract = contractService.selectContractByPrimaryKey(id);
         
-        if(customer != null) {
+        if(contract != null) {
             map.put("msg", "查找成功");
             map.put("success", true);
-            map.put("data", customer);
+            map.put("data", contract);
         }else {
             map.put("msg", "查找失败");
             map.put("success", false); 

@@ -111,6 +111,13 @@ public class Contract implements Serializable {
      */
     private Integer delFlag;
 
+
+    private Integer  createUserId;
+    private Integer updateUserId;
+    private String updater;
+    private Date updateDate;
+    private String creater;
+
     public Integer getId() {
         return id;
     }
@@ -277,5 +284,45 @@ public class Contract implements Serializable {
 
     public void setLimitYears(Double limitYears) {
         this.limitYears = limitYears;
+    }
+
+    public Integer getCreateUserId() {
+        return createUserId;
+    }
+
+    public void setCreateUserId(Integer createUserId) {
+        this.createUserId = createUserId;
+    }
+
+    public Integer getUpdateUserId() {
+        return updateUserId;
+    }
+
+    public void setUpdateUserId(Integer updateUserId) {
+        this.updateUserId = updateUserId;
+    }
+
+    public String getUpdater() {
+        return updater;
+    }
+
+    public void setUpdater(String updater) {
+        this.updater = updater;
+    }
+
+    public Date getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(Date updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    public String getCreater() {
+        return creater;
+    }
+
+    public void setCreater(String creater) {
+        this.creater = creater;
     }
 }
