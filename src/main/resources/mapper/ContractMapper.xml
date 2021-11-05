@@ -6,6 +6,7 @@
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result property="contractNo" jdbcType="VARCHAR" column="CONTRACT_NO"/>
         <result property="customerId" jdbcType="INTEGER" column="CUSTOMER_ID"/>
+        <result property="customerName" jdbcType="INTEGER" column="customer_Name"/>
         <result property="signUserId" jdbcType="INTEGER" column="SIGN_USER_ID"/>
         <result property="signUserName" jdbcType="VARCHAR" column="SIGN_USER_NAME"/>
         <result property="createDate" jdbcType="TIMESTAMP" column="CREATE_DATE"/>
@@ -22,7 +23,10 @@
         <result property="payType" jdbcType="VARCHAR" column="PAY_TYPE"/>
         <result property="userNum" jdbcType="VARCHAR" column="USER_NUM"/>
         <result property="limitYears" jdbcType="DOUBLE" column="LIMIT_YEARS"/>
-        <result property="delFlag" jdbcType="VARCHAR" column="DEL_FLAG"/>
+        <result property="document" jdbcType="VARCHAR" column="document"/>
+        <result property="delFlag" jdbcType="INTEGER" column="DEL_FLAG"/>
+        <result property="conState" jdbcType="VARCHAR" column="con_state"/>
+
     </resultMap>
     <sql id="Example_Where_Clause">
         <where>
@@ -86,9 +90,9 @@
     </sql>
     <sql id="Base_Column_List">
         id
-        , CUSTOMER_ID, CONTRACT_NO, SIGN_USER_ID, SIGN_USER_NAME, CREATE_DATE, SIGN_DATE, END_DATE,
+        , CUSTOMER_ID, customer_Name,CONTRACT_NO, SIGN_USER_ID, SIGN_USER_NAME, CREATE_DATE, SIGN_DATE, END_DATE,
     MANAGE_ID, MANAGE_NAME, TOTAL_AMOUNT, OTHER_AMOUNT, DISCOUNT_AMOUNT, CONTRACT_AMOUNT,
-    base_Amount, CONTRACT_TYPE, PAY_TYPE, USER_NUM, LIMIT_YEARS, DEL_FLAG
+    base_Amount, CONTRACT_TYPE, PAY_TYPE, USER_NUM, LIMIT_YEARS, DEL_FLAG,con_State
     </sql>
     <select id="selectByExample" parameterType="com.neuedu.crm.pojo.ContractExample" resultMap="BaseResultMap">
         select
@@ -131,10 +135,11 @@
     </delete>
     <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.neuedu.crm.pojo.Contract"
             useGeneratedKeys="true">
-        insert into contract (CUSTOMER_ID, CONTRACT_NO, SIGN_USER_ID, SIGN_USER_NAME, CREATE_DATE, SIGN_DATE, END_DATE,
+        insert into contract (CUSTOMER_ID,customer_Name ,CONTRACT_NO, SIGN_USER_ID, SIGN_USER_NAME, CREATE_DATE, SIGN_DATE, END_DATE,
                               MANAGE_ID, MANAGE_NAME, TOTAL_AMOUNT, OTHER_AMOUNT, DISCOUNT_AMOUNT, CONTRACT_AMOUNT,
-                              base_Amount, CONTRACT_TYPE, PAY_TYPE, USER_NUM, LIMIT_YEARS)
+                              base_Amount, CONTRACT_TYPE, PAY_TYPE, USER_NUM, LIMIT_YEARS,con_state)
         values (#{customerId,jdbcType=INTEGER},
+                #{customerName,jdbcType=VARCHAR},
                 #{contractNo,jdbcType=VARCHAR},
                 #{signUserId,jdbcType=INTEGER},
                 #{signUserName,jdbcType=VARCHAR},
@@ -151,7 +156,9 @@
                 #{contractType,jdbcType=VARCHAR},
                 #{payType,jdbcType=VARCHAR},
                 #{userNum,jdbcType=VARCHAR},
-                #{limitYears,jdbcType=DOUBLE})
+                #{limitYears,jdbcType=VARCHAR},
+                #{conState,jdbcType=VARCHAR}
+                               )
     </insert>
     <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.neuedu.crm.pojo.Contract"
             useGeneratedKeys="true">
@@ -160,6 +167,11 @@
             <if test="customerId != null">
                 CUSTOMER_ID,
             </if>
+            <if test="customerName != null">
+                customer_Name,
+            </if>
+
+
             <if test="contractNo != null">
                 contract_No,
             </if>
@@ -215,12 +227,26 @@
             <if test="delFlag != null">
                 DEL_FLAG,
             </if>
+
+            <if test="document != null">
+                document,
+            </if>
+
+            <if test="conState != null">
+                con_State,
+            </if>
+
+          
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
 
             <if test="customerId != null">
                 #{customerId,jdbcType=INTEGER},
             </if>
+            <if test="customerName != null">
+                #{customerName,jdbcType=VARCHAR},
+            </if>
+
 
             <if test="contractNo != null">
                 #{contractNo,jdbcType=VARCHAR},
@@ -275,11 +301,20 @@
                 #{userNum,jdbcType=VARCHAR},
             </if>
             <if test="limitYears != null">
-                #{limitYears,jdbcType=DOUBLE},
+                #{limitYears,jdbcType=VARCHAR},
             </if>
             <if test="delFlag != null">
                 #{delFlag,jdbcType=INTEGER},
             </if>
+
+            <if test="document != null">
+                #{document,jdbcType=VARCHAR},
+            </if>
+
+            <if test="conState != null">
+                #{conState,jdbcType=VARCHAR},
+            </if>
+
         </trim>
     </insert>
     <select id="countByExample" parameterType="com.neuedu.crm.pojo.ContractExample" resultType="java.lang.Long">
@@ -296,64 +331,78 @@
                 customer_Id = #{record.customerId,jdbcType=INTEGER},
             </if>
 
+
+            <if test="record.customerName != null">
+                customer_Name = #{record.customerName,jdbcType=VARCHAR},
+            </if>
+
             <if test="record.contractNo != null">
-                contract_No = #{"record.contractNo,jdbcType=VARCHAR},
+                contract_No = #{record.contractNo,jdbcType=VARCHAR},
             </if>
 
             <if test="record.signUserId != null">
-                sign_User_Id = #{"record.signUserId,jdbcType=INTEGER},
+                sign_User_Id = #{record.signUserId,jdbcType=INTEGER},
             </if>
             <if test="record.signUserName != null">
-                sign_User_Name = #{"record.signUserName,jdbcType=VARCHAR},
+                sign_User_Name = #{record.signUserName,jdbcType=VARCHAR},
             </if>
             <if test="record.createDate != null">
-                create_Date = #{"record.createDate,jdbcType=TIMESTAMP},
+                create_Date = #{record.createDate,jdbcType=TIMESTAMP},
             </if>
             <if test="record.signDate != null">
-                sign_Date = #{"record.signDate,jdbcType=TIMESTAMP},
+                sign_Date = #{record.signDate,jdbcType=TIMESTAMP},
             </if>
             <if test="record.endDate != null">
-                end_Date = #{"record.endDate,jdbcType=TIMESTAMP},
+                end_Date = #{record.endDate,jdbcType=TIMESTAMP},
             </if>
             <if test="record.manageId != null">
-                manage_Id = #{"record.manageId,jdbcType=INTEGER},
+                manage_Id = #{record.manageId,jdbcType=INTEGER},
             </if>
             <if test="record.manageName != null">
-                manage_Name = #{"record.manageName,jdbcType=VARCHAR},
+                manage_Name = #{record.manageName,jdbcType=VARCHAR},
             </if>
             <if test="record.totalAmount != null">
-                total_Amount = #{"record.totalAmount,jdbcType=DOUBLE},
+                total_Amount = #{record.totalAmount,jdbcType=DOUBLE},
             </if>
             <if test="record.otherAmount != null">
-                other_Amount = #{"record.otherAmount,jdbcType=DOUBLE},
+                other_Amount = #{record.otherAmount,jdbcType=DOUBLE},
             </if>
 
 
             <if test="record.discountAmount != null">
-                discount_Amount = #{"record.discountAmount,jdbcType=DOUBLE},
+                discount_Amount = #{record.discountAmount,jdbcType=DOUBLE},
             </if>
             <if test="record.contractAmount != null">
-                contract_Amount = #{"record.contractAmount,jdbcType=DOUBLE},
+                contract_Amount = #{record.contractAmount,jdbcType=DOUBLE},
             </if>
             <if test="record.baseAmount != null">
-                base_Amount = #{"record.baseAmount,jdbcType=DOUBLE},
+                base_Amount = #{record.baseAmount,jdbcType=DOUBLE},
             </if>
             <if test="record.contractType != null">
-                contract_Type = #{"record.contractType,jdbcType=VARCHAR},
+                contract_Type = #{record.contractType,jdbcType=VARCHAR},
             </if>
 
             <if test="record.payType != null">
-                pay_Type = #{"record.payType,jdbcType=VARCHAR},
+                pay_Type = #{record.payType,jdbcType=VARCHAR},
             </if>
             <if test="record.userNum != null">
-                user_Num = #{"record.userNum,jdbcType=VARCHAR},
+                user_Num = #{record.userNum,jdbcType=VARCHAR},
             </if>
             <if test="record.limitYears != null">
-                limit_Years = #{"record.limitYears,jdbcType=DOUBLE},
+                limit_Years = #{record.limitYears,jdbcType=VARCHAR},
             </if>
             <if test="record.delFlag != null">
-                del_Flag = #{"record.delFlag,jdbcType=INTEGER},
+                del_Flag = #{record.delFlag,jdbcType=INTEGER},
             </if>
+
+            <if test="record.document != null">
+                document = #{record.document,jdbcType=VARCHAR},
+            </if>
+
+            <if test="record.conState != null">
+                con_State =   #{record.conState,jdbcType=VARCHAR},
+            </if>
+
         </set>
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
@@ -364,43 +413,44 @@
         set
 
         customer_Id = #{record.customerId,jdbcType=INTEGER},
+        customer_Name = #{record.customerName,jdbcType=VARCHAR},
+        contract_No = #{record.contractNo,jdbcType=VARCHAR},
 
-        contract_No = #{"record.contractNo,jdbcType=VARCHAR},
+        sign_User_Id = #{record.signUserId,jdbcType=INTEGER},
 
-        sign_User_Id = #{"record.signUserId,jdbcType=INTEGER},
+        sign_User_Name = #{record.signUserName,jdbcType=VARCHAR},
 
-        sign_User_Name = #{"record.signUserName,jdbcType=VARCHAR},
+        create_Date = #{record.createDate,jdbcType=TIMESTAMP},
 
-        create_Date = #{"record.createDate,jdbcType=TIMESTAMP},
+        sign_Date = #{record.signDate,jdbcType=TIMESTAMP},
 
-        sign_Date = #{"record.signDate,jdbcType=TIMESTAMP},
+        end_Date = #{record.endDate,jdbcType=TIMESTAMP},
 
-        end_Date = #{"record.endDate,jdbcType=TIMESTAMP},
+        manage_Id = #{record.manageId,jdbcType=INTEGER},
 
-        manage_Id = #{"record.manageId,jdbcType=INTEGER},
+        manage_Name = #{record.manageName,jdbcType=VARCHAR},
 
-        manage_Name = #{"record.manageName,jdbcType=VARCHAR},
+        total_Amount = #{record.totalAmount,jdbcType=DOUBLE},
 
-        total_Amount = #{"record.totalAmount,jdbcType=DOUBLE},
+        other_Amount = #{record.otherAmount,jdbcType=DOUBLE},
 
-        other_Amount = #{"record.otherAmount,jdbcType=DOUBLE},
+        discount_Amount = #{record.discountAmount,jdbcType=DOUBLE},
 
-        discount_Amount = #{"record.discountAmount,jdbcType=DOUBLE},
+        contract_Amount = #{record.contractAmount,jdbcType=DOUBLE},
 
-        contract_Amount = #{"record.contractAmount,jdbcType=DOUBLE},
+        base_Amount = #{record.baseAmount,jdbcType=DOUBLE},
 
-        base_Amount = #{"record.baseAmount,jdbcType=DOUBLE},
+        contract_Type = #{record.contractType,jdbcType=VARCHAR},
 
-        contract_Type = #{"record.contractType,jdbcType=VARCHAR},
+        pay_Type = #{record.payType,jdbcType=VARCHAR},
 
-        pay_Type = #{"record.payType,jdbcType=VARCHAR},
+        user_Num = #{record.userNum,jdbcType=VARCHAR},
 
-        user_Num = #{"record.userNum,jdbcType=VARCHAR},
+        limit_Years = #{record.limitYears,jdbcType=VARCHAR},
 
-        limit_Years = #{"record.limitYears,jdbcType=DOUBLE},
-
-        del_Flag = #{"record.delFlag,jdbcType=INTEGER}
-
+        del_Flag = #{record.delFlag,jdbcType=INTEGER},
+        document = #{record.document,jdbcType=VARCHAR},
+        con_State =   #{record.conState,jdbcType=VARCHAR},
 
         <if test="_parameter != null">
             <include refid="Update_By_Example_Where_Clause"/>
@@ -413,6 +463,11 @@
             <if test="customerId != null">
                 customer_Id = #{customerId,jdbcType=INTEGER},
             </if>
+
+            <if test="customerName != null">
+                customer_Name = #{customerName,jdbcType=VARCHAR},
+            </if>
+
 
             <if test="contractNo != null">
                 contract_No = #{contractNo,jdbcType=VARCHAR},
@@ -467,54 +522,69 @@
                 user_Num = #{userNum,jdbcType=VARCHAR},
             </if>
             <if test="limitYears != null">
-                limit_Years = #{limitYears,jdbcType=DOUBLE},
+                limit_Years = #{limitYears,jdbcType=VARCHAR},
             </if>
             <if test="delFlag != null">
                 del_Flag = #{delFlag,jdbcType=INTEGER},
             </if>
+
+            <if test="document != null">
+                document = #{document,jdbcType=VARCHAR}
+            </if>
+
+            <if test="conState != null">
+                con_State = #{conState,jdbcType=VARCHAR},
+            </if>
+
+
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
     <update id="updateByPrimaryKey" parameterType="com.neuedu.crm.pojo.Contract">
         update contract
         set
-            customer_Id = #{record.customerId,jdbcType=INTEGER},
+            customer_Id = #{customerId,jdbcType=INTEGER},
 
-            contract_No = #{record.contractNo,jdbcType=VARCHAR},
+            contract_No = #{contractNo,jdbcType=VARCHAR},
 
-            sign_User_Id = #{record.signUserId,jdbcType=INTEGER},
+            sign_User_Id = #{signUserId,jdbcType=INTEGER},
 
-            sign_User_Name = #{record.signUserName,jdbcType=VARCHAR},
+            sign_User_Name = #{signUserName,jdbcType=VARCHAR},
 
-            create_Date = #{record.createDate,jdbcType=TIMESTAMP},
+            create_Date = #{createDate,jdbcType=TIMESTAMP},
 
-            sign_Date = #{record.signDate,jdbcType=TIMESTAMP},
+            sign_Date = #{signDate,jdbcType=TIMESTAMP},
 
-            end_Date = #{record.endDate,jdbcType=TIMESTAMP},
+            end_Date = #{endDate,jdbcType=TIMESTAMP},
 
-            manage_Id = #{record.manageId,jdbcType=INTEGER},
+            manage_Id = #{manageId,jdbcType=INTEGER},
 
-            manage_Name = #{record.manageName,jdbcType=VARCHAR},
+            manage_Name = #{manageName,jdbcType=VARCHAR},
 
-            total_Amount = #{record.totalAmount,jdbcType=DOUBLE},
+            total_Amount = #{totalAmount,jdbcType=DOUBLE},
 
-            other_Amount = #{record.otherAmount,jdbcType=DOUBLE},
+            other_Amount = #{otherAmount,jdbcType=DOUBLE},
 
-            discount_Amount = #{record.discountAmount,jdbcType=DOUBLE},
+            discount_Amount = #{discountAmount,jdbcType=DOUBLE},
 
-            contract_Amount = #{record.contractAmount,jdbcType=DOUBLE},
+            contract_Amount = #{contractAmount,jdbcType=DOUBLE},
 
-            base_Amount = #{record.baseAmount,jdbcType=DOUBLE},
+            base_Amount = #{baseAmount,jdbcType=DOUBLE},
 
-            contract_Type = #{record.contractType,jdbcType=VARCHAR},
+            contract_Type = #{contractType,jdbcType=VARCHAR},
 
-            pay_Type = #{record.payType,jdbcType=VARCHAR},
+            pay_Type = #{payType,jdbcType=VARCHAR},
 
-            user_Num = #{record.userNum,jdbcType=VARCHAR},
+            user_Num = #{userNum,jdbcType=VARCHAR},
 
-            limit_Years = #{record.limitYears,jdbcType=DOUBLE},
+            limit_Years = #{limitYears,jdbcType=VARCHAR},
 
-            del_Flag = #{record.delFlag,jdbcType=INTEGER}
+            document = #{document,jdbcType=VARCHAR},
+
+            del_Flag = #{delFlag,jdbcType=INTEGER},
+
+            con_State = #{conState,jdbcType=VARCHAR},
+
         where id = #{id,jdbcType=INTEGER}
     </update>
 </mapper>

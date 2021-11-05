@@ -1,5 +1,7 @@
 package com.neuedu.crm.controller;
 
+import com.neuedu.crm.enums.ConState;
+import com.neuedu.crm.mapper.RoleMapper;
 import com.neuedu.crm.pojo.*;
 import com.neuedu.crm.pojo.ContractExample.Criteria;
 import com.neuedu.crm.service.IContractService;
@@ -34,6 +36,9 @@ public class ContractController {
 
     @Autowired
     private IUserService userService;
+
+    @Autowired
+    private RoleMapper roleMapper;
     
     
     private User user = null;
@@ -45,6 +50,7 @@ public class ContractController {
     private User getUser(HttpServletRequest request) {
         HttpSession session = request.getSession();
         user = (User)session.getAttribute("user");
+        user.setRole(roleMapper.selectByPrimaryKey(user.getRoleId()));
         return user;
     }
     
@@ -99,9 +105,14 @@ public class ContractController {
         }
 
         //设置管理者ID
-        criteria.andManagerIdEqualTo(user.getId());
-        //只查询未删除的合同
-        criteria.andDeleteStatusEqualTo(0);
+        if("客户经理".equals(user.getRole().getName())){
+            criteria.addSqlCriteria(" (manage_Id = " + user.getId() + " or create_User_Id = " + user.getId() +")");
+            //criteria.andManagerIdEqualTo(user.getId());
+            //只查询未删除的合同
+            criteria.andDeleteStatusEqualTo(0);
+        }
+
+
         System.out.println(contract);
         //检测属性是否存在，存在则进行条件查询
         if(contract != null) {
@@ -109,7 +120,9 @@ public class ContractController {
                 criteria.andContractNoLike("%" + contract.getContractNo() + "%");
             }
         }
-        
+
+        example.setOrderByClause(" CREATE_DATE desc ");
+
         Long count = contractService.countByContractExample(example);
         List<Contract> contracts = contractService.selectByContractExample(example);
         
@@ -169,8 +182,22 @@ public class ContractController {
             contract.setSignUserName(signUser.getRealName());
         }
 
+
+        if(contract.getManageId() != null){
+            User signUser = userService.findById(contract.getManageId());
+            contract.setManageName(signUser.getRealName());
+        }
+
+
         //设置未删除
         contract.setDelFlag(0);
+
+        if("客户经理".equals(user.getRole().getName())){
+            contract.setConState(ConState.DEF.getVal());
+        }else{
+            contract.setConState(ConState.AUDIT.getVal());
+        }
+
         
         //进行数据插入
         if(contractService.insertSelective(contract)) {

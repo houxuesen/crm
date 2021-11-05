@@ -1726,52 +1726,52 @@ public class ContractExample {
         }
 
         public Criteria andDeleteStatusEqualTo(Integer value) {
-            addCriterion("del_flag =", value, "deleteStatus");
+            addCriterion("del_flag =", value, "delFlag");
             return (Criteria) this;
         }
 
         public Criteria andDeleteStatusNotEqualTo(Integer value) {
-            addCriterion("del_flag <>", value, "deleteStatus");
+            addCriterion("del_flag <>", value, "delFlag");
             return (Criteria) this;
         }
 
         public Criteria andDeleteStatusGreaterThan(Integer value) {
-            addCriterion("del_flag >", value, "deleteStatus");
+            addCriterion("del_flag >", value, "delFlag");
             return (Criteria) this;
         }
 
         public Criteria andDeleteStatusGreaterThanOrEqualTo(Integer value) {
-            addCriterion("del_flag >=", value, "deleteStatus");
+            addCriterion("del_flag >=", value, "delFlag");
             return (Criteria) this;
         }
 
         public Criteria andDeleteStatusLessThan(Integer value) {
-            addCriterion("del_flag <", value, "deleteStatus");
+            addCriterion("del_flag <", value, "delFlag");
             return (Criteria) this;
         }
 
         public Criteria andDeleteStatusLessThanOrEqualTo(Integer value) {
-            addCriterion("del_flag <=", value, "deleteStatus");
+            addCriterion("del_flag <=", value, "delFlag");
             return (Criteria) this;
         }
 
         public Criteria andDeleteStatusIn(List<Integer> values) {
-            addCriterion("del_flag in", values, "deleteStatus");
+            addCriterion("del_flag in", values, "delFlag");
             return (Criteria) this;
         }
 
         public Criteria andDeleteStatusNotIn(List<Integer> values) {
-            addCriterion("del_flag not in", values, "deleteStatus");
+            addCriterion("del_flag not in", values, "delFlag");
             return (Criteria) this;
         }
 
         public Criteria andDeleteStatusBetween(Integer value1, Integer value2) {
-            addCriterion("del_flag between", value1, value2, "deleteStatus");
+            addCriterion("del_flag between", value1, value2, "delFlag");
             return (Criteria) this;
         }
 
         public Criteria andDeleteStatusNotBetween(Integer value1, Integer value2) {
-            addCriterion("del_flag not between", value1, value2, "deleteStatus");
+            addCriterion("del_flag not between", value1, value2, "delFlag");
             return (Criteria) this;
         }
 
@@ -1789,6 +1789,9 @@ public class ContractExample {
             addCriterion("manage_id =", value, "managerId");
             return (Criteria) this;
         }
+
+
+
 
         public Criteria andManagerIdNotEqualTo(Integer value) {
             addCriterion("manage_id <>", value, "managerId");
@@ -2028,6 +2031,12 @@ public class ContractExample {
 
         public Criteria andContractNoLike(String value) {
             addCriterion("contract_No like", value, "contractNo");
+            return (Criteria) this;
+        }
+
+
+        public Criteria addSqlCriteria(String sql){
+            addCriterion(sql);
             return (Criteria) this;
         }
     }

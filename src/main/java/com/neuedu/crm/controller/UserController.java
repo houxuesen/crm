@@ -118,7 +118,6 @@ public class UserController {
      * @return
      */
     @Operation(name="查找用户")
-    @RequiresPermissions("1001")
     @RequestMapping("/allUser")
     @ResponseBody
     public Map<String, Object> findUser(){

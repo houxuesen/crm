@@ -2,6 +2,7 @@ package com.neuedu.crm.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -44,7 +45,7 @@ public class FileController {
      * @param request
      * @param file 要上传的文件
      * @return Map
-     * @exception Nothing
+     * @exception
      * @since 1.8
      *
      */
@@ -63,7 +64,7 @@ public class FileController {
         
 
         //上传文件路径
-        String path = request.getServletContext().getRealPath("/upload/");
+        String path = request.getServletContext().getRealPath("/upload/")+ new Date().getTime()+"/"+UUID.randomUUID().toString();
         //获取文件名
         String filename = file.getOriginalFilename();
         //获取文件后缀名，即获取文件类型
@@ -71,7 +72,7 @@ public class FileController {
         
         //随机生成一个uuid当做新的文件名
         String uuid = UUID.randomUUID().toString();
-        String newFile = uuid + fileExt;
+        String newFile = filename;
         File filepath = new File(path,newFile);
         
         //System.out.println(filepath.getAbsolutePath());

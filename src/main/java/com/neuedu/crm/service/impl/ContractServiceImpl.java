@@ -44,7 +44,10 @@ public class ContractServiceImpl implements IContractService {
 
     @Override
     public boolean deleteByPrimaryKey(Integer id) {
-        return false;
+        Contract contract =  new Contract();
+        contract.setId(id);
+        contract.setDelFlag(1);
+        return this.updateContractByPrimaryKey(contract);
     }
 
     @Override
@@ -97,7 +100,11 @@ public class ContractServiceImpl implements IContractService {
 
     @Override
     public boolean updateContractByPrimaryKey(Contract Contract) {
-        return false;
+        if (contractMapper.updateByPrimaryKeySelective(Contract) > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

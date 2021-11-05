@@ -9,6 +9,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.neuedu.crm.mapper.RoleMapper;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,6 +34,9 @@ import com.neuedu.crm.utils.Operation;
 public class CustomerController {
     @Autowired
     private ICustomerService customerService;
+
+    @Autowired
+    private RoleMapper roleMapper;
     
     private User user = null;
 
@@ -43,6 +47,7 @@ public class CustomerController {
     private User getUser(HttpServletRequest request) {
         HttpSession session = request.getSession();
         user = (User)session.getAttribute("user");
+        user.setRole(roleMapper.selectByPrimaryKey(user.getRoleId()));
         return user;
     }
     
@@ -95,11 +100,13 @@ public class CustomerController {
             Long offset = new Long((page-1)*limit);
             example.setOffset(offset);
         }
+        if("客户经理".equals(user.getRole().getName())) {
+            //设置管理者ID
+            criteria.andManagerIdEqualTo(user.getId());
+            //只查询未删除的客户
+            criteria.andDeleteStatusEqualTo(0);
+        }
 
-        //设置管理者ID
-        criteria.andManagerIdEqualTo(user.getId());
-        //只查询未删除的客户
-        criteria.andDeleteStatusEqualTo(0);
         System.out.println(customer);
         //检测属性是否存在，存在则进行条件查询
         if(customer != null) {

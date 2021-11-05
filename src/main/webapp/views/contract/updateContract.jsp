@@ -17,58 +17,7 @@
         <p style="width: 100%;line-height: 20px;margin-left: 20px;">合同基本信息</p>
     </div>
     <form class="layui-form " lay-filter="contract-form">
-
-        <!-- 合同ID -->
-        <input type="hidden" name="id" value="0">
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">合同编号<strong style="color: red">*</strong>：</label>
-            <div class="layui-input-inline">
-                <input type="text" name="contractNo" lay-verify="required" class="layui-input">
-            </div>
-            <div class="layui-form-mid layui-word-aux" id="contractNo-msg"></div>
-        </div>
-
-        <div class="layui-form-item">
-           
-            <label class="layui-form-label">客户：</label>
-            <div class="layui-input-inline">
-                <select name="customerId">
-                    <option value="">--数据加载中--</option>
-                </select>
-            </div>
-            
-            <label class="layui-form-label">签约人：</label>
-            <div class="layui-input-inline">
-                <select name="signUserId">
-                    <option value="">--数据加载中--</option>
-                </select>
-            </div>
-        </div>
-        <!-- 相关文件 -->
-        <div class="layui-form-item">
-            <input type="hidden" name="document" value=""/>
-            <label class="layui-form-label">相关文件：</label>
-            <div class="layui-input-block">
-                <div class="layui-inline layui-upload ">
-                    <button type="button" class="layui-btn layui-btn-normal" id="fileupload">选择文件</button>
-                    <span id="upload-filename" class="layui-inline" style="color: #999999"></span>
-                    <button type="button" class="layui-btn layui-btn-disabled layui-hide" id="upload-btn">开始上传</button>
-                </div>
-                <div class="layui-form-mid layui-word-aux">只可上传一个文件</div>
-            </div>
-        </div>
-
-        <div>
-            <div class="layui-form-item">
-                <div class="layui-input-block">
-                   <%-- <button type="button" class="layui-btn" style="margin-left: 180px;">重置</button>--%>
-                    <button type="button" name="contract-form-submit-btn" lay-submit lay-filter="contract-form-submit"
-                            class="layui-btn">保存
-                    </button>
-                </div>
-            </div>
-        </div>
+        <jsp:include page="common.jsp"></jsp:include>
     </form>
 
 
@@ -157,6 +106,17 @@
                     str += '<option value="' + users[i].id + '">' + users[i].realName + '</option>';
                 }
                 $('select[name=signUserId]').html(str);
+                form.render('select');
+            });
+
+            //加载客户列表
+            $.post('${pageContext.request.contextPath}/user/allUser',function(data){
+                var users = data.data;
+                var str = '<option value="">--请选择用户--</option>'
+                for(var i=0;i<users.length;i++){
+                    str += '<option value="' + users[i].id + '">' + users[i].realName + '</option>';
+                }
+                $('select[name=manageId]').html(str);
                 form.render('select');
             });
 

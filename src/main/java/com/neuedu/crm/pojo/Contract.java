@@ -108,10 +108,19 @@ public class Contract implements Serializable {
     private String limitYears;
 
     /**
+     * 文件
+     */
+    private String document;
+
+    /**
      * 删除标识
      */
     private Integer delFlag;
 
+    /**
+     * 合同状态
+     */
+    private String conState;
 
     private Integer  createUserId;
     private Integer updateUserId;
@@ -325,5 +334,21 @@ public class Contract implements Serializable {
 
     public void setCreater(String creater) {
         this.creater = creater;
+    }
+
+    public String getDocument() {
+        return document;
+    }
+
+    public void setDocument(String document) {
+        this.document = document;
+    }
+
+    public String getConState() {
+        return conState;
+    }
+
+    public void setConState(String conState) {
+        this.conState = conState;
     }
 }
