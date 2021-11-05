@@ -4,6 +4,7 @@ import com.neuedu.crm.pojo.*;
 import com.neuedu.crm.pojo.ContractExample.Criteria;
 import com.neuedu.crm.service.IContractService;
 import com.neuedu.crm.service.ICustomerService;
+import com.neuedu.crm.service.IUserService;
 import com.neuedu.crm.utils.Operation;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class ContractController {
     
     @Autowired
     private ICustomerService customerService;
+
+    @Autowired
+    private IUserService userService;
     
     
     private User user = null;
@@ -157,9 +161,14 @@ public class ContractController {
         contract.setCreateDate(new Date());
         if(contract.getCustomerId() != null){
             Customer customer = customerService.selectCustomerByPrimaryKey(contract.getCustomerId());
-            //设置合同名称
             contract.setCustomerName(customer.getName());
         }
+
+        if(contract.getSignUserId() != null){
+            User signUser = userService.findById(contract.getSignUserId());
+            contract.setSignUserName(signUser.getRealName());
+        }
+
         //设置未删除
         contract.setDelFlag(0);
         
@@ -232,7 +241,7 @@ public class ContractController {
         return map;
     }
     
-    @RequiresPermissions("7010")
+    @RequiresPermissions("80005")
     @Operation(name="id查找合同")
     @RequestMapping("find")
     @ResponseBody

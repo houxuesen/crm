@@ -21,7 +21,7 @@ import java.util.List;
  * @Version 1.0
  */
 @Service
-@Transactional(rollbackFor=Exception.class)
+@Transactional(rollbackFor = Exception.class)
 public class ContractServiceImpl implements IContractService {
 
     @Autowired
@@ -49,9 +49,9 @@ public class ContractServiceImpl implements IContractService {
 
     @Override
     public boolean insertContract(Contract Contract) {
-        if(contractMapper.insert(Contract) > 0){
+        if (contractMapper.insert(Contract) > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
 
@@ -59,9 +59,9 @@ public class ContractServiceImpl implements IContractService {
 
     @Override
     public boolean insertSelective(Contract Contract) {
-        if(contractMapper.insertSelective(Contract) > 0){
+        if (contractMapper.insertSelective(Contract) > 0) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -73,7 +73,7 @@ public class ContractServiceImpl implements IContractService {
 
     @Override
     public Contract selectContractByPrimaryKey(Integer id) {
-        return null;
+        return contractMapper.selectByPrimaryKey(id);
     }
 
     @Override
@@ -88,7 +88,11 @@ public class ContractServiceImpl implements IContractService {
 
     @Override
     public boolean updateContractByPrimaryKeySelective(Contract Contract) {
-        return false;
+        if (contractMapper.updateByPrimaryKeySelective(Contract) > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @Override

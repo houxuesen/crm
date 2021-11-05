@@ -415,62 +415,62 @@
             </if>
 
             <if test="contractNo != null">
-                contract_No = #{"contractNo,jdbcType=VARCHAR},
+                contract_No = #{contractNo,jdbcType=VARCHAR},
             </if>
 
             <if test="signUserId != null">
-                sign_User_Id = #{"signUserId,jdbcType=INTEGER},
+                sign_User_Id = #{signUserId,jdbcType=INTEGER},
             </if>
             <if test="signUserName != null">
-                sign_User_Name = #{"signUserName,jdbcType=VARCHAR},
+                sign_User_Name = #{signUserName,jdbcType=VARCHAR},
             </if>
             <if test="createDate != null">
-                create_Date = #{"createDate,jdbcType=TIMESTAMP},
+                create_Date = #{createDate,jdbcType=TIMESTAMP},
             </if>
             <if test="signDate != null">
-                sign_Date = #{"signDate,jdbcType=TIMESTAMP},
+                sign_Date = #{signDate,jdbcType=TIMESTAMP},
             </if>
             <if test="endDate != null">
-                end_Date = #{"endDate,jdbcType=TIMESTAMP},
+                end_Date = #{endDate,jdbcType=TIMESTAMP},
             </if>
             <if test="manageId != null">
-                manage_Id = #{"manageId,jdbcType=INTEGER},
+                manage_Id = #{manageId,jdbcType=INTEGER},
             </if>
             <if test="manageName != null">
-                manage_Name = #{"manageName,jdbcType=VARCHAR},
+                manage_Name = #{manageName,jdbcType=VARCHAR},
             </if>
             <if test="totalAmount != null">
-                total_Amount = #{"totalAmount,jdbcType=DOUBLE},
+                total_Amount = #{totalAmount,jdbcType=DOUBLE},
             </if>
             <if test="otherAmount != null">
-                other_Amount = #{"otherAmount,jdbcType=DOUBLE},
+                other_Amount = #{otherAmount,jdbcType=DOUBLE},
             </if>
 
 
             <if test="discountAmount != null">
-                discount_Amount = #{"discountAmount,jdbcType=DOUBLE},
+                discount_Amount = #{discountAmount,jdbcType=DOUBLE},
             </if>
             <if test="contractAmount != null">
-                contract_Amount = #{"contractAmount,jdbcType=DOUBLE},
+                contract_Amount = #{contractAmount,jdbcType=DOUBLE},
             </if>
             <if test="baseAmount != null">
-                base_Amount = #{"baseAmount,jdbcType=DOUBLE},
+                base_Amount = #{baseAmount,jdbcType=DOUBLE},
             </if>
             <if test="contractType != null">
-                contract_Type = #{"contractType,jdbcType=VARCHAR},
+                contract_Type = #{contractType,jdbcType=VARCHAR},
             </if>
 
             <if test="payType != null">
-                pay_Type = #{"payType,jdbcType=VARCHAR},
+                pay_Type = #{payType,jdbcType=VARCHAR},
             </if>
             <if test="userNum != null">
-                user_Num = #{"userNum,jdbcType=VARCHAR},
+                user_Num = #{userNum,jdbcType=VARCHAR},
             </if>
             <if test="limitYears != null">
-                limit_Years = #{"limitYears,jdbcType=DOUBLE},
+                limit_Years = #{limitYears,jdbcType=DOUBLE},
             </if>
             <if test="delFlag != null">
-                del_Flag = #{"delFlag,jdbcType=INTEGER},
+                del_Flag = #{delFlag,jdbcType=INTEGER},
             </if>
         </set>
         where id = #{id,jdbcType=INTEGER}
@@ -480,41 +480,41 @@
         set
             customer_Id = #{record.customerId,jdbcType=INTEGER},
 
-            contract_No = #{"record.contractNo,jdbcType=VARCHAR},
+            contract_No = #{record.contractNo,jdbcType=VARCHAR},
 
-            sign_User_Id = #{"record.signUserId,jdbcType=INTEGER},
+            sign_User_Id = #{record.signUserId,jdbcType=INTEGER},
 
-            sign_User_Name = #{"record.signUserName,jdbcType=VARCHAR},
+            sign_User_Name = #{record.signUserName,jdbcType=VARCHAR},
 
-            create_Date = #{"record.createDate,jdbcType=TIMESTAMP},
+            create_Date = #{record.createDate,jdbcType=TIMESTAMP},
 
-            sign_Date = #{"record.signDate,jdbcType=TIMESTAMP},
+            sign_Date = #{record.signDate,jdbcType=TIMESTAMP},
 
-            end_Date = #{"record.endDate,jdbcType=TIMESTAMP},
+            end_Date = #{record.endDate,jdbcType=TIMESTAMP},
 
-            manage_Id = #{"record.manageId,jdbcType=INTEGER},
+            manage_Id = #{record.manageId,jdbcType=INTEGER},
 
-            manage_Name = #{"record.manageName,jdbcType=VARCHAR},
+            manage_Name = #{record.manageName,jdbcType=VARCHAR},
 
-            total_Amount = #{"record.totalAmount,jdbcType=DOUBLE},
+            total_Amount = #{record.totalAmount,jdbcType=DOUBLE},
 
-            other_Amount = #{"record.otherAmount,jdbcType=DOUBLE},
+            other_Amount = #{record.otherAmount,jdbcType=DOUBLE},
 
-            discount_Amount = #{"record.discountAmount,jdbcType=DOUBLE},
+            discount_Amount = #{record.discountAmount,jdbcType=DOUBLE},
 
-            contract_Amount = #{"record.contractAmount,jdbcType=DOUBLE},
+            contract_Amount = #{record.contractAmount,jdbcType=DOUBLE},
 
-            base_Amount = #{"record.baseAmount,jdbcType=DOUBLE},
+            base_Amount = #{record.baseAmount,jdbcType=DOUBLE},
 
-            contract_Type = #{"record.contractType,jdbcType=VARCHAR},
+            contract_Type = #{record.contractType,jdbcType=VARCHAR},
 
-            pay_Type = #{"record.payType,jdbcType=VARCHAR},
+            pay_Type = #{record.payType,jdbcType=VARCHAR},
 
-            user_Num = #{"record.userNum,jdbcType=VARCHAR},
+            user_Num = #{record.userNum,jdbcType=VARCHAR},
 
-            limit_Years = #{"record.limitYears,jdbcType=DOUBLE},
+            limit_Years = #{record.limitYears,jdbcType=DOUBLE},
 
-            del_Flag = #{"record.delFlag,jdbcType=INTEGER}
+            del_Flag = #{record.delFlag,jdbcType=INTEGER}
         where id = #{id,jdbcType=INTEGER}
     </update>
 </mapper>

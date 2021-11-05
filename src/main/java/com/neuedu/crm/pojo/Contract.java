@@ -1,6 +1,7 @@
 package com.neuedu.crm.pojo;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -44,12 +45,12 @@ public class Contract implements Serializable {
     /**
      * 签约时间
      */
-    private Date signDate;
+    private LocalDate signDate;
 
     /**
      * 过期时间
      */
-    private Date endDate;
+    private LocalDate endDate;
 
     /**
      * 负责人
@@ -104,7 +105,7 @@ public class Contract implements Serializable {
     /**
      * 使用年限
      */
-    private Double limitYears;
+    private String limitYears;
 
     /**
      * 删除标识
@@ -174,19 +175,19 @@ public class Contract implements Serializable {
         this.createDate = createDate;
     }
 
-    public Date getSignDate() {
+    public LocalDate getSignDate() {
         return signDate;
     }
 
-    public void setSignDate(Date signDate) {
+    public void setSignDate(LocalDate signDate) {
         this.signDate = signDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
@@ -278,11 +279,11 @@ public class Contract implements Serializable {
         this.userNum = userNum;
     }
 
-    public Double getLimitYears() {
+    public String getLimitYears() {
         return limitYears;
     }
 
-    public void setLimitYears(Double limitYears) {
+    public void setLimitYears(String limitYears) {
         this.limitYears = limitYears;
     }
 

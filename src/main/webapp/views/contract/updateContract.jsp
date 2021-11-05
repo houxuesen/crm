@@ -22,7 +22,6 @@
         <input type="hidden" name="id" value="0">
 
         <div class="layui-form-item">
-            <!-- 客户名称 -->
             <label class="layui-form-label">合同编号<strong style="color: red">*</strong>：</label>
             <div class="layui-input-inline">
                 <input type="text" name="contractNo" lay-verify="required" class="layui-input">
@@ -46,82 +45,6 @@
                 </select>
             </div>
         </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">负责人：</label>
-            <div class="layui-input-inline">
-                <select name="manageId">
-                    <option value="">--数据加载中--</option>
-                </select>
-            </div>
-
-            <label class="layui-form-label">签约时间：</label>
-            <div class="layui-input-inline">
-                <input type="text" name="signDate" lay-verify="required"  id="signDate" class="layui-input"  />
-            </div>
-        </div>
-
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">过期时间：</label>
-            <div class="layui-input-inline">
-                <input type="text" name="endDate" lay-verify="required"  id="endDate" class="layui-input"  />
-            </div>
-            <label class="layui-form-label">总额：</label>
-            <div class="layui-input-inline">
-                <input type="text" name="totalAmount" lay-verify="required"  onblur="value=zhzs(this.value)" id="totalAmount"  class="layui-input"  />
-            </div>
-
-        </div>
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">其他：</label>
-            <div class="layui-input-inline">
-                <input type="text" name="otherAmount" lay-verify="required" onblur="value=zhzs(this.value)" id="otherAmount" class="layui-input"  />
-            </div>
-            <label class="layui-form-label">总额：</label>
-            <div class="layui-input-inline">
-                <input type="text" name="discountAmount" lay-verify="required"  onblur="value=zhzs(this.value)" id="discountAmount" class="layui-input"  />
-            </div>
-
-        </div>
-
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">合同金额：</label>
-            <div class="layui-input-inline">
-                <input type="text" name="contractAmount" lay-verify="required" onblur="value=zhzs(this.value)" id="contractAmount" class="layui-input"  />
-            </div>
-            <label class="layui-form-label">合同成本：</label>
-            <div class="layui-input-inline">
-                <input type="text" name="baseAmount" lay-verify="totalAmount" onblur="value=zhzs(this.value)"  id="required" class="layui-input"  />
-            </div>
-        </div>
-
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">合同类型：</label>
-            <div class="layui-input-inline">
-                <input type="text" name="contractType" lay-verify="required"  id="contractType" class="layui-input"  />
-            </div>
-            <label class="layui-form-label">支付方式：</label>
-            <div class="layui-input-inline">
-                <input type="text" name="payType" lay-verify="totalAmount"  id="payType" class="layui-input"  />
-            </div>
-        </div>
-
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">用户数：</label>
-            <div class="layui-input-inline">
-                <input type="text" name="userNum" lay-verify="required"  id="userNum" class="layui-input"  />
-            </div>
-            <label class="layui-form-label">使用年限：</label>
-            <div class="layui-input-inline">
-                <input type="text" name="limitYears" lay-verify="totalAmount"  id="limitYears" class="layui-input"  />
-            </div>
-        </div>
-
         <!-- 相关文件 -->
         <div class="layui-form-item">
             <input type="hidden" name="document" value=""/>
@@ -159,7 +82,7 @@
 
             var parm = getParm();
 
-            var url = '${pageContext.request.contextPath}/contract/add';
+            var url = '${pageContext.request.contextPath}/contract/update';
 
             //点击保存事件
             form.on('submit(contract-form-submit)', function (data) {
@@ -237,16 +160,6 @@
                 form.render('select');
             });
 
-            //加载客户列表
-            $.post('${pageContext.request.contextPath}/user/allUser',function(data){
-                var users = data.data;
-                var str = '<option value="">--请选择用户--</option>'
-                for(var i=0;i<users.length;i++){
-                    str += '<option value="' + users[i].id + '">' + users[i].realName + '</option>';
-                }
-                $('select[name=manageId]').html(str);
-                form.render('select');
-            });
 
 
             //客户名检测
@@ -297,18 +210,32 @@
 
             //加载日期选择器
             laydate.render({
-                elem: '#signDate' //指定元素
+                elem: '#birthday' //指定元素
                 , type: 'date'
                 , format: 'yyyy-MM-dd'
                 , trigger: 'click'
             });
 
-            //加载日期选择器
-            laydate.render({
-                elem: '#endDate' //指定元素
-                , type: 'date'
-                , format: 'yyyy-MM-dd'
-                , trigger: 'click'
+
+
+            //加载用户数据
+            $.ajax({
+                type: "POST",
+                url: '${pageContext.request.contextPath}/contract/find',
+                data: {'id':parm.id},
+                dataType: "json",
+                success: function(data){
+                    if(data.success){//成功
+                        var contract = data.data;
+                        form.val('contract-form',contract);
+                        form.render();
+                    }else{
+                        layer.msg('找不到合同...');
+                    }
+                },
+                error:function(){
+                    top.layer.msg("服务器开小差了，请稍后再试...");
+                }
             });
 
 
@@ -320,6 +247,7 @@
 
                 return false;
             });
+
 
 
 
@@ -355,18 +283,7 @@
             }
 
         });
-
-        function zhzs(value) {
-            value = value.replace(/[^\d]/g, '').replace(/^0{1,}/g, '');
-            if (value != ''){
-                value = parseFloat(value).toFixed(2);
-            }
-            else{
-                value = parseFloat(0).toFixed(2);
-            }
-            return value;
-        }
     </script>
-</div>
+
 </body>
 </html>

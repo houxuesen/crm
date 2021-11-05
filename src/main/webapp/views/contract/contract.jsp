@@ -156,7 +156,7 @@ layui.use(['table','form'], function(){
         	return;
         }
     	
-        var showStr = '你确定删除以下客户吗？<br>';
+        var showStr = '你确定删除以下合同吗？<br>';
         layui.each(data,function(index,item){
         	showStr += item.name + '<br>';
         });
@@ -211,7 +211,7 @@ layui.use(['table','form'], function(){
     		area:['750px','92%'],
     		shadeClose:false,
     		closeBtn:1,
-    		content:'views/contract/updatecontract.jsp?id='+id,
+    		content:'views/contract/updateContract.jsp?id='+id,
     		end:function(){
     			table.reload('contract-table');
     		}
