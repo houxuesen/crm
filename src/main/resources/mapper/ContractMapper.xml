@@ -1,0 +1,472 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.neuedu.crm.mapper.CustomerMapper">
+    <cache/>
+  <resultMap id="BaseResultMap" type="com.neuedu.crm.pojo.Contract">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result property="contractNo" jdbcType="VARCHAR" column="CONTRACT_NO" />
+    <result property="customerId" jdbcType="INTEGER" column="CUSTOMER_ID" />
+    <result property="contractNo" jdbcType="VARCHAR" column="CONTRACT_NO" />
+    <result property="signUserId" jdbcType="INTEGER" column="SIGN_USER_ID" />
+    <result property="signUserName" jdbcType="VARCHAR" column="SIGN_USER_NAME" />
+    <result property="createDate" jdbcType="TIMESTAMP" column="CREATE_DATE" />
+    <result property="signDate" jdbcType="TIMESTAMP" column="SIGN_DATE" />
+    <result property="endDate" jdbcType="TIMESTAMP" column="END_DATE" />
+    <result property="manageId" jdbcType="INTEGER" column="MANAGE_ID" />
+    <result property="manageName" jdbcType="VARCHAR" column="MANAGE_NAME" />
+    <result property="totalAmount" jdbcType="DOUBLE" column="TOTAL_AMOUNT" />
+    <result property="otherAmount" jdbcType="DOUBLE" column="OTHER_AMOUNT" />
+    <result property="discountAmount" jdbcType="DOUBLE" column="DISCOUNT_AMOUNT" />
+    <result property="contractAmount" jdbcType="DOUBLE" column="CONTRACT_AMOUNT" />
+    <result property="baseAmount" jdbcType="DOUBLE" column="base_Amount" />
+    <result property="contractType" jdbcType="VARCHAR" column="CONTRACT_TYPE" />
+    <result property="payType" jdbcType="VARCHAR" column="PAY_TYPE" />
+    <result property="userNum" jdbcType="VARCHAR" column="USER_NUM" />
+    <result property="limitYears" jdbcType="DOUBLE" column="LIMIT_YEARS" />
+    <result property="delFlag" jdbcType="VARCHAR" column="DEL_FLAG" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, CONTRACT_NO, CUSTOMER_ID, CONTRACT_NO, SIGN_USER_ID, SIGN_USER_NAME, CREATE_DATE, SIGN_DATE, END_DATE,
+    MANAGE_ID, MANAGE_NAME, TOTAL_AMOUNT, OTHER_AMOUNT, DISCOUNT_AMOUNT, CONTRACT_AMOUNT,
+    base_Amount, CONTRACT_TYPE, PAY_TYPE, USER_NUM, LIMIT_YEARS, DEL_FLAG
+  </sql>
+  <select id="selectByExample" parameterType="com.neuedu.crm.pojo.CustomerExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from contract
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from contract
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from contract
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.neuedu.crm.pojo.CustomerExample">
+    delete from contract
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.neuedu.crm.pojo.Customer" useGeneratedKeys="true">
+    insert into contract (CONTRACT_NO, CUSTOMER_ID, CONTRACT_NO, SIGN_USER_ID, SIGN_USER_NAME, CREATE_DATE, SIGN_DATE, END_DATE,
+                          MANAGE_ID, MANAGE_NAME, TOTAL_AMOUNT, OTHER_AMOUNT, DISCOUNT_AMOUNT, CONTRACT_AMOUNT,
+                          base_Amount, CONTRACT_TYPE, PAY_TYPE, USER_NUM, LIMIT_YEARS
+      )
+    values (#{CONTRACT_NO,jdbcType=VARCHAR}, #{CUSTOMER_ID,jdbcType=INTEGER}, #{CONTRACT_NO,jdbcType=VARCHAR},
+      #{SIGN_USER_ID,jdbcType=INTEGER}, #{SIGN_USER_NAME,jdbcType=VARCHAR}, #{CREATE_DATE,jdbcType=TIMESTAMP},
+      #{SIGN_DATE,jdbcType=TIMESTAMP}, #{END_DATE,jdbcType=TIMESTAMP}, #{MANAGE_ID,jdbcType=INTEGER},
+      #{MANAGE_NAME,jdbcType=VARCHAR}, #{TOTAL_AMOUNT,jdbcType=DOUBLE}, #{OTHER_AMOUNT,jdbcType=DOUBLE},
+      #{DISCOUNT_AMOUNT,jdbcType=DOUBLE}, #{CONTRACT_AMOUNT,jdbcType=DOUBLE}, #{base_Amount,jdbcType=DOUBLE},
+      #{CONTRACT_TYPE,jdbcType=VARCHAR}, #{PAY_TYPE,jdbcType=VARCHAR}, #{USER_NUM,jdbcType=VARCHAR},
+      #{LIMIT_YEARS,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.neuedu.crm.pojo.Customer" useGeneratedKeys="true">
+    insert into contract
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+
+      <if test="contractNo != null">
+        CONTRACT_NO,
+      </if>
+      <if test="customerId != null">
+        CUSTOMER_ID,
+      </if>
+      <if test="contractNo != null">
+        CONTRACT_NO,
+      </if>
+      <if test="signUserId != null">
+        SIGN_USER_ID,
+      </if>
+      <if test="signUserName != null">
+        SIGN_USER_NAME,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="signDate != null">
+        SIGN_DATE,
+      </if>
+      <if test="endDate != null">
+        END_DATE,
+      </if>
+      <if test="manageId != null">
+        MANAGE_ID,
+      </if>
+      <if test="manageName != null">
+        MANAGE_NAME,
+      </if>
+      <if test="totalAmount != null">
+        TOTAL_AMOUNT,
+      </if>
+      <if test="otherAmount != null">
+        OTHER_AMOUNT,
+      </if>
+      <if test="discountAmount != null">
+        DISCOUNT_AMOUNT,
+      </if>
+      <if test="contractAmount != null">
+        CONTRACT_AMOUNT,
+      </if>
+      <if test="baseAmount != null">
+        BASE_AMOUNT,
+      </if>
+      <if test="contractType != null">
+        CONTRACT_TYPE,
+      </if>
+
+      <if test="payType != null">
+        PAY_TYPE,
+      </if>
+      <if test="userNum != null">
+        USER_NUM,
+      </if>
+      <if test="limitYears != null">
+        LIMIT_YEARS,
+      </if>
+      <if test="delFlag != null">
+        DEL_FLAG,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="contractNo != null">
+        #{CONTRACT_NO,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null">
+        #{CUSTOMER_ID,jdbcType=INTEGER},
+      </if>
+      <if test="contractNo != null">
+        #{CONTRACT_NO,jdbcType=VARCHAR},
+      </if>
+      <if test="signUserId != null">
+        #{SIGN_USER_ID,jdbcType=INTEGER},
+      </if>
+      <if test="signUserName != null">
+        #{SIGN_USER_NAME,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{CREATE_DATE,jdbcType=TIMESTAMP},
+      </if>
+      <if test="signDate != null">
+        #{SIGN_DATE,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        #{END_DATE,jdbcType=TIMESTAMP},
+      </if>
+      <if test="manageId != null">
+        #{MANAGE_ID,jdbcType=INTEGER},
+      </if>
+      <if test="manageName != null">
+        #{MANAGE_NAME,jdbcType=VARCHAR},
+      </if>
+      <if test="totalAmount != null">
+        #{TOTAL_AMOUNT,jdbcType=DOUBLE},
+      </if>
+      <if test="otherAmount != null">
+        #{OTHER_AMOUNT,jdbcType=DOUBLE},
+      </if>
+
+
+      <if test="discountAmount != null">
+        #{DISCOUNT_AMOUNT,jdbcType=DOUBLE},
+      </if>
+      <if test="contractAmount != null">
+        #{CONTRACT_AMOUNT,jdbcType=DOUBLE},
+      </if>
+      <if test="baseAmount != null">
+        #{base_Amount,jdbcType=DOUBLE},
+      </if>
+      <if test="contractType != null">
+        #{CONTRACT_TYPE,jdbcType=VARCHAR}
+      </if>
+
+      <if test="payType != null">
+        #{PAY_TYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="userNum != null">
+        #{USER_NUM,jdbcType=VARCHAR},
+      </if>
+      <if test="limitYears != null">
+        #{LIMIT_YEARS,jdbcType=DOUBLE},
+      </if>
+      <if test="delFlag != null">
+        #{DEL_FLAG,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.neuedu.crm.pojo.CustomerExample" resultType="java.lang.Long">
+    select count(*) from contract
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update contract
+    <set>
+      <if test="record.contractNo != null">
+        #{record.CONTRACT_NO,jdbcType=VARCHAR},
+      </if>
+      <if test="record.customerId != null">
+        #{record.CUSTOMER_ID,jdbcType=INTEGER},
+      </if>
+      <if test="record.contractNo != null">
+        #{record.CONTRACT_NO,jdbcType=VARCHAR},
+      </if>
+      <if test="signUserId != null">
+        #{SIGN_USER_ID,jdbcType=INTEGER},
+      </if>
+      <if test="record.signUserName != null">
+        #{record.SIGN_USER_NAME,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        #{record.CREATE_DATE,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.signDate != null">
+        #{record.SIGN_DATE,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.endDate != null">
+        #{record.END_DATE,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.manageId != null">
+        #{record.MANAGE_ID,jdbcType=INTEGER},
+      </if>
+      <if test="record.manageName != null">
+        #{record.MANAGE_NAME,jdbcType=VARCHAR},
+      </if>
+      <if test="record.totalAmount != null">
+        #{record.TOTAL_AMOUNT,jdbcType=DOUBLE},
+      </if>
+      <if test="record.otherAmount != null">
+        #{record.OTHER_AMOUNT,jdbcType=DOUBLE},
+      </if>
+
+
+      <if test="record.discountAmount != null">
+        #{record.DISCOUNT_AMOUNT,jdbcType=DOUBLE},
+      </if>
+      <if test="record.contractAmount != null">
+        #{record.CONTRACT_AMOUNT,jdbcType=DOUBLE},
+      </if>
+      <if test="record.baseAmount != null">
+        #{record.base_Amount,jdbcType=DOUBLE},
+      </if>
+      <if test="record.contractType != null">
+        #{record.CONTRACT_TYPE,jdbcType=VARCHAR}
+      </if>
+
+      <if test="record.payType != null">
+        #{record.PAY_TYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userNum != null">
+        #{record.USER_NUM,jdbcType=VARCHAR},
+      </if>
+      <if test="record.limitYears != null">
+        #{record.LIMIT_YEARS,jdbcType=DOUBLE},
+      </if>
+      <if test="record.delFlag != null">
+        #{record.DEL_FLAG,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update contract
+    set   CONTRACT_NO = #{record.CONTRACT_NO,jdbcType=VARCHAR},
+    CUSTOMER_ID =  #{record.CUSTOMER_ID,jdbcType=INTEGER},
+    CONTRACT_NO =  #{record.CONTRACT_NO,jdbcType=VARCHAR},
+    SIGN_USER_ID = #{record.SIGN_USER_ID,jdbcType=INTEGER},
+    SIGN_USER_NAME = #{record.SIGN_USER_NAME,jdbcType=VARCHAR},
+    CREATE_DATE = #{record.CREATE_DATE,jdbcType=TIMESTAMP},
+    SIGN_DATE = #{record.SIGN_DATE,jdbcType=TIMESTAMP},
+    END_DATE = #{record.END_DATE,jdbcType=TIMESTAMP},
+    MANAGE_ID = #{record.MANAGE_ID,jdbcType=INTEGER},
+    MANAGE_NAME = #{record.MANAGE_NAME,jdbcType=VARCHAR},
+    TOTAL_AMOUNT = #{record.TOTAL_AMOUNT,jdbcType=DOUBLE},
+    OTHER_AMOUNT =  #{record.OTHER_AMOUNT,jdbcType=DOUBLE},
+    DISCOUNT_AMOUNT = #{record.DISCOUNT_AMOUNT,jdbcType=DOUBLE},
+    CONTRACT_AMOUNT =  #{record.CONTRACT_AMOUNT,jdbcType=DOUBLE},
+    base_Amount =  #{record.base_Amount,jdbcType=DOUBLE},
+    CONTRACT_TYPE =  #{record.CONTRACT_TYPE,jdbcType=VARCHAR}
+    PAY_TYPE = #{record.PAY_TYPE,jdbcType=VARCHAR},
+    USER_NUM = #{record.USER_NUM,jdbcType=VARCHAR},
+    LIMIT_YEARS =  #{record.LIMIT_YEARS,jdbcType=DOUBLE},
+    DEL_FLAG = #{record.DEL_FLAG,jdbcType=DOUBLE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.neuedu.crm.pojo.Customer">
+    update contract
+    <set>
+      <if test="contractNo != null">
+        CONTRACT_NO = #{CONTRACT_NO,jdbcType=VARCHAR},
+      </if>
+      <if test="customerId != null">
+        CUSTOMER_ID =  #{CUSTOMER_ID,jdbcType=INTEGER},
+      </if>
+      <if test="contractNo != null">
+        CONTRACT_NO =  #{CONTRACT_NO,jdbcType=VARCHAR},
+      </if>
+      <if test="signUserId != null">
+        SIGN_USER_ID = #{SIGN_USER_ID,jdbcType=INTEGER},
+      </if>
+      <if test="signUserName != null">
+        SIGN_USER_NAME = #{SIGN_USER_NAME,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{CREATE_DATE,jdbcType=TIMESTAMP},
+      </if>
+      <if test="signDate != null">
+        SIGN_DATE = #{SIGN_DATE,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        END_DATE = #{END_DATE,jdbcType=TIMESTAMP},
+      </if>
+      <if test="manageId != null">
+        MANAGE_ID = #{MANAGE_ID,jdbcType=INTEGER},
+      </if>
+      <if test="manageName != null">
+        MANAGE_NAME = #{MANAGE_NAME,jdbcType=VARCHAR},
+      </if>
+      <if test="totalAmount != null">
+        TOTAL_AMOUNT = #{TOTAL_AMOUNT,jdbcType=DOUBLE},
+      </if>
+      <if test="otherAmount != null">
+        OTHER_AMOUNT =  #{OTHER_AMOUNT,jdbcType=DOUBLE},
+      </if>
+
+
+      <if test="discountAmount != null">
+        DISCOUNT_AMOUNT = #{DISCOUNT_AMOUNT,jdbcType=DOUBLE},
+      </if>
+      <if test="contractAmount != null">
+        CONTRACT_AMOUNT =  #{CONTRACT_AMOUNT,jdbcType=DOUBLE},
+      </if>
+      <if test="baseAmount != null">
+        base_Amount =  #{base_Amount,jdbcType=DOUBLE},
+      </if>
+      <if test="contractType != null">
+        CONTRACT_TYPE =  #{CONTRACT_TYPE,jdbcType=VARCHAR}
+      </if>
+
+      <if test="payType != null">
+        PAY_TYPE = #{PAY_TYPE,jdbcType=VARCHAR},
+      </if>
+      <if test="userNum != null">
+        USER_NUM = #{USER_NUM,jdbcType=VARCHAR},
+      </if>
+      <if test="limitYears != null">
+        LIMIT_YEARS =  #{LIMIT_YEARS,jdbcType=DOUBLE},
+      </if>
+      <if test="delFlag != null">
+        DEL_FLAG = #{DEL_FLAG,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.neuedu.crm.pojo.Customer">
+    update contract
+    set
+      CONTRACT_NO = #{CONTRACT_NO,jdbcType=VARCHAR},
+      CUSTOMER_ID =  #{CUSTOMER_ID,jdbcType=INTEGER},
+      CONTRACT_NO =  #{CONTRACT_NO,jdbcType=VARCHAR},
+      SIGN_USER_ID = #{SIGN_USER_ID,jdbcType=INTEGER},
+      SIGN_USER_NAME = #{SIGN_USER_NAME,jdbcType=VARCHAR},
+      CREATE_DATE = #{CREATE_DATE,jdbcType=TIMESTAMP},
+      SIGN_DATE = #{SIGN_DATE,jdbcType=TIMESTAMP},
+      END_DATE = #{END_DATE,jdbcType=TIMESTAMP},
+      MANAGE_ID = #{MANAGE_ID,jdbcType=INTEGER},
+      MANAGE_NAME = #{MANAGE_NAME,jdbcType=VARCHAR},
+      TOTAL_AMOUNT = #{TOTAL_AMOUNT,jdbcType=DOUBLE},
+      OTHER_AMOUNT =  #{OTHER_AMOUNT,jdbcType=DOUBLE},
+      DISCOUNT_AMOUNT = #{DISCOUNT_AMOUNT,jdbcType=DOUBLE},
+      CONTRACT_AMOUNT =  #{CONTRACT_AMOUNT,jdbcType=DOUBLE},
+      base_Amount =  #{base_Amount,jdbcType=DOUBLE},
+      CONTRACT_TYPE =  #{CONTRACT_TYPE,jdbcType=VARCHAR}
+      PAY_TYPE = #{PAY_TYPE,jdbcType=VARCHAR},
+      USER_NUM = #{USER_NUM,jdbcType=VARCHAR},
+      LIMIT_YEARS =  #{LIMIT_YEARS,jdbcType=DOUBLE},
+      DEL_FLAG = #{DEL_FLAG,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
