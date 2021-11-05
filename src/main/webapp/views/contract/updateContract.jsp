@@ -75,6 +75,7 @@
             //获取客户成熟度字典并加载下拉框
             getSelectData('客户成熟度', 'maturity');
 
+            $.ajaxSettings.async = false;
             function getSelectData(dictionaryName, selectName) {
                 $.post('${pageContext.request.contextPath}/dictionary/find', {'name': dictionaryName}, function (data) {
                     var d = data.data.dictionaryItems;
@@ -88,7 +89,9 @@
             }
 
             //加载客户列表
-            $.post('${pageContext.request.contextPath}/customer/list',{'findtype':'all'},function(data){
+            $.post('${pageContext.request.contextPath}/customer/list',
+                {'findtype':'all'},
+                function(data){
                 var customers = data.data;
                 var str = '<option value="">--请选择客户--</option>'
                 for(var i=0;i<customers.length;i++){
@@ -120,7 +123,7 @@
                 form.render('select');
             });
 
-
+            $.ajaxSettings.async = true;
 
             //客户名检测
             $('input[name=customerName]').blur(function () {
@@ -184,6 +187,7 @@
                 url: '${pageContext.request.contextPath}/contract/find',
                 data: {'id':parm.id},
                 dataType: "json",
+                async:false,
                 success: function(data){
                     if(data.success){//成功
                         var contract = data.data;

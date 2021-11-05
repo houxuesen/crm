@@ -329,8 +329,8 @@ layui.use(['form','upload'],function(){
     
     //获取客户成熟度字典并加载下拉框
     getSelectData('客户成熟度','maturity');
-    
-    
+
+    $.ajaxSettings.async = false;
     function getSelectData(dictionaryName,selectName){
     	$.post('${pageContext.request.contextPath}/dictionary/find',{'name':dictionaryName},function(data){
             var d = data.data.dictionaryItems;
@@ -372,7 +372,9 @@ layui.use(['form','upload'],function(){
                 $('#customer-name-msg').text('客户名可用');
             }
         });
-    });	
+    });
+
+    $.ajaxSettings.async = true;
 
 	//文件上传实现
 	var uploadindex = 0;
