@@ -35,7 +35,7 @@
 			<div class="layui-form-item" style="margin-top: 15px;">
 				<label class="layui-form-label">账号：</label>
 				<div class="layui-input-inline">
-					<input type="text" name="account" 
+					<input type="text" name="account"
 						readonly="readonly" class="layui-input" />
 				</div>	
 			</div>

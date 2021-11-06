@@ -34,8 +34,6 @@
 
             var url = '${pageContext.request.contextPath}/contract/add';
 
-
-
             //点击保存事件
             form.on('submit(contract-form-save)', function (data) {
                 var formdata = data.field;

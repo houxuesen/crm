@@ -119,6 +119,16 @@
                   </tbody>
               </table>
               <!--endprint-->
+              <shiro:hasPermission name="80006">
+              <div>
+                  <div class="layui-form-item">
+                      <div class="layui-input-block">
+                          <button type="button" class="layui-btn" id="auditPass" >通过</button>
+                          <button type="button" class="layui-btn" id="auditRefuse" >驳回</button>
+                      </div>
+                  </div>
+              </div>
+              </shiro:hasPermission>
           </div>
 
 	    <!-- 跟踪记录 -->
@@ -699,6 +709,39 @@ layui.use(['element','table','flow'],function(){
             content:'${pageContext.request.contextPath}/views/user/showUserInfo.jsp?id='+ createrId
         });  
 	});
+
+    $('#auditPass').click(function(){
+        auditCont('已审批');
+    });
+
+
+    $('#auditRefuse').click(function(){
+        auditCont('草稿');
+    });
+
+    function auditCont(result){
+        $.ajax({
+            type: "POST",
+            url: '${pageContext.request.contextPath}/contract/auditCont',
+            data: {
+                'id': parm.contractId,
+                'conState': result
+            },
+            dataType: "json",
+            success: function (data) {
+                top.layer.msg(data.msg);    //使用top显示
+                if (data.success) {//成功
+                    //关闭当前弹出层
+                    var thisindex = parent.layer.getFrameIndex(window.name);
+                    parent.layer.close(thisindex);
+                }
+            },
+            error: function (data) {
+                top.layer.msg("服务器开小差了，请稍后再试...");
+            }
+        });
+    }
+
 	
 	function localDateTimeToStr(time){
 		var str = '';
@@ -713,8 +756,12 @@ layui.use(['element','table','flow'],function(){
 		}
 		return str;
 	}
-	
+
+
 });
+
+
+
 </script>
 		
 </body>

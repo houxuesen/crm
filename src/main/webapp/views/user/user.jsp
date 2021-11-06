@@ -83,20 +83,6 @@
 				</div>
 				
 			</div>
-			<!-- <div class="layui-form-item">
-				<label class="layui-form-label"><span style="color: red;font-size: 20px;margin-right: 5px;">*</span>密码：</label>
-				<div class="layui-input-inline">
-					<input type="password" name="password" placeholder="请输入密码" 
-						autocomplete="off" class="layui-input" />
-				</div>
-			</div>
-			<div class="layui-form-item">
-				<label class="layui-form-label"><span style="color: red;font-size: 20px;margin-right: 5px;">*</span>确认密码：</label>
-				<div class="layui-input-inline">
-					<input type="password" name="rePassword" placeholder="请再次输入密码" 
-						autocomplete="off" class="layui-input" />
-				</div>
-			</div> -->
 			<div class="layui-form-item">
 				<label class="layui-form-label"><span style="color: red;font-size: 20px;margin-right: 5px;">*</span>真实姓名：</label>
 				<div class="layui-input-inline">
@@ -260,7 +246,7 @@
 			$("input[name='rePassword']").attr("lay-verify", "checkPasswd2"); //设置password为必要属性
 			$("input[name='account']").attr("lay-verify", "required|username"); 
 			$("input[name='email']").attr("lay-verify", "required|email");
-			$("input[name='account']").attr("readonly", "readonly");
+			//$("input[name='account']").attr("readonly", "readonly");
 			showUserDiv('编辑用户');
 			console.log(data.roleId);
 			showRoles('role2');

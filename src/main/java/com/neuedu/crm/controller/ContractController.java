@@ -321,6 +321,27 @@ public class ContractController {
         }
         return map;
     }
+
+
+    @RequiresPermissions("80006")
+    @Operation(name="合同审核")
+    @RequestMapping("auditCont")
+    @ResponseBody
+    public Map<String, Object> auditCont(Contract contract){
+        Map<String, Object> map = new HashMap<String,Object>(16);
+
+        if(contractService.updateContractByPrimaryKey(contract)) {
+            map.put("msg", "审批成功");
+            map.put("success", true);
+            map.put("data", contract);
+        }else {
+            map.put("msg", "审批失败");
+            map.put("success", false);
+        }
+        return map;
+    }
+
+
     
     
 }

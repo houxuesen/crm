@@ -293,7 +293,10 @@
                     shadeClose: true,
                     maxmin:true,
                     offset:'r',
-                    content:'views/contract/contractInfo.jsp?id='+ customerId +"&contractId="+contractId
+                    content:'views/contract/contractInfo.jsp?id='+ customerId +"&contractId="+contractId,
+                    end: function () {
+                        table.reload('contract-table');
+                    }
                 });
 
             }
