@@ -172,7 +172,7 @@ public class ContractController {
             return map;
         }
 
-        if(!StringUtils.isEmpty(contract.getCustomerName()) && contract.getCustomerId() != null){
+        if(!StringUtils.isEmpty(contract.getCustomerName()) && contract.getCustomerId() == null){
             map.put("msg", "请根据联想客户信息点击");
             map.put("success", false);
             return map;
@@ -258,7 +258,7 @@ public class ContractController {
             return map;
         }
 
-        if(!StringUtils.isEmpty(contract.getCustomerName()) && contract.getCustomerId() != null){
+        if(!StringUtils.isEmpty(contract.getCustomerName()) && contract.getCustomerId() == null){
             map.put("msg", "请根据联想客户信息点击");
             map.put("success", false);
             return map;
