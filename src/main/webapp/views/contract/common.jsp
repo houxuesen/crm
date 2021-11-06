@@ -15,9 +15,10 @@
 
     <label class="layui-form-label">客户：</label>
     <div class="layui-input-inline">
-        <select name="customerId">
-            <option value="">--数据加载中--</option>
-        </select>
+        <input type="hidden" name="customerId" id="customerId" >
+        <div class="layui-input-inline">
+            <input type="text" name="customerName" lay-verify="required"  id="customerName" class="layui-input"  />
+        </div>
     </div>
 
     <label class="layui-form-label">签约人：</label>

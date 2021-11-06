@@ -70,7 +70,7 @@ http://www.springframework.org/schema/task/spring-task-3.2.xsd">
     <mvc:resources location="/upload/" mapping="/upload/**"></mvc:resources>
     <mvc:resources location="/images/" mapping="/images/**"></mvc:resources>
     <mvc:resources location="/layui/" mapping="/layui/**"></mvc:resources>
-    
+    <mvc:resources location="/css/" mapping="/css/**"></mvc:resources>
     <!-- 拦截器 -->
     <!--<mvc:interceptors>
         <mvc:interceptor>

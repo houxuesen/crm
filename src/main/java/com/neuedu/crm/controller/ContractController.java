@@ -171,6 +171,13 @@ public class ContractController {
             map.put("success", false);
             return map;
         }
+
+        if(!StringUtils.isEmpty(contract.getCustomerName()) && contract.getCustomerId() != null){
+            map.put("msg", "请根据联想客户信息点击");
+            map.put("success", false);
+            return map;
+        }
+
         //合同所属者默认为创建者
         contract.setManageId(user.getId());
         //设置创建者id
@@ -238,7 +245,24 @@ public class ContractController {
     @ResponseBody
     public Map<String, Object> updateContract(Contract contract){
         Map<String, Object> map = new HashMap<String,Object>(16);
+        //检测是否存在contract对象
+        if(contract == null ) {
+            map.put("msg", "参数为空");
+            map.put("success", false);
+            return map;
+        }
+        //合同编号
+        if(StringUtils.isEmpty(contract.getContractNo())) {
+            map.put("msg", "合同编号参数不能为空");
+            map.put("success", false);
+            return map;
+        }
 
+        if(!StringUtils.isEmpty(contract.getCustomerName()) && contract.getCustomerId() != null){
+            map.put("msg", "请根据联想客户信息点击");
+            map.put("success", false);
+            return map;
+        }
 
         if(contract.getCustomerId() != null){
             Customer customer = customerService.selectCustomerByPrimaryKey(contract.getCustomerId());

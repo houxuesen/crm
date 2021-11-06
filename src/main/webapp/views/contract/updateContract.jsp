@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="../../layui/css/layui.css">
     <script src="../../js/myutil.js"></script>
     <script src="../../layui/layui.js"></script>
+    <link href="../../css/base/jquery-ui-1.9.2.custom.css" rel="stylesheet">
+    <script src="../../js/jquery-1.8.3.js"></script>
+    <script src="../../js/jquery-ui-1.9.2.custom.js"></script>
 </head>
 <body>
 <div style="width: 96%;margin-left: 2%;">
@@ -118,6 +121,42 @@
                 });
 
                 return false;
+            });
+
+
+
+            $('#customerName').autocomplete({
+                source: function (request, response) {
+                    $.ajax({
+                        url: '${pageContext.request.contextPath}/customer/findByName',//ajax取值
+                        type: "post",
+                        data: {'name': $("#customerName").val()},
+                        success: function (result) {
+                            var data = result.data;
+                            response($.map(data, function (item) {
+                                return {code: item.id, name: item.name, label: item.name};
+                            }));
+                        }
+                    });
+                },
+                change: function (event, ui) {
+                    if (ui.item == null) {
+                        $("#customerId").val("");
+                        $("#customerName").val("");
+                    }
+                    return false;
+                },
+                select: function (event, ui) {
+                    $("#customerId").val(ui.item.code);
+                    $("#customerName").val(ui.item.name);
+                    return false;
+                },
+                autoFill: false,
+                scroll: true,
+                pagingMore: true,
+                scrollHeight: 50,
+                delay: 500,
+                minLength: 1
             });
 
             //获取客户成熟度字典并加载下拉框

@@ -303,6 +303,33 @@ public class CustomerController {
         }
         return map;
     }
+
+
+    @Operation(name="根据名字查找客户")
+    @RequestMapping("findByName")
+    @ResponseBody
+    public Map<String, Object> findByName(Customer customer){
+        Map<String, Object> map = new HashMap<String,Object>(16);
+
+        CustomerExample example = new CustomerExample();
+        Criteria criteria = example.createCriteria();
+
+        if("客户经理".equals(user.getRole().getName())) {
+            //设置管理者ID
+            criteria.andManagerIdEqualTo(user.getId());
+            //只查询未删除的客户
+            criteria.andDeleteStatusEqualTo(0);
+        }
+
+        if(customer != null) {
+            if(customer.getName() != null) {
+                criteria.andNameLike("%" + customer.getName() + "%");
+            }
+        }
+        List<Customer> customers = customerService.selectByCustomerExample(example);
+        map.put("data", customers);
+        return map;
+    }
     
     
 }
