@@ -171,6 +171,13 @@
                 return;
             }
 
+            for(var i = 0; i < data.length;i++){
+                if(data[i].conState != '草稿'){
+                    layer.msg('非草稿状态不能编辑！');
+                    return;
+                }
+            }
+
             var showStr = '你确定删除以下合同吗？<br>';
             layui.each(data, function (index, item) {
                 showStr += item.contractNo + '<br>';
