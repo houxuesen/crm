@@ -64,15 +64,15 @@ public class FileController {
         
 
         //上传文件路径
-        String path = request.getServletContext().getRealPath("/upload/")+ new Date().getTime()+"/"+UUID.randomUUID().toString();
+        String path = request.getServletContext().getRealPath("/upload/");
         //获取文件名
         String filename = file.getOriginalFilename();
         //获取文件后缀名，即获取文件类型
         String fileExt = filename.substring(filename.lastIndexOf("."));
-        
+        String filename_cn = filename.substring(0,filename.lastIndexOf(".")-1);
         //随机生成一个uuid当做新的文件名
         String uuid = UUID.randomUUID().toString();
-        String newFile = filename;
+        String newFile = filename_cn+uuid+fileExt;
         File filepath = new File(path,newFile);
         
         //System.out.println(filepath.getAbsolutePath());

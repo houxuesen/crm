@@ -2034,6 +2034,11 @@ public class ContractExample {
             return (Criteria) this;
         }
 
+        public Criteria andConStateEq(String value) {
+            addCriterion("Con_State = ", value, "conState");
+            return (Criteria) this;
+        }
+
 
         public Criteria addSqlCriteria(String sql){
             addCriterion(sql);

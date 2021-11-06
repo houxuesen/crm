@@ -92,7 +92,7 @@
         id
         , CUSTOMER_ID, customer_Name,CONTRACT_NO, SIGN_USER_ID, SIGN_USER_NAME, CREATE_DATE, SIGN_DATE, END_DATE,
     MANAGE_ID, MANAGE_NAME, TOTAL_AMOUNT, OTHER_AMOUNT, DISCOUNT_AMOUNT, CONTRACT_AMOUNT,
-    base_Amount, CONTRACT_TYPE, PAY_TYPE, USER_NUM, LIMIT_YEARS, DEL_FLAG,con_State
+    base_Amount, CONTRACT_TYPE, PAY_TYPE, USER_NUM, LIMIT_YEARS, DEL_FLAG,con_State,document
     </sql>
     <select id="selectByExample" parameterType="com.neuedu.crm.pojo.ContractExample" resultMap="BaseResultMap">
         select
@@ -529,7 +529,7 @@
             </if>
 
             <if test="document != null">
-                document = #{document,jdbcType=VARCHAR}
+                document = #{document,jdbcType=VARCHAR},
             </if>
 
             <if test="conState != null">

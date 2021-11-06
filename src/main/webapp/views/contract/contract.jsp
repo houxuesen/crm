@@ -14,6 +14,13 @@
                    autocomplete="off" class="layui-input">
         </div>
 
+        <label style="margin-left: 20px;" style="" class="layui-label">合同状态：</label>
+        <div style="width: 120px;" class="layui-input-inline">
+            <select name="conState">
+                <option value="">--数据加载中--</option>
+            </select>
+        </div>
+
 
         <div class="layui-inline">
             <button type="button" class="layui-btn" id="search-btn">
@@ -76,6 +83,7 @@
 <script src="https://cuikangjie.github.io/JsonExportExcel/dist/JsonExportExcel.min.js"></script>
 <script>
     layui.use(['table', 'form'], function () {
+        var form = layui.form;
         var table = layui.table;
         var layer = layui.layer;
         var $ = layui.$;
@@ -93,7 +101,10 @@
             , cols: [[ //表头
                 {type: 'checkbox'}
                 , {field: 'customerName', title: '客户姓名'}
-                , {field: 'contractNo', title: '合同编号'}
+                , {field: 'contractNo', title: '合同编号',templet:function(data){
+                        return str = '<a style="color:blue;" href="javascript:" lay-event="detail">' +data.contractNo + '</a>';
+                    }
+                }
                 , {field: 'signUserName', title: '签约人'}
                 , {field: 'signDate', title: '签约时间'}
                 , {field: 'manageName', title: '负责人'}
@@ -112,6 +123,22 @@
             }
         });
 
+        //获取客户成熟度字典并加载下拉框
+        getSelectData('合同状态', 'conState');
+
+        function getSelectData(dictionaryName, selectName) {
+            $.post('${pageContext.request.contextPath}/dictionary/find', {'name': dictionaryName}, function (data) {
+                var d = data.data.dictionaryItems;
+                var str = '<option value="">请选择</option>';
+                for (var i = 0; i < d.length; i++) {
+                    str += '<option value="' + d[i].name + '">' + d[i].name + '</option>';
+                }
+                $('select[name=' + selectName + ']').html(str);
+                form.render('select');
+            });
+        }
+
+
 
         //搜索按钮点击事件
         $('#search-btn').click(function () {
@@ -127,30 +154,12 @@
                 }
                 , method: "post"
                 , where: {
-                    'contractNo': $("input[name='contractNo']").val()
+                    'contractNo': $("input[name='contractNo']").val(),
+                    'conState': $("select[name='conState']").val()
                 }
             });
         });
 
-
-        //详情弹出窗
-        table.on('tool(contract-table)', function (obj) {
-            var data = obj.data;
-            var contractid = data.id;
-            if (obj.event === 'detail') {
-                layer.open({
-                    type: 2,
-                    title: '客户详情',
-                    area: ['80%', '100%'],
-                    clostBtn: 1,
-                    shadeClose: true,
-                    maxmin: true,
-                    offset: 'r',
-                    content: 'views/contract/contractInfomation.jsp?id=' + contractid
-                });
-
-            }
-        });
 
 
         //删除事件
@@ -210,6 +219,11 @@
 
             var id = data[0].id;
             //console.log(data);
+            if(data[0].conState != '草稿'){
+                layer.msg('非草稿状态不能编辑！');
+                return;
+            }
+
 
             layer.open({
                 type: 2,
@@ -263,6 +277,28 @@
                 }
             });
         });
+
+
+        //详情弹出窗
+        table.on('tool(contract-table)',function(obj){
+            var data = obj.data;
+            var contractId = data.id;
+            var customerId = data.customerId;
+            if(obj.event === 'detail'){
+                layer.open({
+                    type:2,
+                    title:'客户详情',
+                    area:['80%','100%'],
+                    clostBtn:1,
+                    shadeClose: true,
+                    maxmin:true,
+                    offset:'r',
+                    content:'views/contract/contractInfo.jsp?id='+ customerId +"&contractId="+contractId
+                });
+
+            }
+        });
+
 
         //转移按钮点击事件
         $('#contract-transfer-button').click(function () {

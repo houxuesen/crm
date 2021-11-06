@@ -35,10 +35,12 @@
             var url = '${pageContext.request.contextPath}/contract/add';
 
 
-            //点击提交事件
-            form.on('submit(contract-form-submit)', function (data) {
+
+            //点击保存事件
+            form.on('submit(contract-form-save)', function (data) {
                 var formdata = data.field;
                 //console.log(formdata);
+                $('#conState').val('草稿');
 
                 //添加客户时检验客户名可用性
                 if ($('#contractNo-msg').text() == '合同编号名已存在' && parm.type == 'add') {
@@ -53,6 +55,49 @@
                     return false;
                 }
                 delete formdata.file;
+                formdata.conState = $('#conState').val();
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: formdata,
+                    dataType: "json",
+                    success: function (data) {
+                        top.layer.msg(data.msg);    //使用top显示
+                        if (data.success) {//成功
+                            //关闭当前弹出层
+                            var thisindex = parent.layer.getFrameIndex(window.name);
+                            parent.layer.close(thisindex);
+                        }
+                    },
+                    error: function (data) {
+                        top.layer.msg("服务器开小差了，请稍后再试...");
+                    }
+                });
+
+                return false;
+            });
+
+            //点击提交事件
+            form.on('submit(contract-form-submit)', function (data) {
+                var formdata = data.field;
+                //console.log(formdata);
+                $('#conState').val('待审批');
+                //添加客户时检验客户名可用性
+                if ($('#contractNo-msg').text() == '合同编号名已存在' && parm.type == 'add') {
+                    layer.msg('合同编号重复，请重新填写');
+                    return false;
+                }
+
+                //判断是否选择了文件
+                if (data.field.file != null && data.field.file != '') {
+                    //文件存在，提交文件
+                    $('#upload-btn').click();
+                    return false;
+                }
+                delete formdata.file;
+
+                formdata.conState = $('#conState').val();
+
                 $.ajax({
                     type: "POST",
                     url: url,

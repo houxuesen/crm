@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!-- 合同ID -->
 <input type="hidden" name="id" value="0">
-
+<input type="hidden" name="conState" id="conState" value="0">
 <div class="layui-form-item">
     <!-- 客户名称 -->
     <label class="layui-form-label">合同编号<strong style="color: red">*</strong>：</label>
@@ -60,7 +60,7 @@
     <div class="layui-input-inline">
         <input type="text" name="otherAmount" lay-verify="required" onblur="value=zhzs(this.value)" id="otherAmount" class="layui-input"  />
     </div>
-    <label class="layui-form-label">总额：</label>
+    <label class="layui-form-label">优惠金额：</label>
     <div class="layui-input-inline">
         <input type="text" name="discountAmount" lay-verify="required"  onblur="value=zhzs(this.value)" id="discountAmount" class="layui-input"  />
     </div>
@@ -75,7 +75,7 @@
     </div>
     <label class="layui-form-label">合同成本：</label>
     <div class="layui-input-inline">
-        <input type="text" name="baseAmount" lay-verify="totalAmount" onblur="value=zhzs(this.value)"  id="required" class="layui-input"  />
+        <input type="text" name="baseAmount" lay-verify="required" onblur="value=zhzs(this.value)"  id="baseAmount" class="layui-input"  />
     </div>
 </div>
 
@@ -121,7 +121,12 @@
     <div class="layui-form-item">
         <div class="layui-input-block">
             <%-- <button type="button" class="layui-btn" style="margin-left: 180px;">重置</button>--%>
-            <button type="button" name="contract-form-submit-btn" lay-submit lay-filter="contract-form-submit"
+
+            <button type="button" name="contract-form-save-btn" lay-submit lay-filter="contract-form-save" lay-event="save"
+                    class="layui-btn">保存草稿
+            </button>
+
+            <button type="button" name="contract-form-submit-btn" lay-submit lay-filter="contract-form-submit" lay-event="submit"
                     class="layui-btn">提交
             </button>
         </div>

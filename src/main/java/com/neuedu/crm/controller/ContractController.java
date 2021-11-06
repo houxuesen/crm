@@ -119,6 +119,11 @@ public class ContractController {
             if(!StringUtils.isEmpty(contract.getContractNo()) ) {
                 criteria.andContractNoLike("%" + contract.getContractNo() + "%");
             }
+
+            if(!StringUtils.isEmpty(contract.getConState())){
+                criteria.andConStateEq(contract.getConState());
+            }
+
         }
 
         example.setOrderByClause(" CREATE_DATE desc ");
@@ -233,7 +238,29 @@ public class ContractController {
     @ResponseBody
     public Map<String, Object> updateContract(Contract contract){
         Map<String, Object> map = new HashMap<String,Object>(16);
- 
+
+
+        if(contract.getCustomerId() != null){
+            Customer customer = customerService.selectCustomerByPrimaryKey(contract.getCustomerId());
+            contract.setCustomerName(customer.getName());
+        }
+
+        if(contract.getSignUserId() != null){
+            User signUser = userService.findById(contract.getSignUserId());
+            contract.setSignUserName(signUser.getRealName());
+        }
+
+
+        if(contract.getManageId() != null){
+            User signUser = userService.findById(contract.getManageId());
+            contract.setManageName(signUser.getRealName());
+        }
+
+        contract.setUpdateDate(new Date());
+        contract.setUpdater(user.getRealName());
+        contract.setUpdateUserId(user.getId());
+
+
         if(contractService.updateContractByPrimaryKeySelective(contract)) {
             map.put("msg", "更新成功");
             map.put("success", true);
