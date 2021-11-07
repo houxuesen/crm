@@ -212,18 +212,6 @@
 
             $.ajaxSettings.async = true;
 
-            //客户名检测
-            $('input[name=customerName]').blur(function () {
-                var name = $('input[name=customerName]').val();
-                $.post('${pageContext.request.contextPath}/customer/checkname', {'name': name}, function (data) {
-                    if (data) {
-                        $('#contractNo-msg').text('客户名已存在');
-                    } else {
-                        $('#contractNo-msg').text('客户名可用');
-                    }
-                });
-            });
-
             //文件上传实现
             var uploadindex = 0;
             upload.render({
