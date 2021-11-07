@@ -133,6 +133,8 @@ public class CustomerController {
                 criteria.andMaturityEqualTo(customer.getMaturity());
             }
         }
+
+        example.setOrderByClause(" create_time desc ");
         
         Long count = customerService.countByCustomerExample(example);
         List<Customer> customers = customerService.selectByCustomerExample(example);

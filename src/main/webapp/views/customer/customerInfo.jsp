@@ -65,7 +65,7 @@
                       <td id="type"></td>
                     </tr>
                     <tr>
-                      <td>客户来源：</td>
+                      <td>现服务商：</td>
                       <td id="source"></td>
                       <td>客户等级：</td>
                       <td id="level"></td>

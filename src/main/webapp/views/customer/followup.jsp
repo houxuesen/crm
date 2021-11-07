@@ -61,7 +61,7 @@ layui.use(['table','flow'],function(){
     	 layer.open({
              type:2,
              title:'新建跟踪',
-             area:['500px','710px'],
+             area:['700px','710px'],
              closeBtn:1,
              shadeClose:false,
              content:'${pageContext.request.contextPath}/views/customer/editfollowup.jsp?type=add',

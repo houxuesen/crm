@@ -95,7 +95,7 @@
                       <td id="type"></td>
                     </tr>
                     <tr>
-                      <td>客户来源：</td>
+                      <td>现服务商：</td>
                       <td id="source"></td>
                       <td>客户等级：</td>
                       <td id="level"></td>
@@ -451,12 +451,13 @@ layui.use(['element','table','flow'],function(){
 	     $.post('${pageContext.request.contextPath}/followup/list',{'page':page,'customerId':parm.id}, function(res){
 	       //假设你的列表返回在data集合中
 	       layui.each(res.data, function(index, item){
-	    	 var title = '' + item.time[0] + '年' + item.time[1] + '月' + item.time[2] + '日' + '   ' + item.time[3] + ':' +item.time[4] + ':' +item.time[5];
+	       	 console.info(item);
+	    	 var title = '' + item.time[0] + '年' + item.time[1] + '月' + item.time[2] + '日' + '   ' + item.time[3] + ':' +item.time[4] ;
 	         var str = '<li class="layui-timeline-item"><i class="layui-icon layui-timeline-axis">&#xe63f;</i>';
 	         str += '<div class="layui-timeline-content layui-text" >';
 	         str += '<h3 class="layui-timeline-title"  id="followup-' + item.id + '"> <span style="font-size: 16px;">' + item.manager.account + '</span> ';
-	         str += title + '</h3></a><p>';
-	         str += '' + item.general + '</p></div></li>';
+	         str += title + '</h3></a><p style="width:100%;word-break:break-all;word-wrap:break-word;">';
+	         str += '' + item.content + '</p></div></li>';
 	    	 lis.push(str);
 	       }); 
 	       
@@ -474,7 +475,7 @@ layui.use(['element','table','flow'],function(){
     	 layer.open({
              type:2,
              title:'新建跟踪',
-             area:['500px','680px'],
+             area:['700px','680px'],
              closeBtn:1,
              shadeClose:false,
              content:'${pageContext.request.contextPath}/views/customer/editfollowup.jsp?type=add&customerId=' + parm.id,

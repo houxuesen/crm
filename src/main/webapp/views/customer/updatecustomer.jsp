@@ -52,7 +52,7 @@
     </div>            
 
     <div class="layui-form-item">
-        <!-- 意向产品 -->  
+        <!-- 意向产品 
         <label class="layui-form-label">意向产品：</label>
         <input type="hidden" name="productId"  class="layui-input">
         <div class="layui-input-inline">
@@ -61,7 +61,7 @@
                 <i class="layui-icon  layui-icon-add-1"></i>选择
             </a>
         </div>
-        
+        -->  
         <!-- 客户类别 --> 
         <label class="layui-form-label">客户类别：</label>
         <div class="layui-input-inline">
@@ -78,7 +78,7 @@
     
     <div class="layui-form-item">
         <!-- 客户来源-->  
-        <label class="layui-form-label">客户来源：</label>
+        <label class="layui-form-label">现服务商：</label>
         <div class="layui-input-inline" style="width: 135px;">
             <select name="source">
                 <option value="">--数据加载中--</option>

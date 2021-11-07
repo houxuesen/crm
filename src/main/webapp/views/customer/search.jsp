@@ -43,7 +43,7 @@
 	    
 	    <div class="layui-form-item">
 	        <!-- 客户来源-->  
-	        <label class="layui-form-label">客户来源：</label>
+	        <label class="layui-form-label">现服务商：</label>
 	        <div class="layui-input-inline">
 	            <select name="source" lay-filter="source">
 	                <option value="">--数据加载中--</option>

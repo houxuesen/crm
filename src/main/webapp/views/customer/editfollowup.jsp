@@ -32,14 +32,14 @@
 	            <input type="text" name="time" id="time" lay-verify="required"  class="layui-input" />
 	        </div>
         </div>
-	
+		<!--
 		<div class="layui-form-item">
 	        <label class="layui-form-label">地点：</label>
 	        <div class="layui-input-inline"  style="width: 320px;">
 	            <input type="text" name="address"  lay-verify="required" class="layui-input"  />
 	        </div>
         </div>	
-	
+		
         <div class="layui-form-item">
             <label class="layui-form-label">结果：</label>
             <div class="layui-input-inline"  style="width: 320px;">
@@ -47,24 +47,25 @@
             </div>
         </div>	   
 	
+		
 		<div class="layui-form-item">
 	        <label class="layui-form-label">概要：</label>
 	        <div class="layui-input-inline">
 	            <textarea class="layer-input" name="general" lay-verify="required" style="height: 100px;width: 320px"></textarea>
 	        </div>
         </div>	
-	
+	-->
 		<div class="layui-form-item">
 	        <label class="layui-form-label">详细信息：</label>
 	        <div class="layui-input-inline">
-	            <textarea class="layer-input" name="content" lay-verify="required" style="height: 100px;width: 320px"></textarea>
+	            <textarea class="layer-input" name="content" lay-verify="required" style="height: 300px;width: 520px"></textarea>
 	        </div>
         </div>		
 
 		<div class="layui-form-item">
 	        <label class="layui-form-label">备注：</label>
 	        <div class="layui-input-inline">
-	          	<textarea class="layer-input" name="remark" style="height: 100px;width: 320px"></textarea>
+	          	<textarea class="layer-input" name="remark" style="height: 100px;width: 520px"></textarea>
 	        </div>  
         </div>		
 	
@@ -90,7 +91,9 @@
 	
 		<div class="layui-form-item"  style="width: 320px;">
 			<div class="layui-input-block">
+				<!--
 				<button type="reset" class="layui-btn" style="margin-left: 30px;">重置</button>
+				 -->
 				<button type="button" name="form-submit-btn" lay-submit lay-filter="form-submit-btn" class="layui-btn">保存</button>
 			</div>
 		</div>	
@@ -108,7 +111,7 @@ layui.use(['form','upload','laydate'],function(){
 	var parm = getParm();
 	
 	var url = '${pageContext.request.contextPath}/followup/add';
-	
+	var now = new Date();
 	
 	//加载日期选择器
 	laydate.render({
@@ -116,6 +119,7 @@ layui.use(['form','upload','laydate'],function(){
 	    ,type:'datetime'
 	    ,format:'yyyy-MM-dd HH:mm:ss'
 	    ,trigger: 'click'
+	    ,value:new Date()
 	  });
 	
 	//保存点击事件
