@@ -73,8 +73,8 @@
                     <tr>
 				      <td>客户名称：</td>
 				      <td id="customer-name"></td>
-				      <td></td>
-                      <td></td>
+				      <td>域名\网址：</td>
+                      <td id="realmName"></td>
 				    </tr>
 				    <tr>
                       <td>客户创建者：</td>
@@ -82,6 +82,7 @@
                       <td>客户创建时间：</td>
                       <td id="createTime"></td>
                     </tr>
+
 				    <tr>
                       <td>公司电话：</td>
                       <td id="companyPhone"></td>
@@ -101,22 +102,22 @@
                       <td id="level"></td>
                     </tr>
                     <tr>
-                      <td>客户信用度：</td>
-                      <td id="credit"></td>
+                      <td>过期时间：</td>
+                      <td id="endDate"></td>
                       <td>客户成熟度：</td>
                       <td id="maturity"></td>
                     </tr>
-                    <tr>
+                  <%--  <tr>
                       <td>客户所在地区：</td>
                       <td id="area"></td>
                       <td>邮政编码：</td>
                       <td id="postCode"></td>
-                    </tr>
+                    </tr>--%>
                     <tr>
                       <td colspan="1">客户详细地址：</td>
                       <td colspan="3" id="companyAddress"></td>
                     </tr>
-                    <tr>
+                   <%-- <tr>
                       <td colspan="1">客户相关资料：</td>
                       <td colspan="3" id="document"></td>
                     </tr>
@@ -155,7 +156,7 @@
                     <tr>
                       <td colspan="1">国税登记号：</td>
                       <td colspan="3" id="nationalTaxNumber"></td>
-                    </tr>
+                    </tr>--%>
                 </tbody>
             </table>
             <!--endprint-->
@@ -222,7 +223,9 @@ layui.use(['element','table','flow'],function(){
 	        	if(data.success){
 	                var customer = data.data;
 	                $('#customer-name').text(customer.name);
+	                $('#realmName').text(customer.realmName);
 	                $('#type').text(customer.type);
+	                $('#endDate').text(customer.endDate);
 	                $('#level').text(customer.level);
 	                $('#status').text(customer.status);
 	                $('#credit').text(customer.credit); 

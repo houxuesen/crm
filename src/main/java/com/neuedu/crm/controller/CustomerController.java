@@ -103,9 +103,10 @@ public class CustomerController {
         if("客户经理".equals(user.getRole().getName())) {
             //设置管理者ID
             criteria.andManagerIdEqualTo(user.getId());
-            //只查询未删除的客户
-            criteria.andDeleteStatusEqualTo(0);
         }
+
+        //只查询未删除的客户
+        criteria.andDeleteStatusEqualTo(0);
 
         System.out.println(customer);
         //检测属性是否存在，存在则进行条件查询

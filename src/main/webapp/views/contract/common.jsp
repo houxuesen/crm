@@ -57,6 +57,17 @@
 </div>
 
 <div class="layui-form-item">
+    <label class="layui-form-label">用户数：</label>
+    <div class="layui-input-inline">
+        <input type="text" name="userNum" lay-verify="required"  id="userNum" class="layui-input"  />
+    </div>
+    <label class="layui-form-label">购买年限：</label>
+    <div class="layui-input-inline">
+        <input type="text" name="limitYears" lay-verify="required"  id="limitYears" class="layui-input"  />
+    </div>
+</div>
+
+<div class="layui-form-item">
     <label class="layui-form-label">其他：</label>
     <div class="layui-input-inline">
         <input type="text" name="otherAmount" lay-verify="required" onblur="value=zhzs(this.value)" id="otherAmount" class="layui-input"  />
@@ -93,16 +104,7 @@
 </div>
 
 
-<div class="layui-form-item">
-    <label class="layui-form-label">用户数：</label>
-    <div class="layui-input-inline">
-        <input type="text" name="userNum" lay-verify="required"  id="userNum" class="layui-input"  />
-    </div>
-    <label class="layui-form-label">使用年限：</label>
-    <div class="layui-input-inline">
-        <input type="text" name="limitYears" lay-verify="required"  id="limitYears" class="layui-input"  />
-    </div>
-</div>
+
 
 <!-- 相关文件 -->
 <div class="layui-form-item">

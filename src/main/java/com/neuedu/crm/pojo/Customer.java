@@ -1,6 +1,7 @@
 package com.neuedu.crm.pojo;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 /**
@@ -150,6 +151,17 @@ public class Customer implements Serializable {
      */
     private LocalDateTime createTime;
 
+
+    /**
+     * 域名
+     */
+    private String realmName;
+
+    /**
+     * 过期时间
+     */
+    private LocalDate endDate;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -166,6 +178,14 @@ public class Customer implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getRealmName() {
+        return realmName;
+    }
+
+    public void setRealmName(String realmName) {
+        this.realmName = realmName;
     }
 
     public String getType() {
@@ -386,8 +406,15 @@ public class Customer implements Serializable {
         this.createTime = createTime;
     }
 
-    
-    
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
     public User getManager() {
         return manager;
     }

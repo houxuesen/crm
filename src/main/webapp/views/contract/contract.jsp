@@ -234,7 +234,7 @@
 
             layer.open({
                 type: 2,
-                title: '编辑客户',
+                title: '修改合同',
                 area: ['750px', '92%'],
                 shadeClose: false,
                 closeBtn: 1,
@@ -257,7 +257,7 @@
         $('#add-contract-btn').click(function () {
             layer.open({
                 type: 2,
-                title: '新建客户',
+                title: '新增合同',
                 area: ['750px', '92%'],
                 shadeClose: false,
                 closeBtn: 1,

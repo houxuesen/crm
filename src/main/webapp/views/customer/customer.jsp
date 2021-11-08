@@ -112,9 +112,9 @@ layui.use(['table','form'], function(){
           }}
           ,{field:'status',title:'客户状态'}
           ,{field:'type',title:'客户类别'}
-          ,{field:'maturity',title:'客户成熟度'}
+          ,{field:'endDate',title:'到期时间'}
           ,{field:'level',title:'客户等级'}
-          ,{field:'description',title:'客户描述'}
+          ,{field:'description',title:'备注'}
         
       ]],
       done: function(){
