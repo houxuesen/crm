@@ -172,7 +172,13 @@ public class CustomerController {
     @Operation(name="添加客户")
     @RequestMapping("add")
     @ResponseBody
-    public Map<String, Object> addCustomer(Customer customer,Linkman linkman,String customerName,String linkmanName,String customerLevel,HttpServletRequest request){
+    public Map<String, Object> addCustomer(Customer customer,
+                                           Linkman linkman,
+                                           String customerName,
+                                           String linkmanName,
+                                           String email,
+                                           String customerLevel,
+                                           HttpServletRequest request){
         Map<String, Object> map = new HashMap<String,Object>(16);
         
         this.getUser(request);

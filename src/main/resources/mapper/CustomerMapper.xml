@@ -497,7 +497,7 @@
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       realm_Name =  #{record.realmName,jdbcType=VARCHAR},
         end_Date =  #{record.endDate,jdbcType=TIMESTAMP},
-    user_Num = #{record.userNum,jdbcType=VARCHAR},
+    user_Num = #{record.userNum,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>

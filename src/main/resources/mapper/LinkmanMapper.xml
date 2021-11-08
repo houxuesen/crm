@@ -13,6 +13,7 @@
     <result column="remark" jdbcType="VARCHAR" property="remark" />
     <result column="level" jdbcType="INTEGER" property="level" />
     <result column="customer_id" jdbcType="INTEGER" property="customerId" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -74,7 +75,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, `name`, `position`, office_phone, mobile_phone, birthday, sex, remark, `level`, 
-    customer_id
+    customer_id,email
   </sql>
   <select id="selectByExample" parameterType="com.neuedu.crm.pojo.LinkmanExample" resultMap="BaseResultMap">
     select
@@ -117,11 +118,12 @@
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.neuedu.crm.pojo.Linkman" useGeneratedKeys="true">
     insert into linkman (`name`, `position`, office_phone, 
       mobile_phone, birthday, sex, 
-      remark, `level`, customer_id
+      remark, `level`, customer_id,email
       )
     values (#{name,jdbcType=VARCHAR}, #{position,jdbcType=VARCHAR}, #{officePhone,jdbcType=VARCHAR}, 
       #{mobilePhone,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, #{sex,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER}
+      #{remark,jdbcType=VARCHAR}, #{level,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER},
+            #{email}
       )
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.neuedu.crm.pojo.Linkman" useGeneratedKeys="true">
@@ -154,6 +156,10 @@
       <if test="customerId != null">
         customer_id,
       </if>
+      <if test="email != null">
+        email,
+      </if>
+
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="name != null">
@@ -182,6 +188,9 @@
       </if>
       <if test="customerId != null">
         #{customerId,jdbcType=INTEGER},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -224,6 +233,9 @@
       <if test="record.customerId != null">
         customer_id = #{record.customerId,jdbcType=INTEGER},
       </if>
+      <if test="record.email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -240,7 +252,8 @@
       sex = #{record.sex,jdbcType=VARCHAR},
       remark = #{record.remark,jdbcType=VARCHAR},
       `level` = #{record.level,jdbcType=INTEGER},
-      customer_id = #{record.customerId,jdbcType=INTEGER}
+      customer_id = #{record.customerId,jdbcType=INTEGER},
+    email = #{email,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -275,6 +288,10 @@
       <if test="customerId != null">
         customer_id = #{customerId,jdbcType=INTEGER},
       </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -288,7 +305,8 @@
       sex = #{sex,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
       `level` = #{level,jdbcType=INTEGER},
-      customer_id = #{customerId,jdbcType=INTEGER}
+      customer_id = #{customerId,jdbcType=INTEGER},
+        email = #{email,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

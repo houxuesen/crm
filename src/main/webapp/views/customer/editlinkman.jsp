@@ -43,14 +43,22 @@
 	        <div class="layui-input-inline">
 	            <input type="text" name="mobilePhone"  class="layui-input"  />
 	        </div>
-        </div>		
+        </div>
 
 		<div class="layui-form-item">
+			<label class="layui-form-label">邮箱：</label>
+			<div class="layui-input-inline">
+				<input type="text" name="email"  class="layui-input"  />
+			</div>
+		</div>
+
+
+		<%--<div class="layui-form-item">
 	        <label class="layui-form-label">生日：</label>
 	        <div class="layui-input-inline">
 	            <input type="text" name="birthday" lay-verify="required"  id="birthday" class="layui-input"  />
 	        </div>
-        </div>
+        </div>--%>
 	
 		<div class="layui-form-item">
 	        <label class="layui-form-label">性别：</label>

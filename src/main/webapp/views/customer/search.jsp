@@ -60,7 +60,7 @@
 	    </div>  
 	    
 	    <div class="layui-form-item">
-			<label class="layui-form-label">客户名称：</label>
+			<label class="layui-form-label">备注：</label>
 			<div class="layui-input-inline">
 				<input type="text" name="description" class="layui-input">
 			</div>

@@ -1,5 +1,6 @@
 package com.neuedu.crm.service.impl;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,7 +98,6 @@ public class CustomerServiceImpl implements ICustomerService{
             
             linkman.setCustomerId(customer.getId());
             linkman.setLevel(0);
-            
             linkmanMapper.insertSelective(linkman);
             
             return true;

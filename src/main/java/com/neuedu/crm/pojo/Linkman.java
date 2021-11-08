@@ -77,6 +77,11 @@ public class Linkman implements Serializable {
      * 当前年份该联系人所对应的客户关怀记录ID
      */
     private Integer currentCustomerCareId;
+
+    /**
+     * 邮箱
+     */
+    private String email;
     
     private static final long serialVersionUID = 1L;
 
@@ -208,6 +213,14 @@ public class Linkman implements Serializable {
      */
     public void setCurrentCustomerCareId(Integer currentCustomerCareId) {
         this.currentCustomerCareId = currentCustomerCareId;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

@@ -299,12 +299,7 @@ layui.use(['element','table','flow'],function(){
 		          ,{field:'position',title:'职位'}
 		          ,{field:'officePhone',title:'固定电话'}
 		          ,{field:'mobilePhone',title:'移动电话'}
-		          ,{field:'birthday',title:'生日',templet:function(d){
-		        	  if(d.birthday != null){
-		        		  return '' + d.birthday[0] + '-' + d.birthday[1] + '-' + d.birthday[2];
-		        	  }
-		        	  return '';
-		          }}
+		          ,{field:'email',title:'邮箱'}
 		          ,{field:'sex',title:'性别'}
 		          ,{field:'level',title:'联系人级别',templet:function(d){
 		        	  //console.log(d);
