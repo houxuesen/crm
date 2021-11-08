@@ -114,6 +114,10 @@ public class CustomerController {
             if(customer.getName() != null) {
                 criteria.andNameLike("%" + customer.getName() + "%");
             }
+
+            if(customer.getDescription() != null){
+                criteria.andDescriptionLike("%" + customer.getDescription() + "%");
+            }
             
             if(customer.getType() != null && !"".equals(customer.getType())) {
                 criteria.andTypeEqualTo(customer.getType()); 

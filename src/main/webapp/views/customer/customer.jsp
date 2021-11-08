@@ -81,8 +81,8 @@
     <input type="text" name="type" />
     <input type="text" name="source" />
     <input type="text" name="level" />
-    <input type="text" name="credit" />
-    <input type="text" name="maturity" />
+    <input type="text" name="description" />
+
     <button type="button" data-type="reload" id="search-button">搜索</button>
 </div>
 
@@ -153,7 +153,7 @@ layui.use(['table','form'], function(){
               'source':$('input[name=source]').val(),
               'level':$('input[name=level]').val(),
               'credit':$('input[name=credit]').val(),
-              'maturity':$('input[name=maturity]').val()
+              'description':$('input[name=description]').val()
           }
         });
       });

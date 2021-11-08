@@ -60,21 +60,10 @@
 	    </div>  
 	    
 	    <div class="layui-form-item">
-	       <!-- 客户信用度-->  
-	       <label class="layui-form-label">客户信用度：</label>
-	       <div class="layui-input-inline">
-	            <select name="credit" lay-filter="credit">
-	                <option value="">--数据加载中--</option>
-	            </select>
-	        </div>
-	        
-	        <!-- 客户成熟度 --> 
-	        <label class="layui-form-label">客户成熟度：</label>
-	        <div class="layui-input-inline">
-	          <select name="maturity" lay-filter="maturity">
-	               <option value="">--数据加载中--</option>
-	          </select>
-	        </div>  
+			<label class="layui-form-label">客户名称：</label>
+			<div class="layui-input-inline">
+				<input type="text" name="description" class="layui-input">
+			</div>
 	    </div>  
 	    <div class="layui-form-item"  style="width: 450px;margin-top: 40px;">
             <div class="layui-input-block">
@@ -103,9 +92,8 @@ layui.use(['form'],function(){
 		parent$('input[name=type]').val(formdata.type);
 		parent$('input[name=source]').val(formdata.source);
 		parent$('input[name=level]').val(formdata.level);
-		parent$('input[name=credit]').val(formdata.credit);
-		parent$('input[name=maturity]').val(formdata.maturity);
-		
+		parent$('input[name=description]').val(formdata.description);
+
 		//执行查询功能
 		parent$('#search-button').click();
 		//关闭当前弹出层
