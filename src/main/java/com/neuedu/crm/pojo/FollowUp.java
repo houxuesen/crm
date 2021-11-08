@@ -1,5 +1,7 @@
 package com.neuedu.crm.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 

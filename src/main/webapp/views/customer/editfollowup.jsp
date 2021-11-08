@@ -29,7 +29,7 @@
 		<div class="layui-form-item">
 	        <label class="layui-form-label">时间：</label>
 	        <div class="layui-input-inline"  style="width: 320px;">
-	            <input type="text" name="time" id="time" lay-verify="required"  class="layui-input" />
+	            <input type="text" name="time" id="time" dateFormat="yyyy-MM-dd HH:mm:ss" lay-verify="required"  class="layui-input" />
 	        </div>
         </div>
 		<!--
@@ -111,6 +111,8 @@ layui.use(['form','upload','laydate'],function(){
 	var parm = getParm();
 	
 	var url = '${pageContext.request.contextPath}/followup/add';
+
+
 	var now = new Date();
 	
 	//加载日期选择器
@@ -130,7 +132,12 @@ layui.use(['form','upload','laydate'],function(){
 		if(parm.type == 'add' && parm.customerId != null){
 			formdata.customerId = parm.customerId;
 		}
-	
+
+		if(parm.type == 'update' && parm.customerId != null){
+			formdata.customerId = parm.customerId;
+		}
+
+
 		if(formdata.file != null && formdata.file != ''){
 			$('#upload-btn').click();
 			return false;
@@ -143,6 +150,7 @@ layui.use(['form','upload','laydate'],function(){
 	
 	//提交数据
 	function submitData(formdata){
+		console.info(formdata);
 		$.ajax({
 			type:"POST",
 			url:url,
@@ -222,10 +230,27 @@ layui.use(['form','upload','laydate'],function(){
 			 form.render('select');
 			 //console.log($('select[name=customerId]').val());
 		}		
-	}else{//如果是更新则从服务器读取最新的联系人数据
+	}else if(parm.type == 'update'){
+
+		url = '${pageContext.request.contextPath}/followup/updatePart';
+		$.post('${pageContext.request.contextPath}/followup/find',{'id':parm.id},function(data){
+			var formdata = data.data;
+			console.info(formdata);
+			formdata.time = getDate(formdata.time);
+			form.val('followup-form',formdata);
+			form.render();
+		});
+
+		$('select[name=customerId]').html('<option value="' + parm.customerId + '">--请选择客户--</option>')
+		form.render('select');
+
+
+
+	} else{//如果是更新则从服务器读取最新的联系人数据
 		url = '${pageContext.request.contextPath}/followup/update';
 		$.post('${pageContext.request.contextPath}/followup/find',{'id':parm.id},function(data){
 			var formdata = data.data;
+			console.info(formdata)
 			form.val('followup-form',formdata);
 			form.render();
 		});
@@ -240,6 +265,20 @@ layui.use(['form','upload','laydate'],function(){
 		}
 	}); 
 });
+
+function getDate(time){
+	if(time !=null ){
+		if(time.length == 6){
+			return  time[0]+'-'+time[1]+'-'+time[2]+' '+time[3]+":"+time[4]+":"+time[5];
+		}else if(time.length == 5){
+			return  time[0]+'-'+time[1]+'-'+time[2]+' '+time[3]+":"+time[4];
+		}else{
+			return  time[0]+'-'+time[1]+'-'+time[2];
+		}
+	}else{
+		return new Date();
+	}
+}
 </script>
 		
 </body>

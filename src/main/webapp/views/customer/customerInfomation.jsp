@@ -461,6 +461,7 @@ layui.use(['element','table','flow'],function(){
 	         str += '<h3 class="layui-timeline-title"  id="followup-' + item.id + '"> <span style="font-size: 16px;">' + item.manager.account + '</span> ';
 	         str += title + '</h3></a><p style="width:100%;word-break:break-all;word-wrap:break-word;">';
 	         str += '' + item.content + '</p></div></li>';
+	         str += '<button type="button" class="layui-btn" style="margin-left: 180px;" id="updateFollow-'+item.id+'">编辑</button>';
 	    	 lis.push(str);
 	       }); 
 	       
@@ -491,22 +492,39 @@ layui.use(['element','table','flow'],function(){
      
 	//展示跟踪记录详细信息
 	//动态加载出来的元素需要使用on来绑定
-	$(document).on("click","h3[id^=followup]",function(){
-        //layer.msg('click');
-        //console.log(this);
+	$(document).on("click","[id^=updateFollow-]",function(){
+
         var id = this.id.split("-")[1];
-        layer.open({
-            type:2,
-            title:'详情',
-            area:['400px','60%'],
-            closeBtn:1,
-            shadeClose: true,
-            content:'${pageContext.request.contextPath}/views/customer/followupInfo.jsp?id=' + id,
-            end:function(){
-                 //location.reload();
-            }       
-        });
+		layer.open({
+			type:2,
+			title:'新建跟踪',
+			area:['700px','680px'],
+			closeBtn:1,
+			shadeClose:false,
+			content:'${pageContext.request.contextPath}/views/customer/editfollowup.jsp?type=update&customerId=' + parm.id +"&id="+id,
+			end:function(){
+				location.reload();
+			}
+		});
     });
+
+
+	$(document).on("click","h3[id^=followup]",function(){
+		//layer.msg('click');
+		//console.log(this);
+		var id = this.id.split("-")[1];
+		layer.open({
+			type:2,
+			title:'详情',
+			area:['400px','60%'],
+			closeBtn:1,
+			shadeClose: true,
+			content:'${pageContext.request.contextPath}/views/customer/followupInfo.jsp?id=' + id,
+			end:function(){
+				//location.reload();
+			}
+		});
+	});
 
 	
 	//使用流加载转移记录

@@ -208,8 +208,45 @@ public class FollowUpController {
         }
 
         return map;
-    }    
-    
+    }
+
+
+
+    @Operation(name="更新跟踪记录")
+    @RequestMapping("updatePart")
+    @ResponseBody
+    public Map<String, Object> updatePart(FollowUp followUp){
+        Map<String, Object> map = new HashMap<String,Object>(16);
+
+        if(followUp == null) {
+            map.put("code", -1);
+            map.put("msg", "非法查询");
+            return map;
+        }
+
+        //检测客户id
+        if(followUp.getCustomerId() == null) {
+            map.put("code", -2);
+            map.put("msg", "客户ID不存在");
+            return map;
+        }
+
+        if(followupService.updateFollowUpByPrimaryKeySelective(followUp)) {
+            map.put("status", true);
+            map.put("msg", "操作成功");
+        }else {
+            map.put("code", -1000);
+            map.put("status", false);
+            map.put("msg", "操作失败");
+        }
+
+        return map;
+    }
+
+
+
+
+
     /**
      * 描述：删除跟踪记录
      * @author HuangWanzong
