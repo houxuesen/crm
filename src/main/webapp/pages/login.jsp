@@ -102,7 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!-- 头部区域 -->
     <div class="layui-header cr-header">
         <div class="main">
-            <a href="#" class="logo">东软CRM</a>
+            <a href="#" class="logo">悦见CRM</a>
             <div class="nav-user">     
                 <span><a href="#">登录</a></span>
             </div>
@@ -161,7 +161,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
     </div>
     <div class="cr-footer"> 
-    © 东软CRM － 以极简方式管理客户和业务过程
+    © 悦见CRM － 以极简方式管理客户和业务过程
     </div>
 </div>
   
