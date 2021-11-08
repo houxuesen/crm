@@ -34,6 +34,9 @@
     <!--新增两个字段-->
     <result column="realm_name" jdbcType="VARCHAR" property="realmName" />
     <result column="end_Date" jdbcType="TIMESTAMP" property="endDate" />
+    <result column="user_Num" jdbcType="VARCHAR" property="userNum" />
+
+
 
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -98,7 +101,7 @@
     id, `name`, `type`, `level`, `status`, credit, area, company_address, company_phone, 
     post_code, fax_address, company_website, license_number, corporation, annual_sale, 
     deposit_bank, bank_account, land_tax_number, national_tax_number, `source`, description, 
-    maturity, document, delete_status, manager_id, product_id, creater, create_time,realm_name,end_Date
+    maturity, document, delete_status, manager_id, product_id, creater, create_time,realm_name,end_Date,user_Num
   </sql>
   <select id="selectByExample" parameterType="com.neuedu.crm.pojo.CustomerExample" resultMap="BaseResultMap">
     select
@@ -147,7 +150,7 @@
       bank_account, land_tax_number, national_tax_number, 
       `source`, description, maturity, 
       document, delete_status, manager_id, 
-      product_id, creater, create_time,realm_name,end_Date
+      product_id, creater, create_time,realm_name,end_Date,user_Num
       )
     values (#{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, 
       #{status,jdbcType=VARCHAR}, #{credit,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
@@ -158,7 +161,7 @@
       #{source,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{maturity,jdbcType=VARCHAR}, 
       #{document,jdbcType=VARCHAR}, #{deleteStatus,jdbcType=INTEGER}, #{managerId,jdbcType=INTEGER}, 
       #{productId,jdbcType=INTEGER}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{realmName,jdbcType=VARCHAR},
-      #{endDate,jdbcType=TIMESTAMP}
+      #{endDate,jdbcType=TIMESTAMP},#{userNum,jdbcType=VARCHAR}
 
       )
   </insert>
@@ -253,6 +256,11 @@
       <if test="endDate != null">
         end_Date,
       </if>
+
+      <if test="userNum != null">
+        user_Num,
+      </if>
+
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="name != null">
@@ -445,7 +453,9 @@
       <if test="record.endDate != null">
         end_Date =  #{record.endDate,jdbcType=TIMESTAMP},
       </if>
-
+      <if test="record.userNum != null">
+        user_Num =  #{record.userNum,jdbcType=TIMESTAMP},
+      </if>
 
     </set>
     <if test="_parameter != null">
@@ -483,7 +493,8 @@
       creater = #{record.creater,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       realm_Name =  #{record.realmName,jdbcType=VARCHAR},
-        end_Date =  #{record.endDate,jdbcType=TIMESTAMP}
+        end_Date =  #{record.endDate,jdbcType=TIMESTAMP},
+    user_Num = #{record.userNum,jdbcType=VARCHAR},
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -579,6 +590,10 @@
       <if test="endDate != null">
         end_Date =  #{endDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="userNum != null">
+        user_Num =  #{userNum,jdbcType=VARCHAR},
+      </if>
+
 
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -613,7 +628,8 @@
       creater = #{creater,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       realm_Name =  #{realmName,jdbcType=VARCHAR},
-      end_Date = #{endDate,jdbcType=TIMESTAMP}
+      end_Date = #{endDate,jdbcType=TIMESTAMP},
+        user_Num =  #{userNum,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -133,8 +133,14 @@
 		</div>
 
 
+
+        <label class="layui-form-label">用户数：</label>
+        <div class="layui-input-inline">
+            <input type="text" name="userNum" class="layui-input"  id="userNum" />
+        </div>
+
 		<!-- 客户成熟度 -->
-        <label class="layui-form-label">客户成熟度：</label>
+    <%--    <label class="layui-form-label">客户成熟度：</label>
         <div class="layui-input-inline">
           <select name="maturity">
             <option value="">--数据加载中--</option>
@@ -144,7 +150,7 @@
             <a href="#" name="客户成熟度" id="field-maturity"  style="color: blue;">
                 <i class="layui-icon  layui-icon-add-1"></i>编辑
             </a>
-        </div>
+        </div>--%>
     </div>
 <%--
 
@@ -451,6 +457,7 @@ layui.use(['form','upload','laydate'],function(){
                if(data.success){//成功
                 var customer = data.data;
                	name = customer.name;
+               	customer.endDate =getDate(customer.endDate);
                	form.val('customer-form',customer);
                	form.render();
                	if(customer.product != null){
@@ -507,6 +514,20 @@ layui.use(['form','upload','laydate'],function(){
 	    }
 	
 });
+
+function getDate(time){
+    if(time !=null ){
+        if(time.length == 6){
+            return  time[0]+'-'+time[1]+'-'+time[2]+' '+time[3]+":"+time[4]+":"+time[5];
+        }else if(time.length == 5){
+            return  time[0]+'-'+time[1]+'-'+time[2]+' '+time[3]+":"+time[4];
+        }else{
+            return  time[0]+'-'+time[1]+'-'+time[2];
+        }
+    }else{
+        return '';
+    }
+}
 </script>
 		
 </body>

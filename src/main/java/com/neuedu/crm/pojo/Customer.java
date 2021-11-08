@@ -162,6 +162,11 @@ public class Customer implements Serializable {
      */
     private LocalDate endDate;
 
+    /**
+     * 用户数
+     */
+    private  String userNum;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -437,6 +442,14 @@ public class Customer implements Serializable {
 
     public void setCreaterObject(User createrObject) {
         this.createrObject = createrObject;
+    }
+
+    public String getUserNum() {
+        return userNum;
+    }
+
+    public void setUserNum(String userNum) {
+        this.userNum = userNum;
     }
 
     @Override

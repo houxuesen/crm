@@ -276,7 +276,7 @@ function getDate(time){
 			return  time[0]+'-'+time[1]+'-'+time[2];
 		}
 	}else{
-		return new Date();
+		return '';
 	}
 }
 </script>
