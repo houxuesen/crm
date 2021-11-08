@@ -350,6 +350,9 @@
       <if test="endDate != null">
         #{endDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="userNum != null">
+        #{userNum,jdbcType=VARCHAR},
+      </if>
 
     </trim>
   </insert>
@@ -454,7 +457,7 @@
         end_Date =  #{record.endDate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.userNum != null">
-        user_Num =  #{record.userNum,jdbcType=TIMESTAMP},
+        user_Num =  #{record.userNum,jdbcType=VARCHAR},
       </if>
 
     </set>
