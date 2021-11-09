@@ -41,9 +41,11 @@ layui.use(['table','flow'],function(){
 	    	 var str = '<li class="layui-timeline-item"><i class="layui-icon layui-timeline-axis">&#xe63f;</i>';
 	         str += '<div class="layui-timeline-content layui-text" >';
 	         str += '<h3 class="layui-timeline-title"> <a id="manager-' + item.manager.id + '" style="font-size: 16px;">' + item.manager.account + '</a> ';
-	         str += '<a href="javascript:" style="font-size: 18px;color:black;" id="followup-' + item.id + '">' + title + '</a></h3><p>';
+	         str += '<a href="javascript:" style="font-size: 18px;color:black;" id="followup-' + item.id + '">' + title + '</a></h3><p  style="width:100%;word-break:break-all;word-wrap:break-word;">';
 	         str += '跟踪对象：<a href="javascript:" style="color:black;" id="customerInfo-' + item.customer.id + '">' + item.customer.name + '</a><br/>';
-	         str += '概要信息：' + item.general + '</p></div></li>';
+	         str += '详细信息：' + item.content + '</p></div></li>';
+
+
 	    	 lis.push(str);
 	       }); 
 	       

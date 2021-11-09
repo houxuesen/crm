@@ -94,38 +94,7 @@
                       <td colspan="1">客户介绍：</td>
                       <td colspan="3" id="description"></td>
                     </tr>
-                    <tr>
-                      <td>传真地址：</td>
-                      <td id="faxAddress"></td>
-                      <td>公司网站：</td>
-                      <td id="companyWebsite"></td>
-                    </tr>
-                    <tr>
-                      <td>公司法人：</td>
-                      <td id="corporation"></td>
-                      <td>开户银行：</td>
-                      <td id="depositBank"></td>
-                    </tr>
-                    <tr>
-                      <td colspan="1">银行账户：</td>
-                      <td colspan="3" id="bankAccount"></td>
-                    </tr>
-                    <tr>
-                      <td colspan="1">年营业额：</td>
-                      <td colspan="3" id="annualSale"></td>
-                    </tr>
-                    <tr>
-                      <td colspan="1">营业执照注册号：</td>
-                      <td colspan="3" id="licenseNumber"></td>
-                    </tr>
-                    <tr>
-                      <td colspan="1">地税登记号：</td>
-                      <td colspan="3" id="landTaxNumber"></td>
-                    </tr>
-                    <tr>
-                      <td colspan="1">国税登记号：</td>
-                      <td colspan="3" id="nationalTaxNumber"></td>
-                    </tr>
+                    
                 </tbody>
             </table>
             <!--endprint-->

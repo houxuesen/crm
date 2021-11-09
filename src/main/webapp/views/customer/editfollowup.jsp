@@ -8,6 +8,9 @@
 	<link rel="stylesheet" href="../../layui/css/layui.css">
 	<script src="../../js/myutil.js"></script>
 	<script src="../../layui/layui.js"></script>
+	<link href="../../css/base/jquery-ui-1.9.2.custom.css" rel="stylesheet">
+	<script src="../../js/jquery-1.8.3.js"></script>
+	<script src="../../js/jquery-ui-1.9.2.custom.js"></script>
 </head>
 <body >
 <div style="width: 96%;margin-left: 2%;">
@@ -19,11 +22,18 @@
 		
         <div class="layui-form-item" id="customer" style="display: none">
             <label class="layui-form-label">客户：</label>
-            <div class="layui-input-inline" style="width: 320px;">
+            <%--<div class="layui-input-inline" style="width: 320px;">
                 <select class="layui-input" name="customerId" lay-verify="customerSelect" >
                     <option value="-1" >--数据加载中--</option>
                 </select>
-            </div>
+            </div>--%>
+
+			<div class="layui-input-inline">
+				<input type="hidden" name="customerId" id="customerId" >
+				<div class="layui-input-inline">
+					<input type="text" name="customerName" lay-verify="required"  id="customerName" class="layui-input"  />
+				</div>
+			</div>
         </div>		
 		
 		<div class="layui-form-item">
@@ -32,29 +42,7 @@
 	            <input type="text" name="time" id="time" dateFormat="yyyy-MM-dd HH:mm:ss" lay-verify="required"  class="layui-input" />
 	        </div>
         </div>
-		<!--
-		<div class="layui-form-item">
-	        <label class="layui-form-label">地点：</label>
-	        <div class="layui-input-inline"  style="width: 320px;">
-	            <input type="text" name="address"  lay-verify="required" class="layui-input"  />
-	        </div>
-        </div>	
-		
-        <div class="layui-form-item">
-            <label class="layui-form-label">结果：</label>
-            <div class="layui-input-inline"  style="width: 320px;">
-                <input type="text" name="result" lay-verify="required"   class="layui-input"  />
-            </div>
-        </div>	   
-	
-		
-		<div class="layui-form-item">
-	        <label class="layui-form-label">概要：</label>
-	        <div class="layui-input-inline">
-	            <textarea class="layer-input" name="general" lay-verify="required" style="height: 100px;width: 320px"></textarea>
-	        </div>
-        </div>	
-	-->
+
 		<div class="layui-form-item">
 	        <label class="layui-form-label">详细信息：</label>
 	        <div class="layui-input-inline">
@@ -68,13 +56,7 @@
 	          	<textarea class="layer-input" name="remark" style="height: 100px;width: 520px"></textarea>
 	        </div>  
         </div>		
-	
-<!--         <div class="layui-form-item">
-            <label class="layui-form-label">相关文档：</label>
-            <div class="layui-input-inline"  style="width: 320px;">
-               <input type="text" name="document"  class="layui-input"  />
-            </div>  
-        </div>  --> 	   
+
 	
 	    <!-- 相关文件 -->
 	    <div class="layui-form-item">
@@ -147,6 +129,41 @@ layui.use(['form','upload','laydate'],function(){
 		return false;
 		
 	});
+
+	$('#customerName').autocomplete({
+		source: function (request, response) {
+			$.ajax({
+				url: '${pageContext.request.contextPath}/customer/findByName',//ajax取值
+				type: "post",
+				data: {'name': $("#customerName").val()},
+				success: function (result) {
+					var data = result.data;
+					response($.map(data, function (item) {
+						return {code: item.id, name: item.name, label: item.name};
+					}));
+				}
+			});
+		},
+		change: function (event, ui) {
+			if (ui.item == null) {
+				$("#customerId").val("");
+				$("#customerName").val("");
+			}
+			return false;
+		},
+		select: function (event, ui) {
+			$("#customerId").val(ui.item.code);
+			$("#customerName").val(ui.item.name);
+			return false;
+		},
+		autoFill: false,
+		scroll: true,
+		pagingMore: true,
+		scrollHeight: 50,
+		delay: 500,
+		minLength: 1
+	});
+
 	
 	//提交数据
 	function submitData(formdata){
@@ -213,23 +230,7 @@ layui.use(['form','upload','laydate'],function(){
 		if(parm.customerId == null || parm.customerId == ''){
 			//显示客户选择框
 			$('#customer').show();
-			//加载客户列表
-			$.post('${pageContext.request.contextPath}/customer/list',{'findtype':'all'},function(data){
-	            var customers = data.data;
-	            var str = '<option value="">--请选择客户--</option>'
-	            for(var i=0;i<customers.length;i++){
-	            	str += '<option value="' + customers[i].id + '">' + customers[i].name + '</option>';
-	            }
-	            $('select[name=customerId]').html(str);
-	            form.render('select');
-	        });
-			
-		}else{
-
-			 $('select[name=customerId]').html('<option value="' + parm.customerId + '">--请选择客户--</option>')
-			 form.render('select');
-			 //console.log($('select[name=customerId]').val());
-		}		
+		}
 	}else if(parm.type == 'update'){
 
 		url = '${pageContext.request.contextPath}/followup/updatePart';
@@ -240,10 +241,6 @@ layui.use(['form','upload','laydate'],function(){
 			form.val('followup-form',formdata);
 			form.render();
 		});
-
-		$('select[name=customerId]').html('<option value="' + parm.customerId + '">--请选择客户--</option>')
-		form.render('select');
-
 
 
 	} else{//如果是更新则从服务器读取最新的联系人数据
