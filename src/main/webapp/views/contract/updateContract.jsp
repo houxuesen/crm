@@ -161,9 +161,12 @@
 
             //获取客户成熟度字典并加载下拉框
             getSelectData('客户成熟度', 'maturity');
+            getSelectData('合同类型', 'contractType');
+            getSelectData('支付方式', 'payType');
 
-            $.ajaxSettings.async = false;
+
             function getSelectData(dictionaryName, selectName) {
+                $.ajaxSettings.async = false;
                 $.post('${pageContext.request.contextPath}/dictionary/find', {'name': dictionaryName}, function (data) {
                     var d = data.data.dictionaryItems;
                     var str = '<option value="">请选择</option>';
@@ -173,8 +176,9 @@
                     $('select[name=' + selectName + ']').html(str);
                     form.render('select');
                 });
+                $.ajaxSettings.async = true;
             }
-
+            $.ajaxSettings.async = false;
             //加载客户列表
             $.post('${pageContext.request.contextPath}/customer/list',
                 {'findtype':'all'},
@@ -188,7 +192,7 @@
                 form.render('select');
             });
 
-            //加载客户列表
+            //请选择用户
             $.post('${pageContext.request.contextPath}/user/allUser',function(data){
                 var users = data.data;
                 var str = '<option value="">--请选择用户--</option>'
@@ -199,7 +203,7 @@
                 form.render('select');
             });
 
-            //加载客户列表
+            //请选择用户
             $.post('${pageContext.request.contextPath}/user/allUser',function(data){
                 var users = data.data;
                 var str = '<option value="">--请选择用户--</option>'
@@ -322,6 +326,19 @@
             }
 
         });
+
+        function zhzs(value) {
+            if(value == ''){
+                return value;
+            }
+            if (!isNaN(value)){
+                value = parseFloat(value).toFixed(2);
+            }
+            else{
+                value = parseFloat(0).toFixed(2);
+            }
+            return value;
+        }
     </script>
 </div>
 </body>

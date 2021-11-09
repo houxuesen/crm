@@ -52,13 +52,13 @@
                   <tr>
                       <td>合同编号：</td>
                       <td id="contractNo"></td>
-                      <td></td>
-                      <td></td>
+                      <td>客户：</td>
+                      <td id="customerName"></td>
                   </tr>
 
                   <tr>
-                      <td>客户：</td>
-                      <td id="customerName"></td>
+                      <td>合同类型：</td>
+                      <td id="contractType"></td>
                       <td>签约人</td>
                       <td id="signUserName"></td>
                   </tr>
@@ -73,19 +73,16 @@
                   <tr>
                       <td>过期时间：</td>
                       <td id="endDate"></td>
-                      <td>总额</td>
-                      <td id="totalAmount"></td>
+                      <td>域名/网站：</td>
+                      <td id="cont_realmName"></td>
                   </tr>
-
 
                   <tr>
-                      <td>其他：</td>
-                      <td id="otherAmount"></td>
-                      <td>优惠金额</td>
-                      <td id="discountAmount"></td>
+                      <td>用户数：</td>
+                      <td id="userNum"></td>
+                      <td>购买年限</td>
+                      <td id="limitYears"></td>
                   </tr>
-
-
 
                   <tr>
                       <td>合同金额：</td>
@@ -93,23 +90,30 @@
                       <td>合同成本</td>
                       <td id="baseAmount"></td>
                   </tr>
-
-
                   <tr>
-                      <td>合同类型：</td>
-                      <td id="contractType"></td>
+                      <td>毛利额：</td>
+                      <td id="otherAmount"></td>
+                      <%--<td>总额</td>
+                      <td id="totalAmount"></td>--%>
                       <td>支付方式</td>
                       <td id="payType"></td>
                   </tr>
 
+
+                <%--  <tr>
+                      <td>其他：</td>
+                      <td id="otherAmount"></td>
+                      <td>优惠金额</td>
+                      <td id="discountAmount"></td>
+                  </tr>--%>
+                  <shiro:hasPermission name="80006">
                   <tr>
-                      <td>用户数：</td>
-                      <td id="userNum"></td>
-                      <td>使用年限</td>
-                      <td id="limitYears"></td>
+                      <td>核定毛利额：</td>
+                      <td id="cont_li_run"></td>
+                      <td></td>
+                      <td ></td>
                   </tr>
-
-
+                  </shiro:hasPermission>
                   <tr>
                       <td colspan="1">合同相关资料：</td>
                       <td colspan="3" id="contDocument"></td>
@@ -334,7 +338,8 @@ layui.use(['element','table','flow'],function(){
                     $('#userNum').text(contract.userNum);
                     $('#limitYears').text(contract.limitYears);
 
-
+                    $('#cont_li_run').text(contract.contractAmount - contract.baseAmount - contract.discountAmount);
+                    $('#cont_realmName').text(contract.customer.realmName);
 
                     //添加文件下载按钮
                     if(contract.document != null && contract.document != ''){

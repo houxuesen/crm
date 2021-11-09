@@ -128,6 +128,8 @@ public class Contract implements Serializable {
     private Date updateDate;
     private String creater;
 
+    private Customer customer;
+
     public Integer getId() {
         return id;
     }
@@ -350,5 +352,13 @@ public class Contract implements Serializable {
 
     public void setConState(String conState) {
         this.conState = conState;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

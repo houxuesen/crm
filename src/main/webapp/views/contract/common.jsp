@@ -6,7 +6,7 @@
     <!-- 客户名称 -->
     <label class="layui-form-label">合同编号<strong style="color: red">*</strong>：</label>
     <div class="layui-input-inline">
-        <input type="text" name="contractNo" lay-verify="required" class="layui-input">
+        <input type="text" name="contractNo" lay-verify="required"  placeholder="姓名全拼年月日编号（01,02,03）" class="layui-input"  />
     </div>
     <div class="layui-form-mid layui-word-aux" id="contractNo-msg"></div>
 </div>
@@ -20,10 +20,19 @@
             <input type="text" name="customerName" lay-verify="required"  id="customerName" class="layui-input"  />
         </div>
     </div>
+</div>
 
+<div class="layui-form-item">
+    <label class="layui-form-label">合同类型：</label>
+    <div class="layui-input-inline">
+        <%--<input type="text" name="contractType" lay-verify="required"  id="contractType" class="layui-input"  />--%>
+        <select name="contractType" lay-verify="required">
+            <option value="">--数据加载中--</option>
+        </select>
+    </div>
     <label class="layui-form-label">签约人：</label>
     <div class="layui-input-inline">
-        <select name="signUserId">
+        <select name="signUserId" lay-verify="required">
             <option value="">--数据加载中--</option>
         </select>
     </div>
@@ -32,7 +41,7 @@
 <div class="layui-form-item">
     <label class="layui-form-label">负责人：</label>
     <div class="layui-input-inline">
-        <select name="manageId">
+        <select name="manageId" lay-verify="required">
             <option value="">--数据加载中--</option>
         </select>
     </div>
@@ -67,18 +76,6 @@
     </div>
 </div>
 
-<div class="layui-form-item">
-    <label class="layui-form-label">其他：</label>
-    <div class="layui-input-inline">
-        <input type="text" name="otherAmount" lay-verify="required" onblur="value=zhzs(this.value)" id="otherAmount" class="layui-input"  />
-    </div>
-    <label class="layui-form-label">优惠金额：</label>
-    <div class="layui-input-inline">
-        <input type="text" name="discountAmount" lay-verify="required"  onblur="value=zhzs(this.value)" id="discountAmount" class="layui-input"  />
-    </div>
-
-</div>
-
 
 <div class="layui-form-item">
     <label class="layui-form-label">合同金额：</label>
@@ -91,15 +88,26 @@
     </div>
 </div>
 
+<div class="layui-form-item">
+    <label class="layui-form-label">商务返点：</label>
+    <div class="layui-input-inline">
+        <input type="text" name="discountAmount" lay-verify="required"  onblur="value=zhzs(this.value)" id="discountAmount" class="layui-input"  />
+    </div>
+    <label class="layui-form-label">毛利额：</label>
+    <div class="layui-input-inline">
+        <input type="text" name="otherAmount" lay-verify="required" onblur="value=zhzs(this.value)" id="otherAmount" class="layui-input"  />
+    </div>
+</div>
+
 
 <div class="layui-form-item">
-    <label class="layui-form-label">合同类型：</label>
-    <div class="layui-input-inline">
-        <input type="text" name="contractType" lay-verify="required"  id="contractType" class="layui-input"  />
-    </div>
+
     <label class="layui-form-label">支付方式：</label>
     <div class="layui-input-inline">
-        <input type="text" name="payType" lay-verify="totalAmount"  id="payType" class="layui-input"  />
+       <%-- <input type="text" name="payType" lay-verify="required"  id="payType" class="layui-input"  />--%>
+           <select name="payType" lay-verify="required">
+               <option value="">--数据加载中--</option>
+           </select>
     </div>
 </div>
 
@@ -109,7 +117,7 @@
 <!-- 相关文件 -->
 <div class="layui-form-item">
     <input type="hidden" name="document" value=""/>
-    <label class="layui-form-label">相关文件：</label>
+    <label class="layui-form-label">合同上传<strong style="color: red">*</strong>：</label>
     <div class="layui-input-block">
         <div class="layui-inline layui-upload ">
             <button type="button" class="layui-btn layui-btn-normal" id="fileupload">选择文件</button>

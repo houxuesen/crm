@@ -89,6 +89,11 @@
                     return false;
                 }
 
+                if(data.field.file == null ||  data.field.file == ''){
+                    layer.msg('请上传合同文件');
+                    return false;
+                }
+
                 //判断是否选择了文件
                 if (data.field.file != null && data.field.file != '') {
                     //文件存在，提交文件
@@ -122,6 +127,8 @@
 
             //获取客户成熟度字典并加载下拉框
             getSelectData('客户成熟度', 'maturity');
+            getSelectData('合同类型', 'contractType');
+            getSelectData('支付方式', 'payType');
 
             function getSelectData(dictionaryName, selectName) {
                 $.post('${pageContext.request.contextPath}/dictionary/find', {'name': dictionaryName}, function (data) {
@@ -299,8 +306,10 @@
         });
 
         function zhzs(value) {
-            value = value.replace(/[^\d]/g, '').replace(/^0{1,}/g, '');
-            if (value != ''){
+            if(value == ''){
+                return value;
+            }
+            if (!isNaN(value)){
                 value = parseFloat(value).toFixed(2);
             }
             else{

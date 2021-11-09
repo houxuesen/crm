@@ -1,6 +1,7 @@
 package com.neuedu.crm.service.impl;
 
 import com.neuedu.crm.mapper.ContractMapper;
+import com.neuedu.crm.mapper.CustomerMapper;
 import com.neuedu.crm.mapper.UserMapper;
 import com.neuedu.crm.pojo.Contract;
 import com.neuedu.crm.pojo.ContractExample;
@@ -25,6 +26,8 @@ public class ContractServiceImpl implements IContractService {
     @Autowired
     private ContractMapper contractMapper;
 
+    @Autowired
+    private CustomerMapper customerMapper;
 
     @Autowired
     private UserMapper userMapper;
@@ -74,7 +77,11 @@ public class ContractServiceImpl implements IContractService {
 
     @Override
     public Contract selectContractByPrimaryKey(Integer id) {
-        return contractMapper.selectByPrimaryKey(id);
+        Contract contract =  contractMapper.selectByPrimaryKey(id);
+        if(contract != null && contract.getCustomerId() != null ){
+            contract.setCustomer(customerMapper.selectByPrimaryKey(contract.getCustomerId()));
+        }
+        return contract;
     }
 
     @Override
