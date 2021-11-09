@@ -64,13 +64,13 @@
 
 		<div class="layui-inline">
 			<button type="button" id="upload-button" class="layui-btn layui-btn-danger">
-				<i class="layui-icon  layui-icon-delete"></i>上传
+				<i class="layui-icon  layui-icon-home"></i>上传
 			</button>
 		</div>
 
 		<div class="layui-inline">
             <button type="button" id="export-button" class="layui-btn layui-btn-danger">
-                    <i class="layui-icon  layui-icon-delete"></i>导出
+                    <i class="layui-icon  layui-icon-help"></i>导出
             </button>
         </div>		
 	</blockquote>
