@@ -97,6 +97,7 @@
             , url: 'contract/list' //数据接口
             , method: 'post'
             , height: 'full-200'
+            , limit: 20
             , page: {layout: ['limit', 'count', 'prev', 'page', 'next', 'skip', 'refresh'], groups: 1}
             , cols: [[ //表头
                 {type: 'checkbox'}
@@ -108,14 +109,14 @@
                 , {field: 'signUserName', title: '签约人'}
                 , {field: 'signDate', title: '签约时间'}
                 , {field: 'manageName', title: '负责人'}
+                , {field: 'userNum', title: '用户数'}
+                , {field: 'limitYears', title: '购买年限'}
                 , {field: 'contractAmount', title: '合同金额'}
                 , {field: 'baseAmount', title: '合同成本'}
                 , {field: 'totalAmount', title: '总额'}
                 , {field: 'otherAmount', title: '毛利额'}
                 , {field: 'discountAmount', title: '商务返点'}
                 , {field: 'payType', title: '支付方式'}
-                , {field: 'userNum', title: '用户数'}
-                , {field: 'limitYears', title: '购买年限'}
                 , {field: 'conState', title: '合同状态'}
             ]],
             done: function () {

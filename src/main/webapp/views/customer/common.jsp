@@ -23,7 +23,20 @@
     </div>
 
 </div>
+<div class="layui-form-item">
 
+    <label class="layui-form-label">用户数：</label>
+    <div class="layui-input-inline">
+        <input type="text" name="userNum" class="layui-input"  id="userNum" />
+    </div>
+
+    <%--到期时间--%>
+    <label class="layui-form-label">到期时间：</label>
+    <div class="layui-input-inline">
+        <input type="text" name="endDate" class="layui-input"  id="endDate" />
+    </div>
+
+</div>
 <div class="layui-form-item">
     <!-- 公司电话 -->
     <label class="layui-form-label">公司电话：</label>
@@ -31,15 +44,15 @@
         <input type="text" name="companyPhone"  class="layui-input">
     </div>
 
-    <!-- 客户状态 -->
-    <label class="layui-form-label">客户状态：</label>
-    <div class="layui-input-inline">
-        <select name="status">
+    <!-- 现服务商-->
+    <label class="layui-form-label">现服务商：</label>
+    <div class="layui-input-inline" style="width: 135px;">
+        <select name="source">
             <option value="">--数据加载中--</option>
         </select>
     </div>
     <div class="layui-form-mid layui-word-aux">
-        <a href="#" name="客户状态" id="field-status"  style="color: blue;">
+        <a href="#" name="客户来源" id="field-source"  style="color: blue;">
             <i class="layui-icon  layui-icon-add-1"></i>编辑
         </a>
     </div>
@@ -56,10 +69,23 @@
         </a>
     </div>
     -->
+    <!-- 客户状态 -->
+    <label class="layui-form-label">客户状态：</label>
+    <div class="layui-input-inline" style="width: 135px;">
+        <select name="status" >
+            <option value="">--数据加载中--</option>
+        </select>
+    </div>
+    <div class="layui-form-mid layui-word-aux">
+        <a href="#" name="客户状态" id="field-status"   style="color: blue;">
+            <i class="layui-icon  layui-icon-add-1"></i>编辑
+        </a>
+    </div>
+
     <!-- 客户类别 -->
     <label class="layui-form-label">客户类别：</label>
-    <div class="layui-input-inline">
-        <select name="type">
+    <div class="layui-input-inline" style="width: 135px;">
+        <select name="type" >
             <option value="">--数据加载中--</option>
         </select>
     </div>
@@ -71,18 +97,7 @@
 </div>
 
 <div class="layui-form-item">
-    <!-- 现服务商-->
-    <label class="layui-form-label">现服务商：</label>
-    <div class="layui-input-inline" style="width: 135px;">
-        <select name="source">
-            <option value="">--数据加载中--</option>
-        </select>
-    </div>
-    <div class="layui-form-mid layui-word-aux">
-        <a href="#" name="客户来源" id="field-source"  style="color: blue;">
-            <i class="layui-icon  layui-icon-add-1"></i>编辑
-        </a>
-    </div>
+
     <!-- 客户等级 -->
     <label class="layui-form-label">客户等级：</label>
     <div class="layui-input-inline">
@@ -97,44 +112,7 @@
     </div>
 </div>
 
-<div class="layui-form-item">
-    <!-- 客户信用度-->
-  <%--  <label class="layui-form-label">客户信用度：</label>
-    <div class="layui-input-inline" style="width: 135px;">
-        <select name="credit">
-            <option value="">--数据加载中--</option>
-        </select>
-    </div>
-    <div class="layui-form-mid layui-word-aux">
-        <a href="#" name="客户信用度" id="field-credit"  style="color: blue;">
-            <i class="layui-icon  layui-icon-add-1"></i>编辑
-        </a>
-    </div>--%>
-    <%--到期时间--%>
-    <label class="layui-form-label">到期时间：</label>
-    <div class="layui-input-inline">
-        <input type="text" name="endDate" class="layui-input"  id="endDate" />
-    </div>
 
-
-    <label class="layui-form-label">用户数：</label>
-    <div class="layui-input-inline">
-        <input type="text" name="userNum" class="layui-input"  id="userNum" />
-    </div>
-
-    <!-- 客户成熟度 -->
-    <%--<label class="layui-form-label">客户成熟度：</label>
-    <div class="layui-input-inline">
-        <select name="maturity">
-            <option value="">--数据加载中--</option>
-        </select>
-    </div>
-    <div class="layui-form-mid layui-word-aux">
-        <a href="#" name="客户成熟度" id="field-maturity"  style="color: blue;">
-            <i class="layui-icon  layui-icon-add-1"></i>编辑
-        </a>
-    </div>--%>
-</div>
 
 
 

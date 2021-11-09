@@ -42,44 +42,51 @@
             <div class="layui-input-inline">
                 <input type="text" name="birthday" lay-verify="required"  id="birthday" class="layui-input"  />
             </div>--%>
-            <label class="layui-form-label">联系邮箱：</label>
+
+            <!-- 职位-->
+            <label class="layui-form-label">职位：</label>
             <div class="layui-input-inline">
-                <input type="text" name="email"  class="layui-input"  />
+                <input type="text" name="position"  class="layui-input"  />
             </div>
+
 
         </div>
 
 
-        <div class="layui-form-item">
+     <%--   <div class="layui-form-item">
             <!-- 性别 -->
             <label class="layui-form-label">性别：</label>
             <div class="layui-input-inline">
                 <input type="radio" name="sex" class="layui-input" value="男" title="男"/>
                 <input type="radio" name="sex" class="layui-input" value="女" title="女"/>
             </div>
-        </div>
+        </div>--%>
 
         <div class="layui-form-item">
-            <!-- 联系人办公室电话-->
-            <label class="layui-form-label">办公室电话：</label>
-            <div class="layui-input-inline">
-                <input type="text" name="officePhone"  class="layui-input"  />
-            </div>
-
             <!-- 手机电话 -->
             <label class="layui-form-label">手机电话：</label>
             <div class="layui-input-inline">
                 <input type="text" name="mobilePhone" class="layui-input" />
             </div>
+            <!-- 联系人办公室电话-->
+            <label class="layui-form-label">固定电话：</label>
+            <div class="layui-input-inline">
+                <input type="text" name="officePhone"  class="layui-input"  />
+            </div>
         </div>
 
         <div class="layui-form-item">
-            <!-- 职位-->
-            <label class="layui-form-label">职位：</label>
+
+
+
+
+            <label class="layui-form-label">联系邮箱：</label>
             <div class="layui-input-inline">
-                <input type="text" name="position"  class="layui-input"  />
+                <input type="text" name="email"  class="layui-input"  />
             </div>
         </div>
+
+
 
     </div>
 	
