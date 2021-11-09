@@ -1,8 +1,6 @@
 package com.neuedu.crm.service.impl;
 
 import com.neuedu.crm.mapper.ContractMapper;
-import com.neuedu.crm.mapper.CustomerMapper;
-import com.neuedu.crm.mapper.LinkmanMapper;
 import com.neuedu.crm.mapper.UserMapper;
 import com.neuedu.crm.pojo.Contract;
 import com.neuedu.crm.pojo.ContractExample;

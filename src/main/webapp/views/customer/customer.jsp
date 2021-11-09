@@ -61,8 +61,14 @@
 				</button>
 			</div>
 		</shiro:hasPermission>
-		
-        <div class="layui-inline">
+
+		<div class="layui-inline">
+			<button type="button" id="upload-button" class="layui-btn layui-btn-danger">
+				<i class="layui-icon  layui-icon-delete"></i>上传
+			</button>
+		</div>
+
+		<div class="layui-inline">
             <button type="button" id="export-button" class="layui-btn layui-btn-danger">
                     <i class="layui-icon  layui-icon-delete"></i>导出
             </button>
@@ -331,9 +337,25 @@ layui.use(['table','form'], function(){
     		}
     	});
     });
-    
-    
-    //导出按钮点击事件
+
+	//上传
+	$('#upload-button').click(function(){
+		layer.open({
+			type:2,
+			title:'上传客户',
+			area:['750px','92%'],
+			shadeClose:false,
+			closeBtn:1,
+			content:'views/fileupload.jsp',
+			end:function(){
+				table.reload('customer-table');
+			}
+		});
+	});
+
+
+
+	//导出按钮点击事件
     $('#export-button').click(function(){
     	var checkStatus = table.checkStatus('customer-table')
         ,data = checkStatus.data;

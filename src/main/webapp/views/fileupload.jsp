@@ -30,6 +30,7 @@
 	    ,auto:false        //不自动上传
 	    ,number:1
 	    ,bindAction:'#upload-btn'
+          ,exts: 'xlsx|xls'
 	    ,choose:function(obj){
 	    	obj.preview(function(index, file, result){
 	    		$('#upload-filename').text(file.name);
@@ -41,8 +42,13 @@
 	    }
 	    ,done: function(res){
 	    	$('#upload-btn').addClass('layui-btn-disabled');
-	    	layer.close(uploadindex);
-	    	layer.msg("上传完成");
+              layer.close(uploadindex);
+	    	if(res.success){
+                layer.msg("上传完成");
+            }else{
+                layer.msg(res.msg);
+            }
+	    	console.info(res);
 	    }
 	  });    
   });

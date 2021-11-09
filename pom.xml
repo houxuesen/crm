@@ -335,6 +335,24 @@
 	    <artifactId>sigar</artifactId>
 	    <version>1.6.5.132</version>
     </dependency>
+
+	  <!-- 引入poi，解析workbook视图 -->
+	  <dependency>
+		  <groupId>org.apache.poi</groupId>
+		  <artifactId>poi</artifactId>
+		  <version>3.17</version>
+	  </dependency>
+	  <dependency>
+		  <groupId>org.apache.poi</groupId>
+		  <artifactId>poi-ooxml</artifactId>
+		  <version>3.17</version>
+	  </dependency>
+
+	  <dependency>
+		  <groupId>cn.hutool</groupId>
+		  <artifactId>hutool-all</artifactId>
+		  <version>4.1.3</version>
+	  </dependency>
 	
   </dependencies>
   

@@ -5,6 +5,7 @@ import java.util.List;
 import com.neuedu.crm.pojo.Customer;
 import com.neuedu.crm.pojo.CustomerExample;
 import com.neuedu.crm.pojo.Linkman;
+import com.neuedu.crm.pojo.User;
 
 /**
  * @author HuangQingwen
@@ -158,4 +159,11 @@ public interface ICustomerService {
 	 *
 	 */
 	public boolean insertSelective(Customer customer, Linkman linkman);
+
+
+	/**
+	 * 导入
+	 * @return
+	 */
+	public boolean  insertSelectiveFromExl(List<List<Object>> list, User user) throws Exception;
 }

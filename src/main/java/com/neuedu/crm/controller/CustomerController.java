@@ -1,5 +1,7 @@
 package com.neuedu.crm.controller;
 
+import java.io.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.neuedu.crm.mapper.RoleMapper;
+import com.neuedu.crm.utils.ImportExcelUtil;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +26,8 @@ import com.neuedu.crm.pojo.Linkman;
 import com.neuedu.crm.pojo.User;
 import com.neuedu.crm.service.ICustomerService;
 import com.neuedu.crm.utils.Operation;
+import org.springframework.web.multipart.MultipartFile;
+
 
 /**
  * 
@@ -343,6 +348,26 @@ public class CustomerController {
         map.put("data", customers);
         return map;
     }
-    
-    
+
+
+
+    @Operation(name="上传客户信息")
+    @RequestMapping("upload")
+    @ResponseBody
+    public Map<String, Object> upload(MultipartFile file){
+        Map<String, Object> map = new HashMap<String,Object>(16);
+        try {
+            List<List<Object>> list =  ImportExcelUtil.getBankListByExcel(file.getInputStream(),file.getOriginalFilename());
+            customerService.insertSelectiveFromExl(list,user);
+            map.put("msg", "更新成功");
+            map.put("success", true);
+        }catch (Exception e){
+            e.printStackTrace();
+            map.put("msg", "更新失败"+e.getMessage());
+            map.put("success", false);
+        }
+        return map;
+    }
+
+
 }

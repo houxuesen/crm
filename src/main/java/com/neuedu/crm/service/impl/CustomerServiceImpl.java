@@ -1,6 +1,7 @@
 package com.neuedu.crm.service.impl;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ import com.neuedu.crm.pojo.Linkman;
 import com.neuedu.crm.pojo.Product;
 import com.neuedu.crm.pojo.User;
 import com.neuedu.crm.service.ICustomerService;
+import org.springframework.util.StringUtils;
+
 /**
  * 
  * @author WangHaoyu
@@ -105,8 +108,49 @@ public class CustomerServiceImpl implements ICustomerService{
             return false;
         }
         
-    }	
-	
+    }
+
+	@Override
+	public boolean insertSelectiveFromExl(List<List<Object>> list,User user) throws Exception {
+		//企业名称
+		// 域名/网址
+		// 用户数
+		// 到期时间
+		// 现服务商
+		// 公司电话
+		// 客户状态
+		// 客户介绍
+		// 联系人
+		// 固定电话
+
+		for(List<Object> objects:list){
+			Customer customer = new Customer();
+			customer.setName(objects.get(0).toString());
+			customer.setRealmName(objects.get(1).toString());
+			customer.setUserNum(objects.get(2).toString());
+			customer.setEndDate( !StringUtils.isEmpty(objects.get(3)) ? LocalDate.parse(objects.get(3).toString()):null);
+			customer.setSource(objects.get(4).toString());
+			customer.setCompanyPhone(objects.get(5).toString());
+			customer.setStatus(objects.get(6).toString());
+			//客户所属者默认为创建者
+			customer.setManagerId(user.getId());
+			//设置创建者id
+			customer.setCreater(user.getId());
+			//设置创建时间
+			customer.setCreateTime(LocalDateTime.now());
+			//设置未删除
+			customer.setDeleteStatus(0);
+
+			Linkman linkman = new Linkman();
+			linkman.setName(objects.get(6).toString());
+			linkman.setMobilePhone(objects.get(7).toString());
+
+			//进行数据插入
+			this.insertSelective(customer,linkman);
+		}
+		return true;
+	}
+
 	@Override
 	public List<Customer> selectByCustomerExample(CustomerExample customerExample) {
 	    
