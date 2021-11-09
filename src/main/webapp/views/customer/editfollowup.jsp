@@ -31,7 +31,7 @@
 			<div class="layui-input-inline">
 				<input type="hidden" name="customerId" id="customerId" >
 				<div class="layui-input-inline">
-					<input type="text" name="customerName" lay-verify="required"  id="customerName" class="layui-input"  />
+					<input type="text" name="customerName"  id="customerName" class="layui-input"  />
 				</div>
 			</div>
         </div>		
@@ -119,6 +119,10 @@ layui.use(['form','upload','laydate'],function(){
 			formdata.customerId = parm.customerId;
 		}
 
+		if(formdata.customerId == '' || formdata.customerId == null){
+			layer.alert('请选择客户');
+			return false;
+		}
 
 		if(formdata.file != null && formdata.file != ''){
 			$('#upload-btn').click();
