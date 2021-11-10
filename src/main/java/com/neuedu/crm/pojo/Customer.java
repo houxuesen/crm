@@ -167,6 +167,13 @@ public class Customer implements Serializable {
      */
     private  String userNum;
 
+
+
+    private LocalDate endDateBegin;
+    private LocalDate endDateEnd;
+
+
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -450,6 +457,22 @@ public class Customer implements Serializable {
 
     public void setUserNum(String userNum) {
         this.userNum = userNum;
+    }
+
+    public LocalDate getEndDateBegin() {
+        return endDateBegin;
+    }
+
+    public void setEndDateBegin(LocalDate endDateBegin) {
+        this.endDateBegin = endDateBegin;
+    }
+
+    public LocalDate getEndDateEnd() {
+        return endDateEnd;
+    }
+
+    public void setEndDateEnd(LocalDate endDateEnd) {
+        this.endDateEnd = endDateEnd;
     }
 
     @Override

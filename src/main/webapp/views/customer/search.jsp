@@ -60,11 +60,19 @@
 	    </div>  
 	    
 	    <div class="layui-form-item">
+
+
+			<label class="layui-form-label">过期范围：</label>
+			<div class="layui-input-inline">
+				<input type="text" name="endDateBegin" id="endDateBegin" class="layui-input">-<input type="text"  id="endDateEnd" name="endDateEnd" class="layui-input">
+			</div>
+
 			<label class="layui-form-label">备注：</label>
 			<div class="layui-input-inline">
 				<input type="text" name="description" class="layui-input">
 			</div>
-	    </div>  
+	    </div>
+
 	    <div class="layui-form-item"  style="width: 450px;margin-top: 40px;">
             <div class="layui-input-block">
                 <button type="reset" class="layui-btn" style="margin-left: 135px;">重置</button>
@@ -76,9 +84,10 @@
 </div>
 	
 <script type="text/javascript">
-layui.use(['form'],function(){
+layui.use(['form','laydate'],function(){
 	var form = layui.form;
 	var layer = layui.layer;
+	var laydate = layui.laydate;
 	var $ = layui.$;
 	//获取父窗口jQuery
 	var parent$ = window.parent.layui.jquery;
@@ -94,6 +103,10 @@ layui.use(['form'],function(){
 		parent$('input[name=level]').val(formdata.level);
 		parent$('input[name=description]').val(formdata.description);
 
+
+		parent$('input[name=endDateBegin]').val(formdata.endDateBegin);
+		parent$('input[name=endDateEnd]').val(formdata.endDateEnd);
+
 		//执行查询功能
 		parent$('#search-button').click();
 		//关闭当前弹出层
@@ -101,8 +114,23 @@ layui.use(['form'],function(){
         parent.layer.close(thisindex);
 		return false;
 	});
-	
 
+
+	//加载日期选择器
+	laydate.render({
+		elem: '#endDateBegin' //指定元素
+		, type: 'date'
+		, format: 'yyyy-MM-dd'
+		, trigger: 'click'
+	});
+
+	//加载日期选择器
+	laydate.render({
+		elem: '#endDateEnd' //指定元素
+		, type: 'date'
+		, format: 'yyyy-MM-dd'
+		, trigger: 'click'
+	});
 	
 	//获取客户状态字典并加载下拉框
     setTimeout(getSelectData('客户状态','status'),0);

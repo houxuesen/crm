@@ -116,11 +116,11 @@ public class CustomerController {
         System.out.println(customer);
         //检测属性是否存在，存在则进行条件查询
         if(customer != null) {
-            if(customer.getName() != null) {
+            if(customer.getName() != null && !"".equals(customer.getName())) {
                 criteria.andNameLike("%" + customer.getName() + "%");
             }
 
-            if(customer.getDescription() != null){
+            if(customer.getDescription() != null && !"".equals(customer.getDescription())){
                 criteria.andDescriptionLike("%" + customer.getDescription() + "%");
             }
             
@@ -142,6 +142,15 @@ public class CustomerController {
             if(customer.getMaturity() != null && !"".equals(customer.getMaturity())) {
                 criteria.andMaturityEqualTo(customer.getMaturity());
             }
+
+            if(customer.getEndDateBegin() != null){
+                criteria.andEndDateGreaterThanOrEqualTo(customer.getEndDateBegin());
+            }
+
+            if(customer.getEndDateEnd() != null){
+                criteria.andEndDateLessThanOrEqualTo(customer.getEndDateEnd());
+            }
+
         }
 
         example.setOrderByClause(" create_time desc ");

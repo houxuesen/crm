@@ -89,6 +89,10 @@
     <input type="text" name="level" />
     <input type="text" name="description" />
 
+
+	<input type="text" name="endDateBegin" />
+	<input type="text" name="endDateEnd" />
+
     <button type="button" data-type="reload" id="search-button">搜索</button>
 </div>
 
@@ -160,7 +164,9 @@ layui.use(['table','form'], function(){
               'source':$('input[name=source]').val(),
               'level':$('input[name=level]').val(),
               'credit':$('input[name=credit]').val(),
-              'description':$('input[name=description]').val()
+              'description':$('input[name=description]').val(),
+				'endDateBegin':$('input[name=endDateBegin]').val(),
+				'endDateEnd':$('input[name=endDateEnd]').val()
           }
         });
       });

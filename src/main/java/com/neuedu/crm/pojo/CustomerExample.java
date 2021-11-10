@@ -1,5 +1,6 @@
 package com.neuedu.crm.pojo;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -2022,6 +2023,17 @@ public class CustomerExample {
 
         public Criteria andCreateTimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
             addCriterion("create_time not between", value1, value2, "createTime");
+            return (Criteria) this;
+        }
+
+
+        public Criteria andEndDateGreaterThanOrEqualTo(LocalDate value) {
+            addCriterion("end_date >=", value, "endDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andEndDateLessThanOrEqualTo(LocalDate value) {
+            addCriterion("end_date <=", value, "endDate");
             return (Criteria) this;
         }
     }
