@@ -367,7 +367,7 @@ layui.use(['element','table','flow'],function(){
 		layer.open({
 			type:2,
 			title:'编辑联系人',
-			area:['450px','590px'],
+			area:['450px','90%'],
 			closeBtn:1,
 			shadeClose:false,
 			content:'${pageContext.request.contextPath}/views/customer/editlinkman.jsp?type=update&id=' + data[0].id,
@@ -474,7 +474,7 @@ layui.use(['element','table','flow'],function(){
     	 layer.open({
              type:2,
              title:'新建跟踪',
-             area:['700px','680px'],
+             area:['700px','90%'],
              closeBtn:1,
              shadeClose:false,
              content:'${pageContext.request.contextPath}/views/customer/editfollowup.jsp?type=add&customerId=' + parm.id,
@@ -493,7 +493,7 @@ layui.use(['element','table','flow'],function(){
 		layer.open({
 			type:2,
 			title:'新建跟踪',
-			area:['700px','680px'],
+			area:['700px','90%'],
 			closeBtn:1,
 			shadeClose:false,
 			content:'${pageContext.request.contextPath}/views/customer/editfollowup.jsp?type=update&customerId=' + parm.id +"&id="+id,

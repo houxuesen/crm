@@ -11,6 +11,12 @@
 	<link href="../../css/base/jquery-ui-1.9.2.custom.css" rel="stylesheet">
 	<script src="../../js/jquery-1.8.3.js"></script>
 	<script src="../../js/jquery-ui-1.9.2.custom.js"></script>
+
+
+	<script type="text/javascript" src="../../js/ueditor/ueditor.config.js"></script>
+	<!-- 编辑器源码文件 -->
+	<script type="text/javascript" src="../../js/ueditor/ueditor.all.js"></script>
+	<script type="text/javascript" src="../../js/ueditor/lang/zh-cn/zh-cn.js"></script>
 </head>
 <body >
 <div style="width: 96%;margin-left: 2%;">
@@ -46,8 +52,11 @@
 		<div class="layui-form-item">
 	        <label class="layui-form-label">详细信息：</label>
 	        <div class="layui-input-inline">
-	            <textarea class="layer-input" name="content" lay-verify="required" style="height: 300px;width: 520px"></textarea>
-	        </div>
+	           <%-- <textarea class="layer-input" name="content" lay-verify="required" style="height: 300px;width: 520px"></textarea>
+				--%>
+
+				<script id="content" type="text/plain" name="content"  style="width:520px;height:350px;"></script>
+			</div>
         </div>		
 
 		<div class="layui-form-item">
@@ -83,6 +92,9 @@
 </div>
 	
 <script type="text/javascript">
+
+var ue = UE.getEditor('content', {});
+
 layui.use(['form','upload','laydate'],function(){
 	var form = layui.form;
 	var layer = layui.layer;
@@ -105,6 +117,8 @@ layui.use(['form','upload','laydate'],function(){
 	    ,trigger: 'click'
 	    ,value:new Date()
 	  });
+
+
 	
 	//保存点击事件
 	form.on('submit(form-submit-btn)',function(data){
@@ -244,6 +258,10 @@ layui.use(['form','upload','laydate'],function(){
 			formdata.time = getDate(formdata.time);
 			form.val('followup-form',formdata);
 			form.render();
+
+			ue.ready(function () {
+				ue.setContent(formdata.content);//赋值给UEditor
+			});
 		});
 
 
@@ -254,6 +272,9 @@ layui.use(['form','upload','laydate'],function(){
 			console.info(formdata)
 			form.val('followup-form',formdata);
 			form.render();
+			ue.ready(function () {
+				ue.setContent(formdata.content);//赋值给UEditor
+			});
 		});
 	}
 

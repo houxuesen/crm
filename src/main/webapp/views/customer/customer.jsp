@@ -110,6 +110,7 @@ layui.use(['table','form'], function(){
       ,url: 'customer/list' //数据接口
       ,method : 'post'
       ,height: 'full-200'
+	  , limit: 50
       ,page: {layout: ['limit', 'count', 'prev', 'page', 'next', 'skip','refresh'],groups: 1 }
       ,cols: [[ //表头
           {type:'checkbox'}
