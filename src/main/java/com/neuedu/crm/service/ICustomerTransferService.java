@@ -1,6 +1,7 @@
 package com.neuedu.crm.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.neuedu.crm.pojo.CustomerTransfer;
 import com.neuedu.crm.pojo.CustomerTransferExample;
@@ -75,6 +76,20 @@ public interface ICustomerTransferService {
 	 *
 	 */
 	public boolean insertSelective(CustomerTransfer customerTransfer);
+
+
+	/**
+	 *
+	 * 描述：插入一条CustomerTransfer数据，如字段为空，则插入数据库表字段的默认值
+	 * @author wujunyou
+	 * @version 1.0
+	 * @param customerTransfer 客户数据
+	 * @return boolean 插入结果
+	 * @exception Nothing
+	 * @since 1.8
+	 *
+	 */
+	public Map<String,Object> insertManySelective(CustomerTransfer customerTransfer, int[] customers);
 	
 	/**
 	 * 

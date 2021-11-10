@@ -173,6 +173,8 @@ public class Customer implements Serializable {
     private LocalDate endDateEnd;
 
 
+    private LocalDateTime lastTime;
+
 
     private static final long serialVersionUID = 1L;
 
@@ -410,6 +412,8 @@ public class Customer implements Serializable {
         
     }
 
+
+
     public LocalDateTime getCreateTime() {
         return createTime;
     }
@@ -473,6 +477,14 @@ public class Customer implements Serializable {
 
     public void setEndDateEnd(LocalDate endDateEnd) {
         this.endDateEnd = endDateEnd;
+    }
+
+    public LocalDateTime getLastTime() {
+        return lastTime;
+    }
+
+    public void setLastTime(LocalDateTime lastTime) {
+        this.lastTime = lastTime;
     }
 
     @Override

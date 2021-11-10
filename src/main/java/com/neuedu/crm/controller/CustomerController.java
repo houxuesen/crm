@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.neuedu.crm.mapper.RoleMapper;
+import com.neuedu.crm.pojo.*;
+import com.neuedu.crm.service.IFollowUpService;
 import com.neuedu.crm.utils.ImportExcelUtil;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +21,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.neuedu.crm.pojo.Customer;
-import com.neuedu.crm.pojo.CustomerExample;
 import com.neuedu.crm.pojo.CustomerExample.Criteria;
-import com.neuedu.crm.pojo.Linkman;
-import com.neuedu.crm.pojo.User;
 import com.neuedu.crm.service.ICustomerService;
 import com.neuedu.crm.utils.Operation;
 import org.springframework.web.multipart.MultipartFile;
@@ -42,6 +40,9 @@ public class CustomerController {
 
     @Autowired
     private RoleMapper roleMapper;
+
+    @Autowired
+    private IFollowUpService followupService;
     
     private User user = null;
 
@@ -157,6 +158,16 @@ public class CustomerController {
         
         Long count = customerService.countByCustomerExample(example);
         List<Customer> customers = customerService.selectByCustomerExample(example);
+        for(Customer ct:customers){
+            FollowUpExample followUpExample = new FollowUpExample();
+            FollowUpExample.Criteria criteria1 = followUpExample.createCriteria();
+            criteria1.andCustomerIdEqualTo(ct.getId());
+            criteria1.andDeleteStatusEqualTo(0);
+            List<FollowUp> followUps = followupService.selectByFollowUpExample(followUpExample);
+            if(followUps != null && followUps.size() > 0){
+                ct.setLastTime(followUps.get(0).getTime());
+            }
+        }
         
         map.put("data", customers);
         map.put("count", count);

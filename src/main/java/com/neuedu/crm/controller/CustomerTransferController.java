@@ -9,6 +9,7 @@ import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.neuedu.crm.pojo.Customer;
@@ -229,6 +230,48 @@ public class CustomerTransferController {
         map.put("code", 0);
         map.put("status", true);
         map.put("msg", "操作成功");
+        return map;
+    }
+
+    @RequiresPermissions("7007")
+    @Operation(name="客户转移")
+    @RequestMapping("many")
+    @ResponseBody
+    public Map<String, Object> addManyCustomerTranfer(CustomerTransfer transfer,@RequestParam(value = "customers[]") int[] customers){
+        Map<String,Object> map = new HashMap<String,Object>(16);
+
+        //检测 transfer对象是否存在
+        if(transfer == null || customers == null ) {
+            map.put("code", -1);
+            map.put("status", false);
+            map.put("msg", "非法操作");
+            return map;
+        }
+
+        if(transfer.getCustomerId() == null) {
+            map.put("code", -2);
+            map.put("status", false);
+            map.put("msg", "客户ID不存在");
+            return map;
+        }
+
+        if(transfer.getNewManagerId() == null || userService.findById(transfer.getNewManagerId()) == null) {
+            map.put("code", -4);
+            map.put("status", false);
+            map.put("msg", "转移终点不存在");
+            return map;
+        }
+
+
+        if(transfer.getReason() == null || "".equals(transfer.getReason())) {
+            map.put("code", -6);
+            map.put("status", false);
+            map.put("msg", "转移原因不能为空");
+            return map;
+        }
+
+        map = customerTransferService.insertManySelective(transfer,customers);
+
         return map;
     }
     

@@ -113,7 +113,7 @@
                 , {field: 'limitYears', title: '购买年限'}
                 , {field: 'contractAmount', title: '合同金额'}
                 , {field: 'baseAmount', title: '合同成本'}
-                , {field: 'totalAmount', title: '总额'}
+                , {field: 'contractType', title: '合同类型'}
                 , {field: 'otherAmount', title: '毛利额'}
                 , {field: 'discountAmount', title: '商务返点'}
                 , {field: 'payType', title: '支付方式'}

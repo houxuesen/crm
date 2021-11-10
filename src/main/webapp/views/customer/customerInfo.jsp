@@ -39,63 +39,7 @@
 				      <th></th>
 				    </tr> 
 				</thead> -->
-                <tbody class="my-table-class">
-                    <tr>
-				      <td>客户名称：</td>
-				      <td id="customer-name"></td>
-				      <td></td>
-                      <td></td>
-				    </tr>
-				    <tr>
-                      <td>客户创建者：</td>
-                      <td id="creater"></td>
-                      <td>客户创建时间：</td>
-                      <td id="createTime"></td>
-                    </tr>
-				    <tr>
-                      <td>公司电话：</td>
-                      <td id="companyPhone"></td>
-                      <td>意向产品：</td>
-                      <td id="productId"></td>
-                    </tr>
-                    <tr>
-                      <td>客户状态：</td>
-                      <td id="status"></td>
-                      <td>客户类别：</td>
-                      <td id="type"></td>
-                    </tr>
-                    <tr>
-                      <td>现服务商：</td>
-                      <td id="source"></td>
-                      <td>客户等级：</td>
-                      <td id="level"></td>
-                    </tr>
-                    <tr>
-                      <td>客户信用度：</td>
-                      <td id="credit"></td>
-                      <td>客户成熟度：</td>
-                      <td id="maturity"></td>
-                    </tr>
-                    <tr>
-                      <td>客户所在地区：</td>
-                      <td id="area"></td>
-                      <td>邮政编码：</td>
-                      <td id="postCode"></td>
-                    </tr>
-                    <tr>
-                      <td colspan="1">客户详细地址：</td>
-                      <td colspan="3" id="companyAddress"></td>
-                    </tr>
-                    <tr>
-                      <td colspan="1">客户相关资料：</td>
-                      <td colspan="3" id="document"></td>
-                    </tr>
-                    <tr>
-                      <td colspan="1">客户介绍：</td>
-                      <td colspan="3" id="description"></td>
-                    </tr>
-                    
-                </tbody>
+                <jsp:include page="customerInfoTable.jsp"></jsp:include>
             </table>
             <!--endprint-->
         </div>

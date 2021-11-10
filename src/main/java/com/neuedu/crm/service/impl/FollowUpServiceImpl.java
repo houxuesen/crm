@@ -63,7 +63,7 @@ public class FollowUpServiceImpl implements IFollowUpService {
                 followUp.setCustomer(customerMapper.selectByPrimaryKey(followUp.getCustomerId()));
             }
             if(followUp.getManagerId() != null) {
-                followUp.setManager(userService.findById(followUp.getManagerId()));
+                 followUp.setManager(userService.findById(followUp.getManagerId()));
             } 
 	    }
 		return list;

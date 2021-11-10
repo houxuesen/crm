@@ -17,37 +17,37 @@
 
 <div class="layui-form-item">
     <!-- 客户名称 -->
-    <label class="layui-form-label">域名\网址：</label>
+    <label class="layui-form-label">域名\网址<strong style="color: red">*</strong>：</label>
     <div class="layui-input-inline">
-        <input type="text" name="realmName" class="layui-input">
+        <input type="text" name="realmName" lay-verify="required"  class="layui-input">
     </div>
 
 </div>
 <div class="layui-form-item">
 
-    <label class="layui-form-label">用户数：</label>
+    <label class="layui-form-label">用户数<strong style="color: red">*</strong>：</label>
     <div class="layui-input-inline">
-        <input type="text" name="userNum" class="layui-input"  id="userNum" />
+        <input type="text" name="userNum" lay-verify="required"  class="layui-input"  id="userNum" />
     </div>
 
     <%--到期时间--%>
-    <label class="layui-form-label">到期时间：</label>
+    <label class="layui-form-label">到期时间<strong style="color: red">*</strong>：</label>
     <div class="layui-input-inline">
-        <input type="text" name="endDate" class="layui-input"  id="endDate" />
+        <input type="text" name="endDate"  lay-verify="required" class="layui-input"  id="endDate" />
     </div>
 
 </div>
 <div class="layui-form-item">
     <!-- 公司电话 -->
-    <label class="layui-form-label">公司电话：</label>
+    <label class="layui-form-label">公司电话<strong style="color: red">*</strong>：</label>
     <div class="layui-input-inline">
-        <input type="text" name="companyPhone"  class="layui-input">
+        <input type="text" name="companyPhone" lay-verify="required"   class="layui-input">
     </div>
 
     <!-- 现服务商-->
-    <label class="layui-form-label">现服务商：</label>
+    <label class="layui-form-label">现服务商<strong style="color: red">*</strong>：</label>
     <div class="layui-input-inline" style="width: 135px;">
-        <select name="source">
+        <select name="source" lay-verify="required" >
             <option value="">--数据加载中--</option>
         </select>
     </div>
@@ -59,20 +59,11 @@
 </div>
 
 <div class="layui-form-item">
-    <!-- 意向产品
-    <label class="layui-form-label">意向产品：</label>
-    <input type="hidden" name="productId"  class="layui-input">
-    <div class="layui-input-inline">
-        <span style="color: #999999;line-height: 38px;" id="choose-product-name">产品名称</span>
-        <a href="#" style="color: blue;" id="choose-product">
-            <i class="layui-icon  layui-icon-add-1"></i>选择
-        </a>
-    </div>
-    -->
+
     <!-- 客户状态 -->
-    <label class="layui-form-label">客户状态：</label>
+    <label class="layui-form-label">客户状态<strong style="color: red">*</strong>：</label>
     <div class="layui-input-inline" style="width: 135px;">
-        <select name="status" >
+        <select name="status" lay-verify="required" >
             <option value="">--数据加载中--</option>
         </select>
     </div>
@@ -83,9 +74,9 @@
     </div>
 
     <!-- 客户类别 -->
-    <label class="layui-form-label">客户类别：</label>
+    <label class="layui-form-label">客户规模<strong style="color: red">*</strong>：</label>
     <div class="layui-input-inline" style="width: 135px;">
-        <select name="type" >
+        <select name="type" lay-verify="required"  >
             <option value="">--数据加载中--</option>
         </select>
     </div>

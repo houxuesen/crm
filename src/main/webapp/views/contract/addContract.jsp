@@ -89,10 +89,6 @@
                     return false;
                 }
 
-                if(data.field.file == null ||  data.field.file == ''){
-                    layer.msg('请上传合同文件');
-                    return false;
-                }
 
                 //判断是否选择了文件
                 if (data.field.file != null && data.field.file != '') {

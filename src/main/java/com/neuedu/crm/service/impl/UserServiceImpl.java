@@ -103,6 +103,9 @@ public class UserServiceImpl implements IUserService {
         User user = null;
         try {
             user = userMapper.selectByPrimaryKey(id);
+            if(user == null){
+                return user;
+            }
             user.setRole(roleMapper.selectByPrimaryKey(user.getRoleId()));
             user.setPassword(null);
             user.setSalt(null);
@@ -175,7 +178,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     /** 
-     * @see com.neuedu.crm.service.IUserService#countByExample(com.neuedu.crm.pojo.User)
+     * @see com.neuedu.crm.service.IUserService#(com.neuedu.crm.pojo.User)
      */
     @Override
     public long countByExample(UserExample userExample) {     

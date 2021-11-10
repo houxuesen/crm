@@ -8,17 +8,14 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.neuedu.crm.mapper.RoleMapper;
+import com.neuedu.crm.pojo.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.neuedu.crm.pojo.Customer;
-import com.neuedu.crm.pojo.CustomerExample;
-import com.neuedu.crm.pojo.FollowUp;
-import com.neuedu.crm.pojo.FollowUpExample;
-import com.neuedu.crm.pojo.User;
 import com.neuedu.crm.pojo.FollowUpExample.Criteria;
 import com.neuedu.crm.service.ICustomerService;
 import com.neuedu.crm.service.IFollowUpService;
@@ -39,7 +36,11 @@ public class FollowUpController {
 
     @Autowired 
     private ICustomerService customerService;
-    
+
+    @Autowired
+    private RoleMapper roleMapper;
+
+
     /**
      *  分页查询跟踪记录
      * @author HuangWanzong
@@ -92,7 +93,17 @@ public class FollowUpController {
             User user = (User)session.getAttribute("user");
             
             CustomerExample customerExample = new CustomerExample();
-            customerExample.createCriteria().andManagerIdEqualTo(user.getId());
+
+            Role role = roleMapper.selectByPrimaryKey(user.getRoleId());
+            if(role !=  null){
+                if("客户经理".equals(user.getRole().getName())){
+                    customerExample.createCriteria().andManagerIdEqualTo(user.getId());
+                }
+            }else{
+                customerExample.createCriteria().andManagerIdEqualTo(user.getId());
+            }
+
+
             
             List<Customer> customers = customerService.selectByCustomerExample(customerExample);
             List<Integer> ids = new ArrayList<Integer>();
@@ -101,7 +112,9 @@ public class FollowUpController {
             }
             criteria.andCustomerIdIn(ids);
         }
-        
+
+        criteria.andDeleteStatusEqualTo(0);
+
         Long count = followupService.countByFollowUpExample(example);
         List<FollowUp> list = followupService.selectByFollowUpExample(example);
         
@@ -152,7 +165,9 @@ public class FollowUpController {
 
         //设置创建者id
         followUp.setManagerId(managerId);
-        
+        followUp.setDeleteStatus(0);
+
+
         if(followupService.insertSelective(followUp)) {
             map.put("code", 0);
             map.put("status", true);
@@ -173,7 +188,7 @@ public class FollowUpController {
      * @date 2018/7/12
      * @version 1.0
      * @param followUp 要更新的数据
-     * @param request
+     * @param
      * @return Map<String,Object>
      * @since 1.8
      *
@@ -257,11 +272,10 @@ public class FollowUpController {
      * @since 1.8
      *
      */
-    @RequiresPermissions("6005")
     @Operation(name="删除跟踪记录")
     @RequestMapping("delete")
     @ResponseBody
-    public Map<String, Object> udeleteLinkman(int[] ids){
+    public Map<String, Object> deleteLinkman(int[] ids){
         Map<String, Object> map = new HashMap<String,Object>(16);
         
         List<Integer> success = new ArrayList<Integer>();

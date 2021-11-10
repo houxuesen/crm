@@ -69,95 +69,7 @@
 				      <th></th>
 				    </tr> 
 				</thead>
-                <tbody class="my-table-class">
-                    <tr>
-				      <td>客户名称：</td>
-				      <td id="customer-name"></td>
-				      <td>域名\网址：</td>
-                      <td id="realmName"></td>
-				    </tr>
-				    <tr>
-                      <td>客户创建者：</td>
-                      <td id="creater"></td>
-                      <td>客户创建时间：</td>
-                      <td id="createTime"></td>
-                    </tr>
-
-				    <tr>
-                      <td>公司电话：</td>
-                      <td id="companyPhone"></td>
-                      <td>意向产品：</td>
-                      <td id="productId"></td>
-                    </tr>
-                    <tr>
-                      <td>客户状态：</td>
-                      <td id="status"></td>
-                      <td>客户类别：</td>
-                      <td id="type"></td>
-                    </tr>
-                    <tr>
-                      <td>现服务商：</td>
-                      <td id="source"></td>
-                      <td>客户等级：</td>
-                      <td id="level"></td>
-                    </tr>
-                    <tr>
-                      <td>过期时间：</td>
-                      <td id="endDate"></td>
-                      <td>客户成熟度：</td>
-                      <td id="maturity"></td>
-                    </tr>
-                  <%--  <tr>
-                      <td>客户所在地区：</td>
-                      <td id="area"></td>
-                      <td>邮政编码：</td>
-                      <td id="postCode"></td>
-                    </tr>--%>
-                    <tr>
-                      <td colspan="1">客户详细地址：</td>
-                      <td colspan="3" id="companyAddress"></td>
-                    </tr>
-                   <%-- <tr>
-                      <td colspan="1">客户相关资料：</td>
-                      <td colspan="3" id="document"></td>
-                    </tr>
-                    <tr>
-                      <td colspan="1">客户介绍：</td>
-                      <td colspan="3" id="description"></td>
-                    </tr>
-                    <tr>
-                      <td>传真地址：</td>
-                      <td id="faxAddress"></td>
-                      <td>公司网站：</td>
-                      <td id="companyWebsite"></td>
-                    </tr>
-                    <tr>
-                      <td>公司法人：</td>
-                      <td id="corporation"></td>
-                      <td>开户银行：</td>
-                      <td id="depositBank"></td>
-                    </tr>
-                    <tr>
-                      <td colspan="1">银行账户：</td>
-                      <td colspan="3" id="bankAccount"></td>
-                    </tr>
-                    <tr>
-                      <td colspan="1">年营业额：</td>
-                      <td colspan="3" id="annualSale"></td>
-                    </tr>
-                    <tr>
-                      <td colspan="1">营业执照注册号：</td>
-                      <td colspan="3" id="licenseNumber"></td>
-                    </tr>
-                    <tr>
-                      <td colspan="1">地税登记号：</td>
-                      <td colspan="3" id="landTaxNumber"></td>
-                    </tr>
-                    <tr>
-                      <td colspan="1">国税登记号：</td>
-                      <td colspan="3" id="nationalTaxNumber"></td>
-                    </tr>--%>
-                </tbody>
+				<jsp:include page="customerInfoTable.jsp"></jsp:include>
             </table>
             <!--endprint-->
         </div>
@@ -439,34 +351,45 @@ layui.use(['element','table','flow'],function(){
 	
 	
 	//跟踪记录模块
-	
-	//使用流加载跟踪记录
-	flow.load({
-	   elem: '#follow-flow' //指定列表容器
-	   ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
-	     var lis = [];
-	     //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
-	     $.post('${pageContext.request.contextPath}/followup/list',{'page':page,'customerId':parm.id}, function(res){
-	       //假设你的列表返回在data集合中
-	       layui.each(res.data, function(index, item){
-	       	 console.info(item);
-	    	 var title = '' + item.time[0] + '年' + item.time[1] + '月' + item.time[2] + '日' + '   ' + item.time[3] + ':' +item.time[4] ;
-	         var str = '<li class="layui-timeline-item"><i class="layui-icon layui-timeline-axis">&#xe63f;</i>';
-	         str += '<div class="layui-timeline-content layui-text" >';
-	         str += '<h3 class="layui-timeline-title"  id="followup-' + item.id + '"> <span style="font-size: 16px;">' + item.manager.account + '</span> ';
-	         str += title + '</h3></a><p style="width:100%;word-break:break-all;word-wrap:break-word;">';
-	         str += '' + item.content + '</p></div></li>';
-	         str += '<button type="button" class="layui-btn" style="margin-left: 180px;" id="updateFollow-'+item.id+'">编辑</button>';
-	    	 lis.push(str);
-	       }); 
-	       
-	       //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
-	       //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
-	       next(lis.join(''), page < res.pages);    
-	         
-	     });
-	   }
-	 });                                   
+
+	getFollowup();
+
+	function getFollowup(){
+		//使用流加载跟踪记录
+		flow.load({
+			elem: '#follow-flow' //指定列表容器
+			,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+				var lis = [];
+				//以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+				$.post('${pageContext.request.contextPath}/followup/list',{'page':page,'customerId':parm.id}, function(res){
+					//假设你的列表返回在data集合中
+					layui.each(res.data, function(index, item){
+						console.info(item);
+						var title = '' + item.time[0] + '年' + item.time[1] + '月' + item.time[2] + '日' + '   ' + item.time[3] + ':' +item.time[4] ;
+						var str = '<li class="layui-timeline-item"><i class="layui-icon layui-timeline-axis">&#xe63f;</i>';
+						str += '<div class="layui-timeline-content layui-text" >';
+						str += '<h3 class="layui-timeline-title"  id="followup-' + item.id + '"> <span style="font-size: 16px;">' + item.manager.account + '</span> ';
+						str += title + '</h3></a><p style="width:100%;word-break:break-all;word-wrap:break-word;">';
+						str += '' + item.content + '</p></div></li>';
+						if(index == 0){
+							str += '<button type="button" class="layui-btn" style="margin-left: 180px;" id="updateFollow-'+item.id+'">编辑</button>';
+							str += '<button type="button" class="layui-btn" style="margin-left: 180px;" id="delFollow-'+item.id+'">删除</button>';
+							str += '<br />'
+						}
+
+						lis.push(str);
+					});
+
+					//执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+					//pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+					next(lis.join(''), page < res.pages);
+
+				});
+			}
+		});
+	}
+
+
                   
                   
      //点击新建跟踪记录按钮        
@@ -479,8 +402,8 @@ layui.use(['element','table','flow'],function(){
              shadeClose:false,
              content:'${pageContext.request.contextPath}/views/customer/editfollowup.jsp?type=add&customerId=' + parm.id,
              end:function(){
-            	  location.reload();
-             }       
+				 reloadFlow();
+             }
          });
      });             
                   
@@ -498,10 +421,39 @@ layui.use(['element','table','flow'],function(){
 			shadeClose:false,
 			content:'${pageContext.request.contextPath}/views/customer/editfollowup.jsp?type=update&customerId=' + parm.id +"&id="+id,
 			end:function(){
-				location.reload();
+				reloadFlow();
 			}
 		});
     });
+
+	$(document).on("click","[id^=delFollow-]",function(){
+		var id = this.id.split("-")[1];
+		var ids = [];
+		ids.push(id)
+		$.ajax({
+			type: "POST",
+			url: '${pageContext.request.contextPath}/followup/delete',
+			data: {
+				'ids':ids
+			},
+			traditional:true,
+			success: function(data){
+				top.layer.msg(data.msg);
+				reloadFlow();
+			},
+			error:function(){
+				top.layer.msg("服务器开小差了，请稍后再试...");
+				layer.closeAll('loading');
+			}
+		});
+	});
+
+	function reloadFlow(){
+		$('#follow-flow').remove();
+		$(document).unbind();
+		$('#show-followup').append('<ul class="layui-timeline" id="follow-flow"></ul>');
+		getFollowup();
+	}
 
 
 	$(document).on("click","h3[id^=followup]",function(){

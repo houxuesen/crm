@@ -23,7 +23,7 @@
             
             <label class="layui-form-label">转移到：</label>
             <div class="layui-input-inline">
-              <select name="NewManagerId" lay-verify="required">
+              <select name="newManagerId" lay-verify="required">
                 	<option value="">--数据加载中--</option>
               </select>
             </div>            
@@ -62,10 +62,17 @@ layui.use(['form','laydate'],function(){
 	
 	form.on('submit(form-submit-btn)',function(data){
 		var formdata = data.field;
+
+        var customers = [];
+        layui.each(eval('('+parent.checkJson+')'),function(index,item){
+            customers.push(item.id);
+        });
+        formdata.customers = customers;
+        console.info(formdata);
 		layer.load(2);
 		$.ajax({
 	        type: "POST",
-	        url: '${pageContext.request.contextPath}/customer/transfer/add',
+	        url: '${pageContext.request.contextPath}/customer/transfer/many',
 	        data: formdata,
 	        dataType: "json",
 	        success: function(data){
@@ -110,7 +117,7 @@ layui.use(['form','laydate'],function(){
                 for(var i=0;i<d.length;i++){
                     str += '<option value="' + d[i].id + '">' + d[i].account + '</option>';
                 }
-                $('select[name=NewManagerId]').html(str);
+                $('select[name=newManagerId]').html(str);
                 form.render('select');
                 layer.closeAll('loading');
         },

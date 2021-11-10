@@ -123,9 +123,12 @@ layui.use(['table','form'], function(){
         	  return str = '<a style="color:blue;" href="javascript:" lay-event="detail">' +data.name + '</a>';
           }}
           ,{field:'status',title:'客户状态'}
-          ,{field:'type',title:'客户类别'}
+          ,{field:'type',title:'客户规模'}
+          ,{field:'source',title:'现服务商'}
           ,{field:'endDate',title:'到期时间'}
           ,{field:'level',title:'客户等级'}
+			,{field:'lastTime',title:'最后跟踪时间'}
+
           ,{field:'description',title:'备注'}
         
       ]],
@@ -320,46 +323,17 @@ layui.use(['table','form'], function(){
 
 		checkJson = JSON.stringify(data);
 
-        if(data.length == 1){
-        	var customerid = data[0].id;
-        	layer.open({
-        		type:2,
-        		title:'客户转移',
-        		area:['700px','430px'],
-        		shadeClose:false,
-        		closeBtn:1,
-        		content:'views/customer/customertransfer.jsp?customerId='+customerid,
-        		end:function(){
-        			table.reload('customer-table');
-        		}
-        	});
-        	return;
-        }else if(data.length > 1){
-			layer.open({
-				type:2,
-				title:'客户转移',
-				area:['700px','430px'],
-				shadeClose:false,
-				closeBtn:1,
-				content:'views/customer/customerTransferMany.jsp?customers='+data,
-				end:function(){
-					table.reload('customer-table');
-				}
-			});
-			return;
-		}
-        
-        layer.open({
-    		type:2,
-    		title:'客户转移',
-    		area:['700px','430px'],
-    		shadeClose:false,
-    		closeBtn:1,
-    		content:'views/customer/customertransfer.jsp',
-    		end:function(){
-    			table.reload('customer-table');
-    		}
-    	});
+		layer.open({
+			type:2,
+			title:'客户转移',
+			area:['700px','430px'],
+			shadeClose:false,
+			closeBtn:1,
+			content:'views/customer/customerTransferMany.jsp',
+			end:function(){
+				table.reload('customer-table');
+			}
+		});
     });
 
 	//上传
