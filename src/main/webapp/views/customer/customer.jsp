@@ -100,6 +100,7 @@
 
 <script src="https://cuikangjie.github.io/JsonExportExcel/dist/JsonExportExcel.min.js"></script>
 <script >
+var checkJson;
 layui.use(['table','form'], function(){
     var table = layui.table;
     var layer = layui.layer;
@@ -311,11 +312,14 @@ layui.use(['table','form'], function(){
     $('#customer-transfer-button').click(function(){
     	var checkStatus = table.checkStatus('customer-table')
         ,data = checkStatus.data;
-        if(data.length > 1){
-        	layer.msg('最对只能选一行数据');
+
+        if(data.length == 0){
+			layer.msg('请至少选一行数据');
         	return;
-        }
-        
+		}
+
+		checkJson = JSON.stringify(data);
+
         if(data.length == 1){
         	var customerid = data[0].id;
         	layer.open({
@@ -330,7 +334,20 @@ layui.use(['table','form'], function(){
         		}
         	});
         	return;
-        }
+        }else if(data.length > 1){
+			layer.open({
+				type:2,
+				title:'客户转移',
+				area:['700px','430px'],
+				shadeClose:false,
+				closeBtn:1,
+				content:'views/customer/customerTransferMany.jsp?customers='+data,
+				end:function(){
+					table.reload('customer-table');
+				}
+			});
+			return;
+		}
         
         layer.open({
     		type:2,

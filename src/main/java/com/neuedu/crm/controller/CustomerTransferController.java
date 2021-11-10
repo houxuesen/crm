@@ -120,7 +120,7 @@ public class CustomerTransferController {
      * @version 1.0
      * @param transfer 必填参数:customerId，NewmanagerId,reason
      * @return 
-     * @exception Nothing
+     * @exception
      * @since 1.8
      *
      */

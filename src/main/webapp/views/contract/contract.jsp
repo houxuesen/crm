@@ -174,7 +174,7 @@
 
             for(var i = 0; i < data.length;i++){
                 if(data[i].conState != '草稿'){
-                    layer.msg('非草稿状态不能编辑！');
+                    layer.msg('非草稿状态不能删除！');
                     return;
                 }
             }
