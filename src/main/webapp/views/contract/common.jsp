@@ -13,7 +13,7 @@
 
 <div class="layui-form-item">
 
-    <label class="layui-form-label">客户：</label>
+    <label class="layui-form-label">客户<strong style="color: red">*</strong>：</label>
     <div class="layui-input-inline">
         <input type="hidden" name="customerId" id="customerId" >
         <div class="layui-input-inline">
@@ -23,14 +23,14 @@
 </div>
 
 <div class="layui-form-item">
-    <label class="layui-form-label">合同类型：</label>
+    <label class="layui-form-label">合同类型<strong style="color: red">*</strong>：</label>
     <div class="layui-input-inline">
         <%--<input type="text" name="contractType" lay-verify="required"  id="contractType" class="layui-input"  />--%>
         <select name="contractType" lay-verify="required">
             <option value="">--数据加载中--</option>
         </select>
     </div>
-    <label class="layui-form-label">签约人：</label>
+    <label class="layui-form-label">签约人<strong style="color: red">*</strong>：</label>
     <div class="layui-input-inline">
         <select name="signUserId" lay-verify="required">
             <option value="">--数据加载中--</option>
@@ -39,14 +39,14 @@
 </div>
 
 <div class="layui-form-item">
-    <label class="layui-form-label">负责人：</label>
+    <label class="layui-form-label">负责人<strong style="color: red">*</strong>：</label>
     <div class="layui-input-inline">
         <select name="manageId" lay-verify="required">
             <option value="">--数据加载中--</option>
         </select>
     </div>
 
-    <label class="layui-form-label">签约时间：</label>
+    <label class="layui-form-label">签约时间<strong style="color: red">*</strong>：</label>
     <div class="layui-input-inline">
         <input type="text" name="signDate" lay-verify="required"  id="signDate" class="layui-input"  />
     </div>
@@ -54,11 +54,11 @@
 
 
 <div class="layui-form-item">
-    <label class="layui-form-label">过期时间：</label>
+    <label class="layui-form-label">过期时间<strong style="color: red">*</strong>：</label>
     <div class="layui-input-inline">
         <input type="text" name="endDate" lay-verify="required"  id="endDate" class="layui-input"  />
     </div>
-    <label class="layui-form-label">总额：</label>
+    <label class="layui-form-label">总额<strong style="color: red">*</strong>：</label>
     <div class="layui-input-inline">
         <input type="text" name="totalAmount" lay-verify="required"  onblur="value=zhzs(this.value)" id="totalAmount"  class="layui-input"  />
     </div>
@@ -66,11 +66,11 @@
 </div>
 
 <div class="layui-form-item">
-    <label class="layui-form-label">用户数：</label>
+    <label class="layui-form-label">用户数<strong style="color: red">*</strong>：</label>
     <div class="layui-input-inline">
         <input type="text" name="userNum" lay-verify="required"  id="userNum" class="layui-input"  />
     </div>
-    <label class="layui-form-label">购买年限：</label>
+    <label class="layui-form-label">购买年限<strong style="color: red">*</strong>：</label>
     <div class="layui-input-inline">
         <input type="text" name="limitYears" lay-verify="required"  id="limitYears" class="layui-input"  />
     </div>
@@ -78,22 +78,22 @@
 
 
 <div class="layui-form-item">
-    <label class="layui-form-label">合同金额：</label>
+    <label class="layui-form-label">合同金额<strong style="color: red">*</strong>：</label>
     <div class="layui-input-inline">
         <input type="text" name="contractAmount" lay-verify="required" onblur="value=zhzs(this.value)" id="contractAmount" class="layui-input"  />
     </div>
-    <label class="layui-form-label">合同成本：</label>
+    <label class="layui-form-label">合同成本<strong style="color: red">*</strong>：</label>
     <div class="layui-input-inline">
         <input type="text" name="baseAmount" lay-verify="required" onblur="value=zhzs(this.value)"  id="baseAmount" class="layui-input"  />
     </div>
 </div>
 
 <div class="layui-form-item">
-    <label class="layui-form-label">商务返点：</label>
+    <label class="layui-form-label">商务返点<strong style="color: red">*</strong>：</label>
     <div class="layui-input-inline">
         <input type="text" name="discountAmount" lay-verify="required"  onblur="value=zhzs(this.value)" id="discountAmount" class="layui-input"  />
     </div>
-    <label class="layui-form-label">毛利额：</label>
+    <label class="layui-form-label">毛利额<strong style="color: red">*</strong>：</label>
     <div class="layui-input-inline">
         <input type="text" name="otherAmount" lay-verify="required" onblur="value=zhzs(this.value)" id="otherAmount" class="layui-input"  />
     </div>
@@ -102,7 +102,7 @@
 
 <div class="layui-form-item">
 
-    <label class="layui-form-label">支付方式：</label>
+    <label class="layui-form-label">支付方式<strong style="color: red">*</strong>：</label>
     <div class="layui-input-inline">
        <%-- <input type="text" name="payType" lay-verify="required"  id="payType" class="layui-input"  />--%>
            <select name="payType" lay-verify="required">
