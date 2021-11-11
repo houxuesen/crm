@@ -376,6 +376,11 @@ public class CustomerController {
     @ResponseBody
     public Map<String, Object> upload(MultipartFile file){
         Map<String, Object> map = new HashMap<String,Object>(16);
+        if(user == null){
+            map.put("msg", "更新失败，请重新登录");
+            map.put("success", false);
+        }
+
         try {
             List<List<Object>> list =  ImportExcelUtil.getBankListByExcel(file.getInputStream(),file.getOriginalFilename());
             customerService.insertSelectiveFromExl(list,user);

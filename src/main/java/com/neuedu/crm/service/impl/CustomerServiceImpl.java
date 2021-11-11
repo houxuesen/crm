@@ -141,9 +141,10 @@ public class CustomerServiceImpl implements ICustomerService{
 			//设置未删除
 			customer.setDeleteStatus(0);
 
+			customer.setDescription(objects.get(10).toString());
 			Linkman linkman = new Linkman();
-			linkman.setName(objects.get(6).toString());
-			linkman.setMobilePhone(objects.get(7).toString());
+			linkman.setName(objects.get(8).toString());
+			linkman.setOfficePhone(objects.get(9).toString());
 
 			//进行数据插入
 			this.insertSelective(customer,linkman);
