@@ -14,6 +14,13 @@
                    autocomplete="off" class="layui-input">
         </div>
 
+        <label style="margin-left: 20px;" style="" class="layui-label">负责人：</label>
+
+        <div style="width: 120px;" class="layui-inline">
+            <input type="text" name="manageName" placeholder="负责人"
+                   autocomplete="off" class="layui-input">
+        </div>
+
         <label style="margin-left: 20px;" style="" class="layui-label">合同状态：</label>
         <div style="width: 120px;" class="layui-input-inline">
             <select name="conState">
@@ -21,6 +28,13 @@
             </select>
         </div>
 
+
+        <label style="margin-left: 20px;" style="" class="layui-label">合同类型：</label>
+        <div style="width: 120px;" class="layui-input-inline">
+            <select name="contractType">
+                <option value="">--数据加载中--</option>
+            </select>
+        </div>
 
         <div class="layui-inline">
             <button type="button" class="layui-btn" id="search-btn">
@@ -101,7 +115,7 @@
             , page: {layout: ['limit', 'count', 'prev', 'page', 'next', 'skip', 'refresh'], groups: 1}
             , cols: [[ //表头
                 {type: 'checkbox'}
-                , {field: 'customerName', title: '客户姓名'}
+                , {field: 'customerName', title: '客户姓名',width:300}
                 , {field: 'contractNo', title: '合同编号',templet:function(data){
                         return str = '<a style="color:blue;" href="javascript:" lay-event="detail">' +data.contractNo + '</a>';
                     }
@@ -127,6 +141,7 @@
 
         //获取客户成熟度字典并加载下拉框
         getSelectData('合同状态', 'conState');
+        getSelectData('合同类型', 'contractType');
 
         function getSelectData(dictionaryName, selectName) {
             $.post('${pageContext.request.contextPath}/dictionary/find', {'name': dictionaryName}, function (data) {
@@ -157,7 +172,9 @@
                 , method: "post"
                 , where: {
                     'contractNo': $("input[name='contractNo']").val(),
-                    'conState': $("select[name='conState']").val()
+                    'conState': $("select[name='conState']").val(),
+                    'manageName': $("input[name='manageName']").val(),
+                    'contractType': $("select[name='contractType']").val()
                 }
             });
         });

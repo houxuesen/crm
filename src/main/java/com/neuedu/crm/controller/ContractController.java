@@ -124,6 +124,15 @@ public class ContractController {
                 criteria.andConStateEq(contract.getConState());
             }
 
+            if(!StringUtils.isEmpty(contract.getManageName())){
+                criteria.andManageNameLike("%" +contract.getManageName() + "%");
+            }
+
+            if(!StringUtils.isEmpty(contract.getContractType())){
+                criteria.andConTypeEq(contract.getContractType());
+            }
+
+
         }
 
         example.setOrderByClause(" CREATE_DATE desc ");

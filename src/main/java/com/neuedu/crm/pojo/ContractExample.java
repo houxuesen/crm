@@ -2034,8 +2034,19 @@ public class ContractExample {
             return (Criteria) this;
         }
 
+        public Criteria andManageNameLike(String value) {
+            addCriterion("Manage_Name like", value, "manageName");
+            return (Criteria) this;
+        }
+
+
         public Criteria andConStateEq(String value) {
             addCriterion("Con_State = ", value, "conState");
+            return (Criteria) this;
+        }
+
+        public Criteria andConTypeEq(String value) {
+            addCriterion("contract_Type = ", value, "contractType");
             return (Criteria) this;
         }
 
