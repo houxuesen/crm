@@ -33,7 +33,7 @@
             </div> 
 	        
 	        <!-- 客户类别 --> 
-	        <label class="layui-form-label">客户类别：</label>
+	        <label class="layui-form-label">客户规模：</label>
 	        <div class="layui-input-inline">
 	          <select name="type" lay-filter="type">
 	            <option value="">--数据加载中--</option>
@@ -60,19 +60,42 @@
 	    </div>  
 	    
 	    <div class="layui-form-item">
-
-
 			<label class="layui-form-label">过期范围：</label>
+			<div class="layui-input-inline" >
+				<input type="text" name="endDateBegin" id="endDateBegin" class="layui-input">
+			</div>
+			<div class="layui-input-inline" style="width: 20px;">--</div>
+			<div class="layui-input-inline" >
+				<input type="text"  id="endDateEnd" name="endDateEnd" class="layui-input" >
+			</div>
+	    </div>
+
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">最后跟踪时间：</label>
+			<div class="layui-input-inline" >
+				<input type="text" name="lastDateBegin" dateFormat="yyyy-MM-dd HH:mm:ss" id="lastDateBegin" class="layui-input">
+			</div>
+			<div class="layui-input-inline" style="width: 20px;">--</div>
+			<div class="layui-input-inline" >
+				<input type="text"  id="lastDateEnd" dateFormat="yyyy-MM-dd HH:mm:ss" name="lastDateEnd" class="layui-input" >
+			</div>
+		</div>
+
+
+		<div class="layui-form-item">
+
+			<label class="layui-form-label">客户归属人：</label>
 			<div class="layui-input-inline">
-				<input type="text" name="endDateBegin" id="endDateBegin" class="layui-input">-<input type="text"  id="endDateEnd" name="endDateEnd" class="layui-input">
+				<input type="text" name="managerName" class="layui-input">
 			</div>
 
 			<label class="layui-form-label">备注：</label>
 			<div class="layui-input-inline">
 				<input type="text" name="description" class="layui-input">
 			</div>
-	    </div>
 
+		</div>
 	    <div class="layui-form-item"  style="width: 450px;margin-top: 40px;">
             <div class="layui-input-block">
                 <button type="reset" class="layui-btn" style="margin-left: 135px;">重置</button>
@@ -106,6 +129,11 @@ layui.use(['form','laydate'],function(){
 
 		parent$('input[name=endDateBegin]').val(formdata.endDateBegin);
 		parent$('input[name=endDateEnd]').val(formdata.endDateEnd);
+		parent$('input[name=managerName]').val(formdata.managerName);
+
+
+		parent$('input[name=lastDateBegin]').val(formdata.lastDateBegin);
+		parent$('input[name=lastDateEnd]').val(formdata.lastDateEnd);
 
 		//执行查询功能
 		parent$('#search-button').click();
@@ -131,6 +159,24 @@ layui.use(['form','laydate'],function(){
 		, format: 'yyyy-MM-dd'
 		, trigger: 'click'
 	});
+
+
+	//加载日期选择器
+	laydate.render({
+		elem: '#lastDateBegin' //指定元素
+		, type: 'datetime'
+		, format: 'yyyy-MM-dd HH:mm:ss'
+		, trigger: 'click'
+	});
+
+	//加载日期选择器
+	laydate.render({
+		elem: '#lastDateEnd' //指定元素
+		, type: 'datetime'
+		, format: 'yyyy-MM-dd HH:mm:ss'
+		, trigger: 'click'
+	});
+
 	
 	//获取客户状态字典并加载下拉框
     setTimeout(getSelectData('客户状态','status'),0);

@@ -168,12 +168,16 @@ public class Customer implements Serializable {
     private  String userNum;
 
 
-
+    //赋值查询用
     private LocalDate endDateBegin;
     private LocalDate endDateEnd;
-
-
+    private String managerName;
     private LocalDateTime lastTime;
+
+
+    private LocalDateTime lastDateBegin;
+    private LocalDateTime lastDateEnd;
+
 
 
     private static final long serialVersionUID = 1L;
@@ -392,6 +396,31 @@ public class Customer implements Serializable {
 
     public void setProductId(Integer productId) {
         this.productId = productId;
+    }
+
+    public String getManagerName() {
+        return managerName;
+    }
+
+    public void setManagerName(String managerName) {
+        this.managerName = managerName;
+    }
+
+
+    public LocalDateTime getLastDateBegin() {
+        return lastDateBegin;
+    }
+
+    public void setLastDateBegin(LocalDateTime lastDateBegin) {
+        this.lastDateBegin = lastDateBegin;
+    }
+
+    public LocalDateTime getLastDateEnd() {
+        return lastDateEnd;
+    }
+
+    public void setLastDateEnd(LocalDateTime lastDateEnd) {
+        this.lastDateEnd = lastDateEnd;
     }
 
     public Integer getCreater() {

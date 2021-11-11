@@ -3,6 +3,7 @@ package com.neuedu.crm.controller;
 import java.io.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -124,6 +125,11 @@ public class CustomerController {
             if(customer.getDescription() != null && !"".equals(customer.getDescription())){
                 criteria.andDescriptionLike("%" + customer.getDescription() + "%");
             }
+            if(customer.getManagerName() != null && !"".equals(customer.getManagerName())) {
+               criteria.andSql(" manager_Id in (select id from user where real_Name like '%"+customer.getManagerName()+"%' ) ");
+            }
+
+
             
             if(customer.getType() != null && !"".equals(customer.getType())) {
                 criteria.andTypeEqualTo(customer.getType()); 
@@ -151,6 +157,15 @@ public class CustomerController {
             if(customer.getEndDateEnd() != null){
                 criteria.andEndDateLessThanOrEqualTo(customer.getEndDateEnd());
             }
+            DateTimeFormatter dtf2 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            if(customer.getLastDateBegin() != null){
+                criteria.andSql(" id in (select customer_id from Follow_Up where time >= '"+ dtf2.format(customer.getLastDateBegin())+"' ) ");
+            }
+
+            if(customer.getLastDateEnd() != null){
+                criteria.andSql(" id in (select customer_id from Follow_Up where time <= '"+dtf2.format(customer.getLastDateEnd())+"' ) ");
+            }
+
 
         }
 
@@ -355,9 +370,37 @@ public class CustomerController {
         if("客户经理".equals(user.getRole().getName())) {
             //设置管理者ID
             criteria.andManagerIdEqualTo(user.getId());
-            //只查询未删除的客户
-            criteria.andDeleteStatusEqualTo(0);
         }
+
+        //只查询未删除的客户
+        criteria.andDeleteStatusEqualTo(0);
+
+        if(customer != null) {
+            if(customer.getName() != null) {
+                criteria.andNameLike("%" + customer.getName() + "%");
+            }
+        }
+        List<Customer> customers = customerService.selectByCustomerExample(example);
+        map.put("data", customers);
+        return map;
+    }
+
+    @Operation(name="根据名字查找客户")
+    @RequestMapping("findAllByName")
+    @ResponseBody
+    public Map<String, Object> findAllByName(Customer customer){
+        Map<String, Object> map = new HashMap<String,Object>(16);
+
+        CustomerExample example = new CustomerExample();
+        Criteria criteria = example.createCriteria();
+
+        if("客户经理".equals(user.getRole().getName())) {
+            //设置管理者ID
+            criteria.andManagerIdEqualTo(user.getId());
+        }
+
+        //只查询未删除的客户
+        criteria.andDeleteStatusEqualTo(0);
 
         if(customer != null) {
             if(customer.getName() != null) {

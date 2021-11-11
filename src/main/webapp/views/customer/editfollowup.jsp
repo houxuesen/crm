@@ -95,6 +95,10 @@
 
 var ue = UE.getEditor('content', {});
 
+ue.ready(function(){
+	ue.execCommand('fontsize','14px');
+});
+
 layui.use(['form','upload','laydate'],function(){
 	var form = layui.form;
 	var layer = layui.layer;

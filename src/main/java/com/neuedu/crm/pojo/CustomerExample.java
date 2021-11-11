@@ -2036,6 +2036,22 @@ public class CustomerExample {
             addCriterion("end_date <=", value, "endDate");
             return (Criteria) this;
         }
+
+        public Criteria andLastTimeLessOrEqualTo(LocalDateTime value) {
+            addCriterion("create_time <=", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andLastTimeThanOrEqualTo(LocalDateTime value) {
+            addCriterion("create_time >=", value, "createTime");
+            return (Criteria) this;
+        }
+
+
+        public Criteria andSql(String val) {
+            addCriterion(val);
+            return (Criteria) this;
+        }
     }
 
     /**

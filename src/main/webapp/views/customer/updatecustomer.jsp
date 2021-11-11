@@ -46,9 +46,9 @@
             <input type="text" name="userNum" lay-verify="required"  class="layui-input"  id="userNum" />
         </div>
 
-        <label class="layui-form-label">到期时间<strong style="color: red">*</strong>：</label>
+        <label class="layui-form-label">到期时间：</label>
         <div class="layui-input-inline">
-            <input type="text" name="endDate" lay-verify="required"  class="layui-input"  id="endDate" />
+            <input type="text" name="endDate"   class="layui-input"  id="endDate" />
         </div>
 
     </div>

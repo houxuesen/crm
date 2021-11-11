@@ -107,13 +107,14 @@
                     }
                 }
                 , {field: 'signUserName', title: '签约人'}
+                , {field: 'contractType', title: '合同类型'}
                 , {field: 'signDate', title: '签约时间'}
                 , {field: 'manageName', title: '负责人'}
                 , {field: 'userNum', title: '用户数'}
                 , {field: 'limitYears', title: '购买年限'}
                 , {field: 'contractAmount', title: '合同金额'}
                 , {field: 'baseAmount', title: '合同成本'}
-                , {field: 'contractType', title: '合同类型'}
+
                 , {field: 'otherAmount', title: '毛利额'}
                 , {field: 'discountAmount', title: '商务返点'}
                 , {field: 'payType', title: '支付方式'}

@@ -92,6 +92,11 @@
 
 	<input type="text" name="endDateBegin" />
 	<input type="text" name="endDateEnd" />
+	<input type="text" name="managerName" />
+
+	<input type="text" name="lastDateBegin" />
+	<input type="text" name="lastDateEnd" />
+
 
     <button type="button" data-type="reload" id="search-button">搜索</button>
 </div>
@@ -119,15 +124,19 @@ layui.use(['table','form'], function(){
       ,page: {layout: ['limit', 'count', 'prev', 'page', 'next', 'skip','refresh'],groups: 1 }
       ,cols: [[ //表头
           {type:'checkbox'}
-          ,{field:'name',title:'客户名称',templet:function(data){
+          ,{field:'name',title:'客户名称' ,width: 300,templet:function(data){
         	  return str = '<a style="color:blue;" href="javascript:" lay-event="detail">' +data.name + '</a>';
           }}
           ,{field:'status',title:'客户状态'}
           ,{field:'type',title:'客户规模'}
           ,{field:'source',title:'现服务商'}
-          ,{field:'endDate',title:'到期时间'}
+          ,{field:'endDate',title:'到期时间',templet(data){
+					return  getDate(data.endDate)
+			}}
           ,{field:'level',title:'客户等级'}
-			,{field:'lastTime',title:'最后跟踪时间'}
+			,{field:'lastTime',title:'最后跟踪时间',templet(data){
+					return  getDate(data.lastTime)
+				}}
 
           ,{field:'description',title:'备注'}
         
@@ -170,7 +179,10 @@ layui.use(['table','form'], function(){
               'credit':$('input[name=credit]').val(),
               'description':$('input[name=description]').val(),
 				'endDateBegin':$('input[name=endDateBegin]').val(),
-				'endDateEnd':$('input[name=endDateEnd]').val()
+				'endDateEnd':$('input[name=endDateEnd]').val(),
+				'managerName':$('input[name=managerName]').val(),
+				'lastDateBegin':$('input[name=lastDateBegin]').val(),
+				'lastDateEnd':$('input[name=lastDateEnd]').val()
           }
         });
       });
@@ -300,7 +312,7 @@ layui.use(['table','form'], function(){
     	layer.open({
             type:2,
             title:'新建跟踪',
-            area:['500px','92%'],
+            area:['750px','92%'],
             closeBtn:1,
             shadeClose:false,
             content:'${pageContext.request.contextPath}/views/customer/editfollowup.jsp?type=add',
@@ -377,6 +389,20 @@ layui.use(['table','form'], function(){
     });
 
 });
+
+function getDate(time){
+	if(time !=null ){
+		if(time.length == 6){
+			return  time[0]+'-'+time[1]+'-'+time[2]+' '+time[3]+":"+time[4]+":"+time[5];
+		}else if(time.length == 5){
+			return  time[0]+'-'+time[1]+'-'+time[2]+' '+time[3]+":"+time[4];
+		}else{
+			return  time[0]+'-'+time[1]+'-'+time[2];
+		}
+	}else{
+		return '';
+	}
+}
 
 </script>
 

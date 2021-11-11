@@ -410,49 +410,57 @@ layui.use(['element','table','flow'],function(){
      
 	//展示跟踪记录详细信息
 	//动态加载出来的元素需要使用on来绑定
-	$(document).on("click","[id^=updateFollow-]",function(){
-
-        var id = this.id.split("-")[1];
-		layer.open({
-			type:2,
-			title:'新建跟踪',
-			area:['700px','90%'],
-			closeBtn:1,
-			shadeClose:false,
-			content:'${pageContext.request.contextPath}/views/customer/editfollowup.jsp?type=update&customerId=' + parm.id +"&id="+id,
-			end:function(){
-				reloadFlow();
-			}
+	initUpdateFollow();
+	function initUpdateFollow(){
+		$(document).on("click","[id^=updateFollow-]",function(){
+			var id = this.id.split("-")[1];
+			layer.open({
+				type:2,
+				title:'新建跟踪',
+				area:['700px','90%'],
+				closeBtn:1,
+				shadeClose:false,
+				content:'${pageContext.request.contextPath}/views/customer/editfollowup.jsp?type=update&customerId=' + parm.id +"&id="+id,
+				end:function(){
+					reloadFlow();
+				}
+			});
 		});
-    });
-
-	$(document).on("click","[id^=delFollow-]",function(){
-		var id = this.id.split("-")[1];
-		var ids = [];
-		ids.push(id)
-		$.ajax({
-			type: "POST",
-			url: '${pageContext.request.contextPath}/followup/delete',
-			data: {
-				'ids':ids
-			},
-			traditional:true,
-			success: function(data){
-				top.layer.msg(data.msg);
-				reloadFlow();
-			},
-			error:function(){
-				top.layer.msg("服务器开小差了，请稍后再试...");
-				layer.closeAll('loading');
-			}
+	}
+	initDelFollow();
+	function initDelFollow(){
+		$(document).on("click","[id^=delFollow-]",function(){
+			var id = this.id.split("-")[1];
+			var ids = [];
+			ids.push(id)
+			$.ajax({
+				type: "POST",
+				url: '${pageContext.request.contextPath}/followup/delete',
+				data: {
+					'ids':ids
+				},
+				traditional:true,
+				success: function(data){
+					top.layer.msg(data.msg);
+					reloadFlow();
+				},
+				error:function(){
+					top.layer.msg("服务器开小差了，请稍后再试...");
+					layer.closeAll('loading');
+				}
+			});
 		});
-	});
+	}
+
+
 
 	function reloadFlow(){
 		$('#follow-flow').remove();
 		$(document).unbind();
 		$('#show-followup').append('<ul class="layui-timeline" id="follow-flow"></ul>');
 		getFollowup();
+		initUpdateFollow();
+		initDelFollow();
 	}
 
 
