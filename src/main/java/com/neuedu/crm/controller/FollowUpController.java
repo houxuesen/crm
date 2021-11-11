@@ -96,7 +96,7 @@ public class FollowUpController {
 
             Role role = roleMapper.selectByPrimaryKey(user.getRoleId());
             if(role !=  null){
-                if("客户经理".equals(user.getRole().getName())){
+                if("客户经理".equals(role.getName())){
                     customerExample.createCriteria().andManagerIdEqualTo(user.getId());
                 }
             }else{
