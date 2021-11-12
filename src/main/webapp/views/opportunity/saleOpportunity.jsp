@@ -249,7 +249,7 @@
 				type : 2,
 				title : title,
 				closeBtn : 1,
-				area : [ '1040px', '650px' ],
+				area : [ '1040px', '90%' ],
 				shadeClose : false,
 				content : url,
 				end : function() {
