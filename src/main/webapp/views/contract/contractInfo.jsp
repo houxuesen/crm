@@ -253,7 +253,7 @@ layui.use(['element','table','flow'],function(){
 
                     $('#cont_li_run').text(contract.contractAmount - contract.baseAmount - contract.discountAmount);
                     $('#cont_realmName').text(contract.customer.realmName);
-
+                    $('#userNum').text(contract.customer.userNum);
                     //添加文件下载按钮
                     if(contract.document != null && contract.document != ''){
                         var document = contract.document;
@@ -508,70 +508,117 @@ layui.use(['element','table','flow'],function(){
   
   
   
-  //跟踪记录模块
-  
-  //使用流加载跟踪记录
-  flow.load({
-     elem: '#follow-flow' //指定列表容器
-     ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
-       var lis = [];
-       //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
-       $.post('${pageContext.request.contextPath}/followup/list',{'page':page,'customerId':parm.id}, function(res){
-         //假设你的列表返回在data集合中
-         layui.each(res.data, function(index, item){
-         var title = '' + item.time[0] + '年' + item.time[1] + '月' + item.time[2] + '日' + '   ' + item.time[3] + ':' +item.time[4] + ':' +item.time[5];
-           var str = '<li class="layui-timeline-item"><i class="layui-icon layui-timeline-axis">&#xe63f;</i>';
-           str += '<div class="layui-timeline-content layui-text" >';
-           str += '<h3 class="layui-timeline-title"  id="followup-' + item.id + '"> <span style="font-size: 16px;">' + item.manager.account + '</span> ';
-           str += title + '</h3></a><p>';
-           str += '' + item.general + '</p></div></li>';
-         lis.push(str);
-         }); 
-         
-         //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
-         //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
-         next(lis.join(''), page < res.pages);    
-           
-       });
-     }
-   });                                   
-                  
-                  
-     //点击新建跟踪记录按钮        
-     $('#add-follow').click(function(){
-       layer.open({
-             type:2,
-             title:'新建跟踪',
-             area:['500px','680px'],
-             closeBtn:1,
-             shadeClose:false,
-             content:'${pageContext.request.contextPath}/views/customer/editfollowup.jsp?type=add&customerId=' + parm.id,
-             end:function(){
-                location.reload();
-             }       
-         });
-     });             
-                  
-     
-  //展示跟踪记录详细信息
-  //动态加载出来的元素需要使用on来绑定
-  $(document).on("click","h3[id^=followup]",function(){
-        //layer.msg('click');
-        //console.log(this);
-        var id = this.id.split("-")[1];
+     //跟踪记录模块
+
+    getFollowup();
+
+    function getFollowup(){
+        //使用流加载跟踪记录
+        flow.load({
+            elem: '#follow-flow' //指定列表容器
+            ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+                var lis = [];
+                //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                $.post('${pageContext.request.contextPath}/followup/list',{'page':page,'customerId':parm.id}, function(res){
+                    //假设你的列表返回在data集合中
+                    layui.each(res.data, function(index, item){
+                        console.info(item);
+                        var title = '' + item.time[0] + '年' + item.time[1] + '月' + item.time[2] + '日' + '   ' + item.time[3] + ':' +item.time[4] ;
+                        var str = '<li class="layui-timeline-item"><i class="layui-icon layui-timeline-axis">&#xe63f;</i>';
+                        str += '<div class="layui-timeline-content layui-text" >';
+                        str += '<h3 class="layui-timeline-title"  id="followup-' + item.id + '"> <span style="font-size: 16px;">' + item.manager.account + '</span> ';
+                        str += title + '</h3></a><p style="width:100%;word-break:break-all;word-wrap:break-word;">';
+                        str += '' + item.content + '</p></div></li>';
+                        if(index == 0){
+                            str += '<button type="button" class="layui-btn" style="margin-left: 180px;" id="updateFollow-'+item.id+'">编辑</button>';
+                            str += '<button type="button" class="layui-btn" style="margin-left: 180px;" id="delFollow-'+item.id+'">删除</button>';
+                            str += '<br />'
+                        }
+
+                        lis.push(str);
+                    });
+
+                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                    next(lis.join(''), page < res.pages);
+
+                });
+            }
+        });
+    }
+
+
+
+
+    //点击新建跟踪记录按钮
+    $('#add-follow').click(function(){
         layer.open({
             type:2,
-            title:'详情',
-            area:['400px','60%'],
+            title:'新建跟踪',
+            area:['700px','90%'],
             closeBtn:1,
-            shadeClose: true,
-            content:'${pageContext.request.contextPath}/views/customer/followupInfo.jsp?id=' + id,
+            shadeClose:false,
+            content:'${pageContext.request.contextPath}/views/customer/editfollowup.jsp?type=add&customerId=' + parm.id,
             end:function(){
-                 //location.reload();
-            }       
+                reloadFlow();
+            }
         });
     });
 
+
+    //展示跟踪记录详细信息
+    //动态加载出来的元素需要使用on来绑定
+    initUpdateFollow();
+    function initUpdateFollow(){
+        $(document).on("click","[id^=updateFollow-]",function(){
+            var id = this.id.split("-")[1];
+            layer.open({
+                type:2,
+                title:'新建跟踪',
+                area:['700px','90%'],
+                closeBtn:1,
+                shadeClose:false,
+                content:'${pageContext.request.contextPath}/views/customer/editfollowup.jsp?type=update&customerId=' + parm.id +"&id="+id,
+                end:function(){
+                    reloadFlow();
+                }
+            });
+        });
+    }
+    initDelFollow();
+    function initDelFollow(){
+        $(document).on("click","[id^=delFollow-]",function(){
+            var id = this.id.split("-")[1];
+            var ids = [];
+            ids.push(id)
+            $.ajax({
+                type: "POST",
+                url: '${pageContext.request.contextPath}/followup/delete',
+                data: {
+                    'ids':ids
+                },
+                traditional:true,
+                success: function(data){
+                    top.layer.msg(data.msg);
+                    reloadFlow();
+                },
+                error:function(){
+                    top.layer.msg("服务器开小差了，请稍后再试...");
+                    layer.closeAll('loading');
+                }
+            });
+        });
+    }
+
+
+
+    function reloadFlow(){
+        $('#follow-flow').remove();
+        $('#show-followup').append('<ul class="layui-timeline" id="follow-flow"></ul>');
+        getFollowup();
+        initUpdateFollow();
+        initDelFollow();
+    }
   
   //使用流加载转移记录
     flow.load({

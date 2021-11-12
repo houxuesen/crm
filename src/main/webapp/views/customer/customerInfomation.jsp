@@ -157,6 +157,7 @@ layui.use(['element','table','flow'],function(){
 	                $('#source').text(customer.source);
 	                $('#description').text(customer.description);
 	                $('#maturity').text(customer.maturity);
+					$('#userNum').text(customer.userNum);
 	                //添加文件下载按钮
 	                if(customer.document != null && customer.document != ''){
 	                	var document = customer.document;
@@ -456,7 +457,6 @@ layui.use(['element','table','flow'],function(){
 
 	function reloadFlow(){
 		$('#follow-flow').remove();
-		$(document).unbind();
 		$('#show-followup').append('<ul class="layui-timeline" id="follow-flow"></ul>');
 		getFollowup();
 		initUpdateFollow();

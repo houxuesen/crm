@@ -108,9 +108,10 @@ public class ContractController {
         if("客户经理".equals(user.getRole().getName())){
             criteria.addSqlCriteria(" (manage_Id = " + user.getId() + " or create_User_Id = " + user.getId() +")");
             //criteria.andManagerIdEqualTo(user.getId());
-            //只查询未删除的合同
-            criteria.andDeleteStatusEqualTo(0);
         }
+
+        //只查询未删除的合同
+        criteria.andDeleteStatusEqualTo(0);
 
 
         System.out.println(contract);

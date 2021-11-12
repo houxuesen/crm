@@ -92,6 +92,7 @@ layui.use(['table'],function(){
 	                $('#source').text(customer.source);
 	                $('#description').text(customer.description);
 	                $('#maturity').text(customer.maturity);
+	                $('#userNum').text(customer.userNum);
 	               //添加文件下载按钮
                     if(customer.document != null && customer.document != ''){
                         var document = customer.document;
