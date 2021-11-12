@@ -9,6 +9,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.neuedu.crm.pojo.*;
+import com.neuedu.crm.service.IRoleService;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.neuedu.crm.pojo.DictionaryItem;
-import com.neuedu.crm.pojo.DictionaryType;
-import com.neuedu.crm.pojo.DictionaryTypeExample;
-import com.neuedu.crm.pojo.Report;
-import com.neuedu.crm.pojo.User;
 import com.neuedu.crm.service.IDictionaryTypeService;
 import com.neuedu.crm.service.IReportService;
 import com.neuedu.crm.utils.Operation;
@@ -43,6 +40,9 @@ public class ReportController {
 	@Autowired
 	private IDictionaryTypeService dictTypeService;
 
+	@Autowired
+	private IRoleService roleService;
+
 	/**
 	 * 
 	 * 描述：统计公司新增的客户量 近day天的新增量
@@ -60,17 +60,29 @@ public class ReportController {
 	@Operation(name = "统计公司新增的客户量")
 	@RequestMapping("/countCustomer")
 	@ResponseBody
-	public Map<String, Object> countCustomerIncrease(int day) {
+	public Map<String, Object> countCustomerIncrease(int day,HttpServletRequest request) {
 
 		System.err.println(day + "+++++++++++++");
 
 		Map<String, Object> maps = new HashMap<String, Object>(16);
+		Report report = new Report();
+		HttpSession session = request.getSession();
+		report.setDay(day);
+
+
+		User user = (User)session.getAttribute("user");
+		Role role = roleService.selectByPrimaryKey(user.getRoleId());
+		if(role !=  null){
+			if("客户经理".equals(role.getName())){
+				report.setUserId(user.getId());
+			}
+		}
 
 		// 客户新增量
-		List<Map<String, Object>> increase = reportService.countCustomerIncrease(day);
+		List<Map<String, Object>> increase = reportService.countCustomerIncrease(report);
 
 		// 客户损失量
-		List<Map<String, Object>> decrease = reportService.countCustomerDecrease(day);
+		List<Map<String, Object>> decrease = reportService.countCustomerDecrease(report);
 
 		maps.put("increase", increase);
 		maps.put("decrease", decrease);

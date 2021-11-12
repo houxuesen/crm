@@ -23,11 +23,11 @@ public interface ReportMapper{
      * @param n 天数
      * @param 
      * @return 
-     * @exception Nothing
+     * @exception 
      * @since 1.8
      *
      */
-	public List<Map<String, Object>> countCustomerIncrease(@Param("n")int n);
+	public List<Map<String, Object>> countCustomerIncrease(Report report);
 	
 	
 	/**
@@ -38,11 +38,11 @@ public interface ReportMapper{
      * @param n 天数
      * @param 
      * @return 
-     * @exception Nothing
+     * @exception 
      * @since 1.8
      *
      */
-	public List<Map<String, Object>> countCustomerDecrease(@Param("n")int n);
+	public List<Map<String, Object>> countCustomerDecrease(Report report);
 	/**
 	 * 描述：查询某段时间内客户的新增客户
 	 * @author HuangWanzong
@@ -108,7 +108,7 @@ public interface ReportMapper{
 	 * @version 1.0
 	 * @param report
 	 * @return List<Map<String,Object>>
-	 * @exception Nothing
+	 * @exception 
 	 * @since 1.8
 	 *
 	 */
@@ -121,7 +121,7 @@ public interface ReportMapper{
 	 * @version 1.0
 	 * @param report
 	 * @return List<Map<String,Object>>
-	 * @exception Nothing
+	 * @exception 
 	 * @since 1.8
 	 *
 	 */

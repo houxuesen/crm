@@ -247,7 +247,7 @@ layui.use(['layer','form','table'], function(){
 				var option = {
 				    title : {
 				        text: '公司客户来源统计',
-				        subtext: '东软客户关系管理系统',
+				        subtext: '悦见客户关系管理系统',
 				        x:'center'
 				    },
 				    tooltip : {

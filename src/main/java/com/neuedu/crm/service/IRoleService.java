@@ -122,5 +122,7 @@ public interface IRoleService {
      * @exception Nothing
      */
     public boolean updateRoleByPrimaryKey(Role role);
+
+    Role selectByPrimaryKey(Integer id);
 	
 }

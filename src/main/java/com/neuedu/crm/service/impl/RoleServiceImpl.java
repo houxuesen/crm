@@ -207,5 +207,9 @@ public class RoleServiceImpl implements IRoleService {
     		return false;
     	}
     }
-	
+
+	@Override
+	public Role selectByPrimaryKey(Integer id) {
+		return roleMapper.selectByPrimaryKey(id);
+	}
 }

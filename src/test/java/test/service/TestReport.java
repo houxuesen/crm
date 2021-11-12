@@ -46,14 +46,14 @@ public class TestReport {
 	 */
 	//@Test
 	public void testCountCustomerIncrease() throws JsonGenerationException, JsonMappingException, IOException {
-		int day = 7;
+	/*	int day = 7;
 		List<Map<String, Object>> result = reportMapper.countCustomerIncrease(day);
 		
 		Map<String, Object> maps = new HashMap<String, Object>();
 		
 		maps.put("data", result);
 		
-		System.err.println(new ObjectMapper().writeValueAsString(maps));
+		System.err.println(new ObjectMapper().writeValueAsString(maps));*/
 	}
 	
 	

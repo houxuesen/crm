@@ -33,13 +33,13 @@ public class ReportServiceImpl implements IReportService{
 	private UserMapper userMapper;
 	
 	@Override
-	public List<Map<String, Object>> countCustomerIncrease(int n) {
-		return reportMapper.countCustomerIncrease(n);
+	public List<Map<String, Object>> countCustomerIncrease(Report report) {
+		return reportMapper.countCustomerIncrease(report);
 	}
 
 	@Override
-	public List<Map<String, Object>> countCustomerDecrease(int n) {
-		return reportMapper.countCustomerDecrease(n);
+	public List<Map<String, Object>> countCustomerDecrease(Report report) {
+		return reportMapper.countCustomerDecrease(report);
 	}
 
     @Override

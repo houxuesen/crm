@@ -5,25 +5,32 @@
   <!-- 报表模块mapper.xml -->
   
   <!-- 统计公司新增的客户量 近n天的 -->
-  <select id="countCustomerIncrease"  parameterType="int" resultType="HashMap" >
+  <select id="countCustomerIncrease"  parameterType="com.neuedu.crm.pojo.Report" resultType="HashMap" >
 
 	    select date_format(create_time, '%m-%d') as date, count(*) as count 
 	    from customer 
-	    where date_sub(curdate(), INTERVAL #{n} DAY) &lt;= date(date_format(create_time, '%Y-%m-%d'))
-	    group by date 
+	    where date_sub(curdate(), INTERVAL #{day} DAY) &lt;= date(date_format(create_time, '%Y-%m-%d'))
+	    <if test="userId != null">
+            and  manager_id = #{userId}
+        </if>
+	    group by date
 	    order by date asc
 
   </select>
   
   <!-- 统计公司损失的客户量 近n天的记录 -->
-  <select id="countCustomerDecrease" parameterType="int" resultType="HashMap">
-  	<![CDATA[
+  <select id="countCustomerDecrease" parameterType="com.neuedu.crm.pojo.Report" resultType="HashMap">
+
   		select date_format(loss_date, '%m-%d') as date, count(*) as count 
 	    from customer_loss 
-	    where date_sub(curdate(), INTERVAL #{n} DAY) <= date(date_format(loss_date, '%Y-%m-%d')) 
-	    group by date 
+	    where date_sub(curdate(), INTERVAL #{day} DAY)  <![CDATA[<=]]> date(date_format(loss_date, '%Y-%m-%d'))
+          <if test="userId != null">
+              and  manager_id = #{userId}
+          </if>
+
+  		group by date
 	    order by date asc
-  	]]>
+
   </select>
   
   <!-- 统计客户经理拥有的客户量排名  按时间 -->

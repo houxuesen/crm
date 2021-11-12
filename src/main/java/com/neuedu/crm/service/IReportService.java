@@ -19,11 +19,11 @@ public interface IReportService {
      * @version 1.0
      * @param n
      * @return 
-     * @exception Nothing
+     * @exception 
      * @since 1.8
      *
      */
-	public List<Map<String, Object>> countCustomerIncrease(int n);
+	public List<Map<String, Object>> countCustomerIncrease(Report report);
 	
 	/**
      * 
@@ -33,11 +33,11 @@ public interface IReportService {
      * @param n 天数
      * @param 
      * @return 
-     * @exception Nothing
+     * @exception 
      * @since 1.8
      *
      */
-	public List<Map<String, Object>> countCustomerDecrease(int n);
+	public List<Map<String, Object>> countCustomerDecrease(Report report);
 	
 	/**
 	 * 描述：描述：统计这一年的新增客户
@@ -173,7 +173,7 @@ public interface IReportService {
      * @param day 表示查询近几天内的记录
      * @param userId 查询的客户经理的ID
      * @return List<Map<String,Object>>
-     * @exception Nothing
+     * @exception 
      * @since 1.8
      *
      */
@@ -187,7 +187,7 @@ public interface IReportService {
      * @param service
      * @param day
      * @return Map<String,Object>
-     * @exception Nothing
+     * @exception 
      * @since 1.8
      *
      */
@@ -201,7 +201,7 @@ public interface IReportService {
      * @param service
      * @param report
      * @return Map<String,Object>
-     * @exception Nothing
+     * @exception 
      * @since 1.8
      *
      */
@@ -215,7 +215,7 @@ public interface IReportService {
      * @param service
      * @param report
      * @return Map<String,Object>
-     * @exception Nothing
+     * @exception 
      * @since 1.8
      *
      */
@@ -228,7 +228,7 @@ public interface IReportService {
 	 * @version 1.0
 	 * @param report
 	 * @return List<Map<String,Object>>
-	 * @exception Nothing
+	 * @exception 
 	 * @since 1.8
 	 *
 	 */
