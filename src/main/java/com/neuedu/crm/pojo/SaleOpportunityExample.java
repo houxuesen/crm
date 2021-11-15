@@ -1024,6 +1024,16 @@ public class SaleOpportunityExample {
             addCriterion("delete_status not between", value1, value2, "deleteStatus");
             return (Criteria) this;
         }
+
+        public Criteria andCheckStatusEqualTo(String value) {
+            addCriterion("Check_Status =", value, "checkStatus");
+            return (Criteria) this;
+        }
+
+        public Criteria andResultStatusEqualTo(String value) {
+            addCriterion("Result_Status =", value, "resultStatus");
+            return (Criteria) this;
+        }
     }
 
     /**

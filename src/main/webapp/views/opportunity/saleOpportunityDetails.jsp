@@ -31,9 +31,9 @@
 			    <form class="layui-form" lay-filter="myform">
 			        <div style="width: 99.8%;height:35px;line-height:35px;border: 1px #f1f1f1 solid;background-color: #f5f5f5;" ><span style="margin-left: 28px;">基本信息</span></div>
 			        
-			        
+			        <input type="hidden" id="id" />
 			        <div class="layui-form-item" style="margin-top: 15px;">  
-			        
+
 			            <label class="layui-form-label">创建人：</label>
 			            <div class="layui-input-inline" style="width: 250px;">
 			                <input type="text" class="layui-input" id="createrName" name="createrUser.name" readonly="readonly" value="" />
@@ -126,8 +126,8 @@
 
 					<div class="layui-form-item">
 						<div class="layui-input-block">
-							<button type="button" class="layui-btn" id="auditPass" >核定</button>
-							<button type="button" class="layui-btn" id="auditRefuse" >无效</button>
+							<button type="button" class="layui-btn" id="auditPass"  >通过</button>
+							<button type="button" class="layui-btn" id="auditRefuse" >拒绝</button>
 						</div>
 					</div>
 
@@ -191,12 +191,55 @@
         				$("#customerName").val(result.data[0].customer.name);
         				$("#successName").val(result.data[0].success+'%');
         				$("div[name='description']").html(result.data[0].description);
+        				$("#id").val(result.data[0].id)
         			}
         		}
         	});
         }
-        
-        
+
+
+
+		$('#auditPass').click(function(){
+			audit('1');
+		});
+
+
+		$('#auditRefuse').click(function(){
+			audit('2');
+		});
+
+
+		//根据ID获取销售机会实例，并填充到表单数据
+		function audit(type){
+			$.ajax({
+				type: "POST",
+				url : "${pageContext.request.contextPath}/opportunity/updateAudit",
+				data: {
+					"type": type,
+					"id": $('#id').val()
+				},
+				async : false,
+				dataType : "json",
+				success : function(result){
+					top.layer.msg(result.msg);    //使用top显示
+					if (result.success) {//成功
+						//关闭当前弹出层
+						var thisindex = parent.layer.getFrameIndex(window.name);
+						parent.layer.close(thisindex);
+					}
+				},
+				error: function (data) {
+					top.layer.msg("服务器开小差了，请稍后再试...");
+				}
+			});
+		}
+
     });
+
+
+
+
+
+
 </script>
 </html>

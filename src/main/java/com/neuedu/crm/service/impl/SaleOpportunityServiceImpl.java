@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.neuedu.crm.mapper.RoleMapper;
+import com.neuedu.crm.pojo.*;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,15 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.neuedu.crm.mapper.CustomerMapper;
 import com.neuedu.crm.mapper.SaleOpportunityMapper;
 import com.neuedu.crm.mapper.UserMapper;
-import com.neuedu.crm.pojo.Customer;
-import com.neuedu.crm.pojo.CustomerExample;
-import com.neuedu.crm.pojo.Pager;
-import com.neuedu.crm.pojo.SaleOpportunity;
-import com.neuedu.crm.pojo.SaleOpportunityExample;
-import com.neuedu.crm.pojo.User;
-import com.neuedu.crm.pojo.UserExample;
 import com.neuedu.crm.pojo.SaleOpportunityExample.Criteria;
 import com.neuedu.crm.service.ISaleOpportunityService;
+import org.springframework.util.StringUtils;
 
 /**
  * 
@@ -39,6 +35,9 @@ public class SaleOpportunityServiceImpl implements ISaleOpportunityService {
 	private CustomerMapper customerMapper;
 	@Autowired
 	private UserMapper userMapper;
+
+	@Autowired
+	private RoleMapper roleMapper;
 	
 	org.slf4j.Logger logger = LoggerFactory.getLogger(SaleOpportunityServiceImpl.class);
 	
@@ -147,30 +146,32 @@ public class SaleOpportunityServiceImpl implements ISaleOpportunityService {
 			criteria.andManagerIdIn(arrayList);
 		}
 		
-		
-		
-		/*if(saleOpportunity.getCustomerId()!=null){
-			criteria.andCustomerIdEqualTo(saleOpportunity.getCustomerId());
-		}
-		if(saleOpportunity.getContactId()!=null){
-			criteria.andContactIdEqualTo(saleOpportunity.getCustomerId());
-		}
-		if(saleOpportunity.getContactPhone()!=null){
-			criteria.andContactPhoneEqualTo(saleOpportunity.getContactPhone());
-		}*/
-		
 		//不显示已删除(软删除)的销售机会   0：未删除  1：已删除
 		criteria.andDeleteStatusNotEqualTo(1);
 		//如果是主管，能查看所有的销售机会，如果是经理，只能查看自己的销售机会
 		User u = (User) request.getSession().getAttribute("user");
-		if(u.getRoleId()==1){
-			criteria.andManagerIdEqualTo(u.getId());
+		Role role = roleMapper.selectByPrimaryKey(u.getRoleId());
+		if(role != null){
+			if("客户经理".equals(role.getName())) {
+				//设置管理者ID
+				criteria.andManagerIdEqualTo(u.getId());
+			}
 		}
-		
+
+		if(!StringUtils.isEmpty(saleOpportunity.getCheckStatus())){
+			criteria.andCheckStatusEqualTo(saleOpportunity.getCheckStatus());
+		}
+
+
+		if(!StringUtils.isEmpty(saleOpportunity.getResultStatus())){
+			criteria.andResultStatusEqualTo(saleOpportunity.getResultStatus());
+		}
+
 		//客户不能为空
 		criteria.andCustomerIdIsNotNull();
-		
-		
+
+		opportunityExample.setOrderByClause(" create_Date desc");
+
 		//分页条件
 		opportunityExample.setLimit(pager.getPageSize());
 		opportunityExample.setOffset(new Long(pager.getOffset()));
@@ -242,4 +243,20 @@ public class SaleOpportunityServiceImpl implements ISaleOpportunityService {
         return true;
 	}
 
+	@Override
+	public boolean loseSaleOpportunitiesByPrimaryKey(String ids) {
+		//先把ids字符串根据规则分割开
+		String[] idsStrings = ids.split("-");
+		for (String idString : idsStrings) {
+			Integer id = Integer.parseInt(idString);
+			SaleOpportunity saleOpportunity = new SaleOpportunity();
+			saleOpportunity.setId(id);
+			saleOpportunity.setResultStatus("失效");
+			//如果删除失败，则直接抛出异常
+			if(saleOpportunityMapper.updateByPrimaryKeySelective(saleOpportunity) < 1){
+				return false;
+			}
+		}
+		return true;
+	}
 }

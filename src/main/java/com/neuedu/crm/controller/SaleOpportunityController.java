@@ -58,7 +58,10 @@ public class SaleOpportunityController {
 	@Operation(name="查看销售机会")
 	@RequestMapping("/findSaleOpportunity")
 	@ResponseBody
-	public Map<String, Object> findSaleOpportunity(@RequestParam(value="page",required=false,defaultValue="1")Integer page,@RequestParam(value="limit",required=false,defaultValue="10") Integer limit,SaleOpportunity saleOpportunity,HttpServletRequest request){
+	public Map<String, Object> findSaleOpportunity(@RequestParam(value="page",required=false,defaultValue="1")Integer page
+			,@RequestParam(value="limit",required=false,defaultValue="10") Integer limit
+			,SaleOpportunity saleOpportunity
+			,HttpServletRequest request){
 		Map<String,Object> map = new HashMap<String,Object>(16);
 		//logger.info("----------------+++++++++**************"+saleOpportunity);
 		Pager pager = new Pager(page.intValue(),limit.intValue());
@@ -243,9 +246,35 @@ public class SaleOpportunityController {
 		}
 		return map;
 	}
-	
-	
-	
+
+
+	/**
+	 * 批量删除销售机会
+	 * @author malizhi
+	 * @param ids
+	 * @return Map<String,Object>
+	 * @version 1.0
+	 * @exception
+	 */
+	@Operation(name="批量删除销售机会")
+	@ResponseBody
+	@RequestMapping("loseSaleOpportunities")
+	public Map<String, Object> loseSaleOpportunities(String ids){
+		Map<String,Object> map = new HashMap<String,Object>(16);
+		if(saleOpportunityService.loseSaleOpportunitiesByPrimaryKey(ids)){
+			map.put("code", 0);
+			map.put("msg", "删除成功");
+			map.put("success", true);
+		}else{
+			map.put("code", 200);
+			map.put("msg", "删除失败");
+			map.put("success", false);
+		}
+		return map;
+	}
+
+
+
 	/**
 	 * 描述：根据用户的角色，展示相应的客户
 	 * @author malizhi
@@ -311,7 +340,40 @@ public class SaleOpportunityController {
     	
     	return map;
     }
-	
+
+	@Operation(name="修改销售机会审核状态")
+	@ResponseBody
+	@RequestMapping("updateAudit")
+    public Map<String,Object> updateAudit(@RequestParam("id")Integer id,Integer type){
+		Map<String,Object> map = new HashMap<String ,Object>(16);
+		//如果客户ID为空，返回失败
+		if(id == null){
+			map.put("code", 200);
+			map.put("msg", "修改失败");
+			map.put("success", false);
+			return map;
+		}
+
+		SaleOpportunity saleOpportunity = new SaleOpportunity();
+		saleOpportunity.setId(id);
+		if(type == 1){
+			saleOpportunity.setCheckStatus("已核对");
+			saleOpportunity.setResultStatus("有效");
+		}else{
+			saleOpportunity.setCheckStatus("已核对");
+			saleOpportunity.setResultStatus("无效");
+		}
+
+		saleOpportunityService.updateSaleOpportunityByPrimaryKeySelective(saleOpportunity);
+
+
+		map.put("msg", "修改成功");
+		map.put("code", 0);
+		map.put("success", true);
+
+		return map;
+	}
+
 	
 	
 }

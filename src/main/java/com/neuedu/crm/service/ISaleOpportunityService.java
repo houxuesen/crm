@@ -184,6 +184,16 @@ public interface ISaleOpportunityService {
 	 * @exception 
 	 */
 	public boolean deleteSaleOpportunitiesByPrimaryKey(String ids);
+
+	/**
+	 * 根据id（分隔符是-）批量失效销售机会
+	 * @author malizhi
+	 * @param ids
+	 * @return boolean
+	 * @version 1.0
+	 * @exception
+	 */
+	public boolean loseSaleOpportunitiesByPrimaryKey(String ids);
 	
 }
 
