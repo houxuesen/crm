@@ -394,11 +394,6 @@ public class CustomerController {
         CustomerExample example = new CustomerExample();
         Criteria criteria = example.createCriteria();
 
-        if("客户经理".equals(user.getRole().getName())) {
-            //设置管理者ID
-            criteria.andManagerIdEqualTo(user.getId());
-        }
-
         //只查询未删除的客户
         criteria.andDeleteStatusEqualTo(0);
 

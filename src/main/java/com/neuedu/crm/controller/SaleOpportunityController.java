@@ -10,6 +10,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.neuedu.crm.mapper.RoleMapper;
+import com.neuedu.crm.pojo.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,14 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.neuedu.crm.pojo.Customer;
-import com.neuedu.crm.pojo.CustomerExample;
-import com.neuedu.crm.pojo.Linkman;
-import com.neuedu.crm.pojo.LinkmanExample;
 import com.neuedu.crm.pojo.LinkmanExample.Criteria;
-import com.neuedu.crm.pojo.Pager;
-import com.neuedu.crm.pojo.SaleOpportunity;
-import com.neuedu.crm.pojo.User;
 import com.neuedu.crm.service.ICustomerService;
 import com.neuedu.crm.service.ILinkmanService;
 import com.neuedu.crm.service.ISaleOpportunityService;
@@ -48,7 +43,8 @@ public class SaleOpportunityController {
 	private ICustomerService customerService;
 	@Autowired
 	private ILinkmanService linkmanService;
-	
+	@Autowired
+	private RoleMapper roleMapper;
 	/**
 	 * 查看销售机会
 	 * @author malizhi
@@ -57,7 +53,7 @@ public class SaleOpportunityController {
 	 * @param saleOpportunity
 	 * @return Map<String,Object>
 	 * @version 1.0
-	 * @exception Nothing
+	 * @exception 
 	 */
 	@Operation(name="查看销售机会")
 	@RequestMapping("/findSaleOpportunity")
@@ -85,7 +81,7 @@ public class SaleOpportunityController {
 	 * @author malizhi
 	 * @return Map<String,Object>
 	 * @version 1.0
-	 * @exception Nothing
+	 * @exception 
 	 */
 	@Operation(name="创建销售机会")
 	@RequestMapping("/addSaleOpportunity")
@@ -127,16 +123,16 @@ public class SaleOpportunityController {
 		//	3.4)设置联系方式
 			Linkman linkman = linkmanService.selectLinkmanByPrimaryKey(saleOpportunity.getContactId());
 			saleOpportunity.setContactPhone(linkman.getMobilePhone());
-		
-			
-		
-		//      如果saleOpportunity.getManagerId() == null，表示未指派
-		/*if(saleOpportunity.getManagerId()!=null){
-			if(customer.getManagerId() != saleOpportunity.getManagerId() ){
-				map.put("code", 200);
-				map.put("msg", "被指派人不是该客户的经理，请重新输入");
+		Role role = roleMapper.selectByPrimaryKey(user.getRoleId());
+		if(role != null){
+			if("客户经理".equals(role.getName())) {
+				//设置管理者ID
+				saleOpportunity.setCheckStatus("待核定");
+			}else{
+				saleOpportunity.setCheckStatus("已核定");
 			}
-		}*/
+		}
+		saleOpportunity.setResultStatus("有效");
 		
 		//3:校验无误插入数据
 		saleOpportunityService.insertSaleOpportunity(saleOpportunity);
@@ -153,7 +149,7 @@ public class SaleOpportunityController {
 	 * @param saleOpportunity
 	 * @return Map<String,Object>
 	 * @version 1.0
-	 * @exception Nothing
+	 * @exception 
 	 */
 	@Operation(name="更新销售机会")
 	@ResponseBody
@@ -190,7 +186,7 @@ public class SaleOpportunityController {
 	 * @param saleOpportunity
 	 * @return Map<String,Object>
 	 * @version 1.0
-	 * @exception Nothing
+	 * @exception 
 	 */
 	@ResponseBody
 	@Operation(name="删除销售机会")
@@ -229,7 +225,7 @@ public class SaleOpportunityController {
 	 * @param ids
 	 * @return Map<String,Object>
 	 * @version 1.0
-	 * @exception Nothing
+	 * @exception 
 	 */
 	@Operation(name="批量删除销售机会")
 	@ResponseBody
@@ -256,7 +252,7 @@ public class SaleOpportunityController {
 	 * @param request
 	 * @return Map<String,Object>
 	 * @version 1.0
-	 * @exception Nothing
+	 * @exception 
 	 */
     @Operation(name="查找当前经理的所有客户")
     @RequestMapping("/findAllCustomerByRole")
@@ -289,7 +285,7 @@ public class SaleOpportunityController {
      * @param customerId
      * @return Map<String,Object>
      * @version 1.0
-     * @exception Nothing
+     * @exception 
      */
     @Operation(name="根据客户ID查找此客户的所有联系人")
     @ResponseBody

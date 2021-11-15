@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://shiro.apache.org/tags" prefix="shiro" %>
 <!DOCTYPE html>
 <html>
 
@@ -116,14 +117,21 @@
 			        <div class="layui-form-item">
 						<label class="layui-form-label">机会描述：</label>
 						<div class="layui-input-block" style="width: 700px;">
-							<!-- <textarea name="description" style="height: 200px;"
-								class="layui-textarea" readonly="readonly"></textarea> -->
 							<div name="description" style="padding: 9px 15px;"></div>
 						</div>
 					</div>
 			        
 			        <hr>
-			                
+					<shiro:hasPermission name="80006">
+
+					<div class="layui-form-item">
+						<div class="layui-input-block">
+							<button type="button" class="layui-btn" id="auditPass" >核定</button>
+							<button type="button" class="layui-btn" id="auditRefuse" >无效</button>
+						</div>
+					</div>
+
+					</shiro:hasPermission>
 			    </form>		
 			</div>
 			

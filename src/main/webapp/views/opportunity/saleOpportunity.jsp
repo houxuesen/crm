@@ -43,19 +43,6 @@
 				</select>
 			</div>
 
-			<!-- <label style="margin-left: 10px;" class="layui-label">创建人：</label>
-			<div style="width: 100px;" class="layui-inline">
-				<input type="text" name="create" lay-verify="required"
-					style="width: 100%;" placeholder="创建人名称" autocomplete="off"
-					class="layui-input" />
-			</div>
-
-			<label style="margin-left: 10px;" class="layui-label">被指派经理：</label>
-			<div style="width: 100px;" class="layui-inline">
-				<input type="text" name="managerId" lay-verify="required"
-					style="width: 100%;" placeholder="经理名称" autocomplete="off"
-					class="layui-input" />
-			</div> -->
 
 			<label style="margin-left: 10px;" class="layui-label">机会状态：</label>
 			<div style="width: 100px;" class="layui-inline">
@@ -64,28 +51,37 @@
 				</select>
 			</div>
 
-			<!-- <label style="margin-left: 10px;" class="layui-label">是否删除：</label>
+
+			<label style="margin-left: 10px;" class="layui-label">核定状态：</label>
 			<div style="width: 100px;" class="layui-inline">
-				<select name="deleteStatus" style="width: 100%;"
-					lay-verify="required">
-					<option value=""></option>
-					<option value="0">否
-					</option>
-					<option value="1">是
-					</option>
+				<select name="checkStatus" style="width: 100%;" lay-verify="required">
+					<option value="">请选择</option>
+					<option value="待核定">待核定</option>
+					<option value="已核定">已核定</option>
 				</select>
-			</div> -->
+			</div>
+
+
+			<label style="margin-left: 10px;" class="layui-label">有效状态：</label>
+			<div style="width: 100px;" class="layui-inline">
+				<select name="resultStatus" style="width: 100%;" lay-verify="required">
+					<option value="">请选择</option>
+					<option value="有效">有效</option>
+					<option value="无效">无效</option>
+					<option value="失效">失效</option>
+				</select>
+			</div>
+
 			<button style="margin-left: 30px; margin-right: 20px;" id="searchBtn"
 				class="layui-btn" type="button" lay-filter="userForm"><i class="layui-icon">&#xe615;</i>搜索</button>
 			<shiro:hasPermission name="9001">
 				<button id="addBtn" class="layui-btn layui-btn-norm al"><i class="layui-icon layui-icon-add-1"></i>添加</button>
 			</shiro:hasPermission>
-			<shiro:hasPermission name="9002">
+			<shiro:hasPermission name="80006">
 				<button id="deleteBtn" class="layui-btn layui-btn-norm al"><i class="layui-icon layui-icon-delete"></i>删除</button>
+				<button id="loseBtn" class="layui-btn layui-btn-norm al"><i class="layui-icon layui-icon-down"></i>失效</button>
 			</shiro:hasPermission>
 
-			<!-- <div style="width: 100%;margin-top:10px;" align="center" class="layui-inline">
-			</div> -->
 		</blockquote>
 	</div>
 
@@ -111,30 +107,26 @@
 			elem : '#saleOpportunityTable',
 			url : 'opportunity/findSaleOpportunity',
 			cellMinWidth : 50,//全局定义常规单元格的最小宽度，layui 2.2.1 新增
+			limit: 50,
 			cols : [ [ 
 				{
                     type : 'checkbox'
-            },{
-				field : 'id',
-				title : '',
-				width : '3%',
-				align : 'center'
-			}, {
+            }, {
 				field : 'customerId',
 				title : '客户',
 				align : 'center',
-				width : '7%',
+				width : '300',
 				templet : function(data) {
 					 return str = '<a style="color:blue;" href="javascript:" lay-event="customerDetail">' +data.customer.name + '</a>';
 				}
 			}
-			// ,{field:'source',  title: '机会来源', align: 'center'} 
+
 			, {
 				field : 'success',
 				title : '成功机率',
 				sort : true,
 				align : 'center',
-				width : '8%',
+				width : '200',
 				templet : function(data) {
 					return data.success + '%';
 				}
@@ -142,6 +134,7 @@
 				field : 'contactId',
 				title : '客户联系人',
 				align : 'center',
+					width : '200',
 				templet : function(data) {
 					return data.linkman.name;
 				}
@@ -150,6 +143,7 @@
 				title : '联系人电话',
 				align : 'center',
 				width : '12%',
+					width : '200',
 				templet : function(data) {
 					return data.linkman.officePhone;
 				}
@@ -157,37 +151,25 @@
 				field : 'creater',
 				title : '机会创建人',
 				align : 'center',
+					width : '200',
 				templet : function(data){
 	                return str = '<a style="color:blue;" href="javascript:" lay-event="userDetail">' +data.createrUser.account + '</a>';
 	            }
-			}, /* {
-				field : 'createDate',
-				title : '创建时间',
-				sort : true,
-				width : '12%',
-				align : 'center'
 			},  {
-				field : 'managerId',
-				title : '被指派的经理',
-				align : 'center',
-				templet : function(data) {
-					return data.manager.realName;
-				}
-			},*/ {
 				field : 'allotDate',
 				title : '分配时间',
 				align : 'center',
-				width : '15%',
+					width : '200',
 				sort  : true
 			}, {
 				field : 'status',
 				title : '机会状态',
+					width : '200',
 				align : 'center'
 			}, {
-				fixed : 'right',
 				title : "操作",
 				align : 'center',
-				width : '15%',
+					width : '200',
 				toolbar : '#btnGroup'
 			} ] ],
 			loading : true //分页加载样式

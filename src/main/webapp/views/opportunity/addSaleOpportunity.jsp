@@ -13,6 +13,9 @@
 <script src="../../layui/layui.js"></script>
 <script src="../../js/myutil.js"></script>
 <script src="../../js/wangEditor.min.js"></script>
+<link href="../../css/base/jquery-ui-1.9.2.custom.css" rel="stylesheet">
+<script src="../../js/jquery-1.8.3.js"></script>
+<script src="../../js/jquery-ui-1.9.2.custom.js"></script>
 <style type="text/css">
 .layui-form-item{
     margin-top: 15px;
@@ -41,9 +44,14 @@
         <div class="layui-form-item">  
             <label class="layui-form-label">客户：</label>
             <div id="customerSelectDiv" class="layui-input-inline" style="width: 250px">
-                <select id="customerSelect" name="customerId" lay-search  lay-verify="required" lay-filter="customerSelect">
+               <%-- <select id="customerSelect" name="customerId" lay-search  lay-verify="required" lay-filter="customerSelect">
                 	<option>数据加载中...</option>
-                </select>
+                </select>--%>
+
+                   <input type="hidden" name="customerId" id="customerId" >
+                   <div class="layui-input-inline">
+                       <input type="text" name="customerName" lay-verify="required"  id="customerName" class="layui-input"  />
+                   </div>
             </div>
             <label class="layui-form-label">机会来源:</label>
             <div id="sourceSelectDiv" class="layui-input-inline" style="width: 250px;">
@@ -146,7 +154,44 @@
             elem : '#datetimeSelect',
             type : 'datetime'
         }); */
-        
+
+
+        $('#customerName').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '${pageContext.request.contextPath}/customer/findAllByName',//ajax取值
+                    type: "post",
+                    data: {'name': $("#customerName").val()},
+                    success: function (result) {
+                        var data = result.data;
+                        response($.map(data, function (item) {
+                            return {code: item.id, name: item.name, label: item.name};
+                        }));
+                    }
+                });
+            },
+            change: function (event, ui) {
+                if (ui.item == null) {
+                    $("#customerId").val("");
+                    $("#customerName").val("");
+                }
+                return false;
+            },
+            select: function (event, ui) {
+                $("#customerId").val(ui.item.code);
+                $("#customerName").val(ui.item.name);
+
+
+                getLinkMan(ui.item.code);
+                return false;
+            },
+            autoFill: false,
+            scroll: true,
+            pagingMore: true,
+            scrollHeight: 50,
+            delay: 500,
+            minLength: 1
+        });
         
         //渲染所有下拉框
         loadAllSelect();
@@ -292,16 +337,14 @@
             loadSelect('statusSelect');
         }
         
-        form.on('select(customerSelect)', function(data){
-        	  //console.log(data.elem); //得到select原始DOM对象
-        	  //console.log(data.value); //得到被选中的值
+         function getLinkMan(customerId){
         	  load = layer.load(3); //加载等待样式
         	  $.ajax({
         		  
         		  url:"${pageContext.request.contextPath}/opportunity/findLinkmanByCustomerId",
         		  data:{
-        			  	id : data.value
-        			  },
+        			  	id : customerId
+                  },
         		  type:"POST",
         		  dataType:"json",
         		  async : false,
@@ -327,9 +370,7 @@
         			  layer.close(load);
         		  } 
         	  });
-        	  
-        	  
-        	});
+         }
         
     });
 </script>

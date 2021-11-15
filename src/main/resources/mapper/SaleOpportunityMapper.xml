@@ -17,10 +17,14 @@
     <result column="allot_date" jdbcType="TIMESTAMP" property="allotDate" />
     <result column="status" jdbcType="VARCHAR" property="status" />
     <result column="delete_status" jdbcType="INTEGER" property="deleteStatus" />
+    <result column="check_Status" jdbcType="VARCHAR" property="checkStatus" />
+    <result column="result_Status" jdbcType="VARCHAR" property="resultStatus" />
+
     <association property="createrUser" column="creater" javaType="User" select="selectUserById"></association>
     <association property="manager" column="manager_id" javaType="User" select="selectUserById"></association>
     <association property="customer" column="customer_id" javaType="Customer" select="selectCustomerById"></association>
     <association property="linkman" column="contact_id" javaType="Linkman" select="selectLinkmanByPrimaryKey"></association>
+
   </resultMap>
   
   <select id="selectUserById" parameterType="int" resultType="User">
@@ -98,7 +102,8 @@
   </sql>
   <sql id="Base_Column_List">
     id, customer_id, `source`, success, `general`, contact_id, contact_phone, description, 
-    creater, create_date, manager_id, allot_date, `status`, delete_status
+    creater, create_date, manager_id, allot_date, `status`, delete_status, check_Status,result_Status
+
   </sql>
   <select id="selectByExample" parameterType="com.neuedu.crm.pojo.SaleOpportunityExample" resultMap="BaseResultMap">
     select
@@ -143,12 +148,12 @@
       `general`, contact_id, contact_phone, 
       description, creater, create_date, 
       manager_id, allot_date, `status`, 
-      delete_status)
+      delete_status,check_Status,result_Status)
     values (#{customerId,jdbcType=INTEGER}, #{source,jdbcType=VARCHAR}, #{success,jdbcType=VARCHAR}, 
       #{general,jdbcType=VARCHAR}, #{contactId,jdbcType=INTEGER}, #{contactPhone,jdbcType=VARCHAR}, 
       #{description,jdbcType=VARCHAR}, #{creater,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
       #{managerId,jdbcType=INTEGER}, #{allotDate,jdbcType=TIMESTAMP}, #{status,jdbcType=VARCHAR}, 
-      #{deleteStatus,jdbcType=INTEGER})
+      #{deleteStatus,jdbcType=INTEGER}, #{checkStatus,jdbcType=VARCHAR}, #{resultStatus,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.neuedu.crm.pojo.SaleOpportunity" useGeneratedKeys="true">
     insert into sale_opportunity
@@ -192,6 +197,13 @@
       <if test="deleteStatus != null">
         delete_status,
       </if>
+      <if test="checkStatus != null">
+        check_Status,
+      </if>
+      <if test="resultStatus != null">
+        result_Status,
+      </if>
+
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="customerId != null">
@@ -232,6 +244,12 @@
       </if>
       <if test="deleteStatus != null">
         #{deleteStatus,jdbcType=INTEGER},
+      </if>
+      <if test="checkStatus != null">
+        #{check_Status,jdbcType=VARCHAR},
+      </if>
+      <if test="resultStatus != null">
+        #{result_Status,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -286,6 +304,14 @@
       <if test="record.deleteStatus != null">
         delete_status = #{record.deleteStatus,jdbcType=INTEGER},
       </if>
+      <if test="record.checkStatus != null">
+        check_Status = #{record.checkStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.resultStatus != null">
+        result_Status = #{record.resultStatus,jdbcType=INTEGER},
+      </if>
+
+
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -306,7 +332,11 @@
       manager_id = #{record.managerId,jdbcType=INTEGER},
       allot_date = #{record.allotDate,jdbcType=TIMESTAMP},
       `status` = #{record.status,jdbcType=VARCHAR},
-      delete_status = #{record.deleteStatus,jdbcType=INTEGER}
+      delete_status = #{record.deleteStatus,jdbcType=INTEGER},
+      check_Status = #{record.checkStatus,jdbcType=VARCHAR},
+      result_Status = #{record.resultStatus,jdbcType=VARCHAR}
+
+
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -353,6 +383,13 @@
       <if test="deleteStatus != null">
         delete_status = #{deleteStatus,jdbcType=INTEGER},
       </if>
+      <if test="checkStatus != null">
+        check_Status = #{checkStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="resultStatus != null">
+        result_Status = #{resultStatus,jdbcType=VARCHAR},
+      </if>
+
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -370,7 +407,9 @@
       manager_id = #{managerId,jdbcType=INTEGER},
       allot_date = #{allotDate,jdbcType=TIMESTAMP},
       `status` = #{status,jdbcType=VARCHAR},
-      delete_status = #{deleteStatus,jdbcType=INTEGER}
+      delete_status = #{deleteStatus,jdbcType=INTEGER},
+    check_Status = #{checkStatus,jdbcType=VARCHAR},
+    result_Status = #{resultStatus,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

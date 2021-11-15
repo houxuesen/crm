@@ -97,6 +97,17 @@ public class SaleOpportunity implements Serializable {
      */
     private Integer deleteStatus;
 
+    /**
+     * 审核
+     */
+    private String checkStatus;
+
+    /**
+     * 审核结果
+     */
+    private String resultStatus;
+
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -248,7 +259,23 @@ public class SaleOpportunity implements Serializable {
 		this.manager = manager;
 	}
 
-	@Override
+    public String getCheckStatus() {
+        return checkStatus;
+    }
+
+    public void setCheckStatus(String checkStatus) {
+        this.checkStatus = checkStatus;
+    }
+
+    public String getResultStatus() {
+        return resultStatus;
+    }
+
+    public void setResultStatus(String resultStatus) {
+        this.resultStatus = resultStatus;
+    }
+
+    @Override
     public boolean equals(Object that) {
         if (this == that) {
             return true;

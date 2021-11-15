@@ -13,6 +13,9 @@
 <script src="../../layui/layui.js"></script>
 <script src="../../js/myutil.js"></script>
 <script src="../../js/wangEditor.min.js"></script>
+<link href="../../css/base/jquery-ui-1.9.2.custom.css" rel="stylesheet">
+<script src="../../js/jquery-1.8.3.js"></script>
+<script src="../../js/jquery-ui-1.9.2.custom.js"></script>
 <style type="text/css">
 .layui-form-item{
     margin-top: 16px;
@@ -35,9 +38,14 @@
         <div class="layui-form-item">  
             <label class="layui-form-label">客户：</label>
             <div class="layui-input-inline" style="width: 320px">
-                <select id="customerSelect" name="customerId" lay-search  lay-verify="required">
+              <%--  <select id="customerSelect" name="customerId" lay-search  lay-verify="required">
                     <option value="">--数据加载中--</option>
-                </select>
+                </select>--%>
+
+                  <input type="hidden" name="customerId" id="customerId" >
+                  <div class="layui-input-inline">
+                      <input type="text" name="customerName" lay-verify="required"  id="customerName" class="layui-input"  />
+                  </div>
             </div>
         </div>
         
@@ -113,7 +121,41 @@
         var submitUrl = '';
         
         loadAllSelect();
-        
+
+        $('#customerName').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '${pageContext.request.contextPath}/customer/findAllByName',//ajax取值
+                    type: "post",
+                    data: {'name': $("#customerName").val()},
+                    success: function (result) {
+                        var data = result.data;
+                        response($.map(data, function (item) {
+                            return {code: item.id, name: item.name, label: item.name};
+                        }));
+                    }
+                });
+            },
+            change: function (event, ui) {
+                if (ui.item == null) {
+                    $("#customerId").val("");
+                    $("#customerName").val("");
+                }
+                return false;
+            },
+            select: function (event, ui) {
+                $("#customerId").val(ui.item.code);
+                $("#customerName").val(ui.item.name);
+                return false;
+            },
+            autoFill: false,
+            scroll: true,
+            pagingMore: true,
+            scrollHeight: 50,
+            delay: 500,
+            minLength: 1
+        });
+
         //渲染日期选择器
         laydate.render({
             elem : '#datetimeSelect',
