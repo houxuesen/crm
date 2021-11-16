@@ -111,6 +111,7 @@
         table.render({
             elem: '#saleOpportunityTable',
             url: 'opportunity/findSaleOpportunity',
+            height: 'full-200',
             cellMinWidth: 50,//全局定义常规单元格的最小宽度，layui 2.2.1 新增
             limit: 50,
             cols: [[
@@ -124,22 +125,50 @@
                     templet: function (data) {
                         return str = '<a style="color:blue;" href="javascript:" lay-event="customerDetail">' + data.customer.name + '</a>';
                     }
-                }
-
-                , {
+                }, {
                     field: 'success',
                     title: '成功机率',
                     sort: true,
                     align: 'center',
-                    width: '200',
+                    width: '100',
                     templet: function (data) {
                         return data.success + '%';
                     }
                 }, {
+                    field: 'creater',
+                    title: '机会创建人',
+                    align: 'center',
+                    width: '100',
+                    templet: function (data) {
+                        return str = '<a style="color:blue;" href="javascript:" lay-event="userDetail">' + data.createrUser.account + '</a>';
+                    }
+                }, {
+                    field: 'allotDate',
+                    title: '分配时间',
+                    align: 'center',
+                    width: '100',
+                    sort: true
+                }, {
+                    field: 'status',
+                    title: '机会状态',
+                    width: '100',
+                    align: 'center'
+                }, {
+                    field: 'checkStatus',
+                    title: '核定状态',
+                    width: '100',
+                    align: 'center'
+                }
+                , {
+                    field: 'resultStatus',
+                    title: '有效状态',
+                    width: '100',
+                    align: 'center'
+                }, {
                     field: 'contactId',
                     title: '客户联系人',
                     align: 'center',
-                    width: '200',
+                    width: '100',
                     templet: function (data) {
                         return data.linkman.name;
                     }
@@ -148,41 +177,12 @@
                     title: '联系人电话',
                     align: 'center',
                     width: '12%',
-                    width: '200',
+                    width: '100',
                     templet: function (data) {
                         return data.linkman.officePhone;
                     }
                 }, {
-                    field: 'creater',
-                    title: '机会创建人',
-                    align: 'center',
-                    width: '200',
-                    templet: function (data) {
-                        return str = '<a style="color:blue;" href="javascript:" lay-event="userDetail">' + data.createrUser.account + '</a>';
-                    }
-                }, {
-                    field: 'allotDate',
-                    title: '分配时间',
-                    align: 'center',
-                    width: '200',
-                    sort: true
-                }, {
-                    field: 'status',
-                    title: '机会状态',
-                    width: '200',
-                    align: 'center'
-                }, {
-                    field: 'checkStatus',
-                    title: '核定状态',
-                    width: '200',
-                    align: 'center'
-                }
-                , {
-                    field: 'resultStatus',
-                    title: '有效状态',
-                    width: '200',
-                    align: 'center'
-                }, {
+                    fixed: "right",
                     title: "操作",
                     align: 'center',
                     width: '200',
@@ -190,7 +190,7 @@
                 }]],
             loading: true //分页加载样式
             ,
-            page: true//是否开启分页
+            page: {layout: ['limit', 'count', 'prev', 'page', 'next', 'skip', 'refresh'], groups: 1}
             ,
             loading: true //分页加载样式
             ,

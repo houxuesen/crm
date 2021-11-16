@@ -159,7 +159,7 @@
         $('#customerName').autocomplete({
             source: function (request, response) {
                 $.ajax({
-                    url: '${pageContext.request.contextPath}/customer/findAllByName',//ajax取值
+                    url: '${pageContext.request.contextPath}/customer/findByName',//ajax取值
                     type: "post",
                     data: {'name': $("#customerName").val()},
                     success: function (result) {
