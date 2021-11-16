@@ -59,6 +59,9 @@ public class FollowUp implements Serializable {
      */
     private String document;
 
+
+
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -164,6 +167,7 @@ public class FollowUp implements Serializable {
     public void setManager(User manager) {
         this.manager = manager;
     }
+
 
     @Override
     public boolean equals(Object that) {

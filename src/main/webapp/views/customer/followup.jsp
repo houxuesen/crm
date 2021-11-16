@@ -3,16 +3,33 @@
 <%@ taglib uri="http://shiro.apache.org/tags" prefix="shiro" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
+
 <script src="js/myutil.js"></script>
 
 <div style="width: 96%;margin-left: 2%;">
         <!-- 跟踪记录 -->
         <shiro:hasPermission name="6002">
 	        <div>
-	                <button class="layui-btn" id="add-follow">新建跟踪记录</button>
-	                <!-- <button class="layui-btn" id="delete-follow">删除</button> -->
+                <button class="layui-btn" id="add-follow">新建跟踪记录</button>
 	        </div>
         </shiro:hasPermission>
+
+        <div class="layui-input-inline" style="width: 350px;">
+            <label class="layui-form-label" style="width: 120px;">客户归属人：</label>
+            <input type="text" name="managerName" class="layui-input" style="width: 150px;" />
+        </div>
+
+
+        <div class="layui-input-inline" style="width: 600px;" >
+            <label class="layui-form-label">跟踪时间：</label>
+            <input type="text" name="lastDateBegin" dateFormat="yyyy-MM-dd HH:mm:ss" id="lastDateBegin" class="layui-input" style="width: 150px; float: left" />
+            <label class="layui-form-label" style="width: 10px;">--</label>
+            <input type="text"  id="lastDateEnd" dateFormat="yyyy-MM-dd HH:mm:ss" name="lastDateEnd" class="layui-input" style="width: 150px;  float: left" />
+            <button type="button" name="form-submit-btn" id="form-submit-btn" class="layui-btn">查询</button>
+        </div>
+
+
+
         <div id="show-followup">
             <ul class="layui-timeline" id="follow-flow">
             </ul>          
@@ -20,42 +37,69 @@
 </div>
 	
 <script type="text/javascript">
-layui.use(['table','flow'],function(){
+layui.use(['table','flow','laydate'],function(){
 	var flow = layui.flow;
 	var layer = layui.layer;
 	var table = layui.table;
+    var laydate = layui.laydate;
 	var $ = layui.$;
 
+    //加载日期选择器
+    laydate.render({
+        elem: '#lastDateBegin' //指定元素
+        , type: 'datetime'
+        , format: 'yyyy-MM-dd HH:mm:ss'
+        , trigger: 'click'
+    });
 
-	//使用流加载跟踪记录
-	flow.load({
-	   elem: '#follow-flow' //指定列表容器
-	   ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
-	     var lis = [];
-	     //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
-	     $.post('${pageContext.request.contextPath}/followup/list',{'page':page}, function(res){
-	       //假设你的列表返回在data集合中
-	       layui.each(res.data, function(index, item){
-	    	 var title = '' + item.time[0] + '年' + item.time[1] + '月' + item.time[2] + '日' + '   ' + item.time[3] + ':' +item.time[4] + ':' +item.time[5];
-	         //var title = Format(item.time,'yyyy-MM-dd HH:mm:ss');
-	    	 var str = '<li class="layui-timeline-item"><i class="layui-icon layui-timeline-axis">&#xe63f;</i>';
-	         str += '<div class="layui-timeline-content layui-text" >';
-	         str += '<h3 class="layui-timeline-title"> <a id="manager-' + item.manager.id + '" style="font-size: 16px;">' + item.manager.account + '</a> ';
-	         str += '<a href="javascript:" style="font-size: 18px;color:black;" id="followup-' + item.id + '">' + title + '</a></h3><p  style="width:100%;word-break:break-all;word-wrap:break-word;">';
-	         str += '跟踪对象：<a href="javascript:" style="color:black;" id="customerInfo-' + item.customer.id + '">' + item.customer.name + '</a><br/>';
-	         str += '详细信息：' + item.content + '</p></div></li>';
+    //加载日期选择器
+    laydate.render({
+        elem: '#lastDateEnd' //指定元素
+        , type: 'datetime'
+        , format: 'yyyy-MM-dd HH:mm:ss'
+        , trigger: 'click'
+    });
+
+    getFlow();
+	function getFlow(){
+        //使用流加载跟踪记录
+        flow.load({
+            elem: '#follow-flow' //指定列表容器
+            ,done: function(page, next){ //到达临界点（默认滚动触发），触发下一页
+                var lis = [];
+                //以jQuery的Ajax请求为例，请求下一页数据（注意：page是从2开始返回）
+                $.post('${pageContext.request.contextPath}/followup/list'
+                    ,{
+                        'page':page,
+                        'managerName':$('input[name=managerName]').val(),
+                        'timeBegin':$('#lastDateBegin').val(),
+                        'timeEnd':$('#lastDateEnd').val()
+                    }
+                    , function(res){
+                    //假设你的列表返回在data集合中
+                    layui.each(res.data, function(index, item){
+                        var title = '' + item.time[0] + '年' + item.time[1] + '月' + item.time[2] + '日' + '   ' + item.time[3] + ':' +item.time[4] + ':' +item.time[5];
+                        //var title = Format(item.time,'yyyy-MM-dd HH:mm:ss');
+                        var str = '<li class="layui-timeline-item"><i class="layui-icon layui-timeline-axis">&#xe63f;</i>';
+                        str += '<div class="layui-timeline-content layui-text" >';
+                        str += '<h3 class="layui-timeline-title"> <a id="manager-' + item.manager.id + '" style="font-size: 16px;">' + item.manager.account + '</a> ';
+                        str += '<a href="javascript:" style="font-size: 18px;color:black;" id="followup-' + item.id + '">' + title + '</a></h3><p  style="width:100%;word-break:break-all;word-wrap:break-word;">';
+                        str += '跟踪对象：<a href="javascript:" style="color:black;" id="customerInfo-' + item.customer.id + '">' + item.customer.name + '</a><br/>';
+                        str += '详细信息：' + item.content + '</p></div></li>';
 
 
-	    	 lis.push(str);
-	       }); 
-	       
-	       //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
-	       //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
-	       next(lis.join(''), page < res.pages);    
-	         
-	     });
-	   }
-	 });                                   
+                        lis.push(str);
+                    });
+
+                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                    next(lis.join(''), page < res.pages);
+
+                });
+            }
+        });
+    }
+
                   
                   
      //点击新建跟踪记录按钮        
@@ -122,6 +166,11 @@ layui.use(['table','flow'],function(){
 		    });	
 		
 	});
+
+	$('#form-submit-btn').on("click",function (){
+	    $('#follow-flow').html('');
+        getFlow();
+    })
 
 	function localDateTimeToStr(time){
 		var str = '';

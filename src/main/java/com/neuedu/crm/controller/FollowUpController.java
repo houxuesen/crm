@@ -1,5 +1,7 @@
 package com.neuedu.crm.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +15,7 @@ import com.neuedu.crm.pojo.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -54,7 +57,13 @@ public class FollowUpController {
     @Operation(name="分页查询跟踪记录")
     @RequestMapping("list")
     @ResponseBody
-    public Map<String, Object> listLinkman(Integer page,Integer limit,FollowUp followUp,String type,HttpServletRequest request){
+    public Map<String, Object> listLinkman(Integer page, Integer limit
+                            , FollowUp followUp
+                            , String type
+                            , HttpServletRequest request
+                            , String managerName
+                            , String timeBegin
+                            , String timeEnd){
         Map<String, Object> map = new HashMap<String,Object>(16);
         
         FollowUpExample example = new FollowUpExample();
@@ -103,17 +112,34 @@ public class FollowUpController {
                 customerExample.createCriteria().andManagerIdEqualTo(user.getId());
             }
 
+            if(!StringUtils.isEmpty(managerName)){
+                customerExample.createCriteria().andSql(" manager_Id in (select id from user where real_Name like '%"+managerName+"%' ) ");
+            }
 
-            
             List<Customer> customers = customerService.selectByCustomerExample(customerExample);
             List<Integer> ids = new ArrayList<Integer>();
             for(Customer customer : customers) {
                 ids.add(customer.getId());
             }
-            criteria.andCustomerIdIn(ids);
+            if(ids.size() > 0){
+                criteria.andCustomerIdIn(ids);
+            }else{
+                map.put("data", new ArrayList<FollowUp>());
+                map.put("count", 0);
+                map.put("code", 0);
+                return map;
+            }
         }
 
         criteria.andDeleteStatusEqualTo(0);
+        DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        if(!StringUtils.isEmpty(timeBegin)){
+            criteria.andTimeGreaterThanOrEqualTo(LocalDateTime.parse(timeBegin,df));
+        }
+
+        if(!StringUtils.isEmpty(timeEnd)){
+            criteria.andTimeLessThanOrEqualTo(LocalDateTime.parse(timeEnd,df));
+        }
 
         Long count = followupService.countByFollowUpExample(example);
         List<FollowUp> list = followupService.selectByFollowUpExample(example);
