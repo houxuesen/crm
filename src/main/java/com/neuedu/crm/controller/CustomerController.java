@@ -392,6 +392,8 @@ public class CustomerController {
         Map<String, Object> map = new HashMap<String,Object>(16);
 
         CustomerExample example = new CustomerExample();
+        example.setLimit(50);
+        example.setOffset(0L);
         Criteria criteria = example.createCriteria();
 
         //只查询未删除的客户
