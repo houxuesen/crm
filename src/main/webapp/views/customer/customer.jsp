@@ -153,7 +153,7 @@ layui.use(['table','form'], function(){
     	layer.open({
             type:2,
             title:'搜索条件',
-            area:['700px','400px'],
+            area:['700px','550px'],
             clostBtn:1,
             shadeClose: true,
             maxmin: false,

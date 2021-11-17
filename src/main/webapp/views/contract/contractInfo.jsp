@@ -616,8 +616,6 @@ layui.use(['element','table','flow'],function(){
         $('#follow-flow').remove();
         $('#show-followup').append('<ul class="layui-timeline" id="follow-flow"></ul>');
         getFollowup();
-        initUpdateFollow();
-        initDelFollow();
     }
   
   //使用流加载转移记录
