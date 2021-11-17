@@ -248,12 +248,6 @@ public class CustomerTransferController {
             return map;
         }
 
-        if(transfer.getCustomerId() == null) {
-            map.put("code", -2);
-            map.put("status", false);
-            map.put("msg", "客户ID不存在");
-            return map;
-        }
 
         if(transfer.getNewManagerId() == null || userService.findById(transfer.getNewManagerId()) == null) {
             map.put("code", -4);
