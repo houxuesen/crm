@@ -173,7 +173,8 @@ public class Customer implements Serializable {
     private LocalDate endDateEnd;
     private String managerName;
     private LocalDateTime lastTime;
-
+    private String content;
+    private Integer followId;
 
     private LocalDateTime lastDateBegin;
     private LocalDateTime lastDateEnd;
@@ -421,6 +422,22 @@ public class Customer implements Serializable {
 
     public void setLastDateEnd(LocalDateTime lastDateEnd) {
         this.lastDateEnd = lastDateEnd;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Integer getFollowId() {
+        return followId;
+    }
+
+    public void setFollowId(Integer followId) {
+        this.followId = followId;
     }
 
     public Integer getCreater() {

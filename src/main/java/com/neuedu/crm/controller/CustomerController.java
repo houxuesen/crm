@@ -19,6 +19,7 @@ import com.neuedu.crm.utils.ImportExcelUtil;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -180,6 +181,8 @@ public class CustomerController {
             criteria1.andDeleteStatusEqualTo(0);
             List<FollowUp> followUps = followupService.selectByFollowUpExample(followUpExample);
             if(followUps != null && followUps.size() > 0){
+                ct.setFollowId(followUps.get(0).getId());
+                ct.setContent(followUps.get(0).getContent());
                 ct.setLastTime(followUps.get(0).getTime());
             }
         }
@@ -431,6 +434,41 @@ public class CustomerController {
         }catch (Exception e){
             e.printStackTrace();
             map.put("msg", "更新失败"+e.getMessage());
+            map.put("success", false);
+        }
+        return map;
+    }
+
+
+
+
+    @Operation(name="更新客户信息")
+    @RequestMapping("updateDev")
+    @ResponseBody
+    public Map<String, Object> updateCustomerDev(Customer customer){
+        Map<String, Object> map = new HashMap<String,Object>(16);
+
+        if(customerService.updateCustomerByPrimaryKeySelective(customer)) {
+
+            if(!StringUtils.isEmpty(customer.getContent())){
+                FollowUp followUp = new FollowUp();
+                followUp.setContent(customer.getContent());
+                followUp.setTime(customer.getLastTime() == null ? LocalDateTime.now() : customer.getLastTime());
+                if(customer.getFollowId() != null){
+                    followUp.setId(customer.getFollowId());
+                    followupService.updateFollowUpByPrimaryKeySelective(followUp);
+                }else{
+                    followUp.setDeleteStatus(0);
+                    followUp.setManagerId(user.getId());
+                    followUp.setCustomerId(customer.getId());
+                    followupService.insertSelective(followUp);
+                }
+            }
+
+            map.put("msg", "更新成功");
+            map.put("success", true);
+        }else {
+            map.put("msg", "更新失败");
             map.put("success", false);
         }
         return map;
