@@ -49,11 +49,10 @@ public class ImportExcelUtil {
             if(sheet==null){continue;}
 
             //遍历当前sheet中的所有行
-            int lastNum = 0;
+            int lastNum = 11;
             for (int j = sheet.getFirstRowNum(); j <= sheet.getLastRowNum(); j++) {
                 row = sheet.getRow(j);
                 if(row==null||row.getFirstCellNum()==j){
-                    lastNum = row.getLastCellNum();
                     continue;
                 }
 
