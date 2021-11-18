@@ -130,7 +130,7 @@
                     title: '成功机率',
                     sort: true,
                     align: 'center',
-                    width: '100',
+                    width: '200',
                     templet: function (data) {
                         return data.success + '%';
                     }
@@ -146,7 +146,7 @@
                     field: 'allotDate',
                     title: '分配时间',
                     align: 'center',
-                    width: '100',
+                    width: '200',
                     sort: true
                 }, {
                     field: 'status',

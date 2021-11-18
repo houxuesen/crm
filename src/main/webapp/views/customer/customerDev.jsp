@@ -102,7 +102,7 @@ layui.use(['table','form','laydate'], function(){
           ,{field:'name',title:'客户名称' ,width: 300,templet:function(data){
         	  return str = '<a style="color:blue;" href="javascript:" lay-event="detail">' +data.name + '</a>';
           }}
-          ,{field:'status',title:'域名'}
+          ,{field:'realmName',title:'域名'}
           ,{field:'source',title:'现服务商'}
           ,{field:'companyPhone',title:'联系电话'}
           ,{field:'userNum',title:'用户数',edit:'text'}
