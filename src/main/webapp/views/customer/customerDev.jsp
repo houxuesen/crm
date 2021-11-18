@@ -107,7 +107,7 @@ layui.use(['table','form','laydate'], function(){
           ,{field:'companyPhone',title:'联系电话',edit:'text',width: 200}
           ,{field:'userNum',title:'用户数',edit:'text',width: 100}
           ,{field:'content',title:'最新跟进记录',edit:'text',width: 700}
-		  ,{field:'lastTime',title:'最后跟踪时间', edit: 'text',width: 200,event:'chooseDate',data_field: "dBeginDate",templet(data){
+		  ,{field:'lastTime',title:'最后跟踪时间', edit: 'text',width: 200,event:'chooseDate',data_field: "dBeginDate",sort: true,templet(data){
 				return  getDate(data.lastTime)
 			}}
         
