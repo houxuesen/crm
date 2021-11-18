@@ -102,12 +102,12 @@ layui.use(['table','form','laydate'], function(){
           ,{field:'name',title:'客户名称' ,width: 300,templet:function(data){
         	  return str = '<a style="color:blue;" href="javascript:" lay-event="detail">' +data.name + '</a>';
           }}
-          ,{field:'realmName',title:'域名'}
-          ,{field:'source',title:'现服务商'}
-          ,{field:'companyPhone',title:'联系电话'}
-          ,{field:'userNum',title:'用户数',edit:'text'}
-          ,{field:'content',title:'最新跟进记录',edit:'text',width: 300}
-		  ,{field:'lastTime',title:'最后跟踪时间', edit: 'text',event:'chooseDate',data_field: "dBeginDate",templet(data){
+          ,{field:'realmName',title:'域名',width: 100}
+          ,{field:'source',title:'现服务商',width: 130}
+          ,{field:'companyPhone',title:'联系电话',edit:'text',width: 200}
+          ,{field:'userNum',title:'用户数',edit:'text',width: 100}
+          ,{field:'content',title:'最新跟进记录',edit:'text',width: 700}
+		  ,{field:'lastTime',title:'最后跟踪时间', edit: 'text',width: 200,event:'chooseDate',data_field: "dBeginDate",templet(data){
 				return  getDate(data.lastTime)
 			}}
         
@@ -178,10 +178,11 @@ layui.use(['table','form','laydate'], function(){
 		var itemid = data.id;
 		var userNum = data.userNum;
 		var followId = data.followId;
+		var companyPhone = data.companyPhone;
 		var content = data.content;
 		var lastTime = getDate(data.lastTime);
 		$.post('${pageContext.request.contextPath}/customer/updateDev',
-				{'id':itemid,'userNum':userNum,'lastTime':lastTime,"followId":followId,"content":content},
+				{'id':itemid,'userNum':userNum,'lastTime':lastTime,"followId":followId,"content":content,"companyPhone":companyPhone},
 				function(data){
 					layer.msg(data.msg);
 					top.layer.close(index);
