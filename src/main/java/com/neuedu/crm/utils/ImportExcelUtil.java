@@ -52,7 +52,7 @@ public class ImportExcelUtil {
             int lastNum = 11;
             for (int j = sheet.getFirstRowNum(); j <= sheet.getLastRowNum(); j++) {
                 row = sheet.getRow(j);
-                if(row==null||row.getFirstCellNum()==j){
+                if(row==null ||row.getFirstCellNum()==j){
                     continue;
                 }
 
