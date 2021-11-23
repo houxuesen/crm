@@ -2048,6 +2048,21 @@ public class CustomerExample {
         }
 
 
+        public Criteria andReportEndDateGreaterThanOrEqualTo(LocalDate value) {
+            addCriterion("report_End_Date >=", value, "reportEndDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andReportEndDateLessThanOrEqualTo(LocalDate value) {
+            addCriterion("report_End_Date <=", value, "reportEndDate");
+            return (Criteria) this;
+        }
+
+        public Criteria andRealmNameLike(String value) {
+            addCriterion("realm_Name like", value, "reportEndDate");
+            return (Criteria) this;
+        }
+
         public Criteria andSql(String val) {
             addCriterion(val);
             return (Criteria) this;

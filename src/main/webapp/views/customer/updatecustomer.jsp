@@ -109,7 +109,7 @@
 
         <!-- 客户等级 -->
         <label class="layui-form-label">客户等级：</label>
-        <div class="layui-input-inline">
+        <div class="layui-input-inline" style="width: 135px;">
           <select name="level">
             <option value="">--数据加载中--</option>
           </select>
@@ -119,6 +119,12 @@
                 <i class="layui-icon  layui-icon-add-1"></i>编辑
             </a>
         </div>
+
+        <label class="layui-form-label">报备到期：</label>
+        <div class="layui-input-inline">
+            <input type="text" name="reportEndDate"  class="layui-input" id="reportEndDate">
+        </div>
+
     </div>
 
 
@@ -209,6 +215,14 @@ layui.use(['form','upload','laydate'],function(){
 		, format: 'yyyy-MM-dd'
 		, trigger: 'click'
 	});
+
+    laydate.render({
+        elem: '#reportEndDate' //指定元素
+        , type: 'date'
+        , format: 'yyyy-MM-dd'
+        , trigger: 'click'
+    });
+
 
 	//获取客户状态字典并加载下拉框
 	getSelectData('客户状态','status');

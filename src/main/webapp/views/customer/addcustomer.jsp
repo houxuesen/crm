@@ -257,6 +257,13 @@ layui.use(['form','upload','laydate'],function(){
         , trigger: 'click'
     });
 
+    laydate.render({
+        elem: '#reportEndDate' //指定元素
+        , type: 'date'
+        , format: 'yyyy-MM-dd'
+        , trigger: 'click'
+    });
+
 	//加载日期选择器
     laydate.render({
         elem: '#birthday' //指定元素

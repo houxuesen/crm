@@ -265,7 +265,7 @@
         report_End_Date,
       </if>
 
-      #{reportEndDate,jdbcType=TIMESTAMP}
+
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="name != null">

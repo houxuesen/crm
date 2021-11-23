@@ -83,6 +83,19 @@
 		</div>
 
 
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">报备到期范围：</label>
+			<div class="layui-input-inline" >
+				<input type="text" name="reportEndDateBegin" id="reportEndDateBegin" class="layui-input">
+			</div>
+			<div class="layui-input-inline" style="width: 20px;">--</div>
+			<div class="layui-input-inline" >
+				<input type="text"   name="reportEndDateEnd" id="reportEndDateEnd" class="layui-input" >
+			</div>
+		</div>
+
+
 		<div class="layui-form-item">
 
 			<label class="layui-form-label">客户归属人：</label>
@@ -95,6 +108,15 @@
 				<input type="text" name="description" class="layui-input">
 			</div>
 
+		</div>
+
+
+		<div class="layui-form-item">
+
+			<label class="layui-form-label">域名/网址：</label>
+			<div class="layui-input-inline">
+				<input type="text" name="realmName" class="layui-input">
+			</div>
 		</div>
 	    <div class="layui-form-item"  style="width: 450px;margin-top: 40px;">
             <div class="layui-input-block">
@@ -134,6 +156,10 @@ layui.use(['form','laydate'],function(){
 
 		parent$('input[name=lastDateBegin]').val(formdata.lastDateBegin);
 		parent$('input[name=lastDateEnd]').val(formdata.lastDateEnd);
+
+		parent$('input[name=reportEndDateBegin]').val(formdata.reportEndDateBegin);
+		parent$('input[name=reportEndDateEnd]').val(formdata.reportEndDateEnd);
+		parent$('input[name=realmName]').val(formdata.realmName);
 
 		//执行查询功能
 		parent$('#search-button').click();
@@ -177,7 +203,24 @@ layui.use(['form','laydate'],function(){
 		, trigger: 'click'
 	});
 
-	
+	//加载日期选择器
+	laydate.render({
+		elem: '#reportEndDateBegin' //指定元素
+		, type: 'date'
+		, format: 'yyyy-MM-dd'
+		, trigger: 'click'
+	});
+
+	//加载日期选择器
+	laydate.render({
+		elem: '#reportEndDateEnd' //指定元素
+		, type: 'date'
+		, format: 'yyyy-MM-dd'
+		, trigger: 'click'
+	});
+
+
+
 	//获取客户状态字典并加载下拉框
     setTimeout(getSelectData('客户状态','status'),0);
 	//getSelectData('客户状态','status');

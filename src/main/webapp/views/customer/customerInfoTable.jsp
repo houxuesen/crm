@@ -47,6 +47,14 @@
     <td>客户详细地址：</td>
     <td id="companyAddress"></td>
 </tr>
+
+<tr>
+
+    <td>报备到期：</td>
+    <td id="reportEndDate"></td>
+    <td></td>
+    <td ></td>
+</tr>
 <tr>
     <td>备注：</td>
     <td id="description" colspan="3"></td>

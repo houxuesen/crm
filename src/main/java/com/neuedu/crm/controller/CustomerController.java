@@ -168,6 +168,19 @@ public class CustomerController {
             }
 
 
+            if(customer.getReportEndDateBegin() !=  null){
+                criteria.andReportEndDateGreaterThanOrEqualTo(customer.getReportEndDateBegin());
+            }
+
+            if(customer.getReportEndDateEnd() !=  null){
+                criteria.andReportEndDateLessThanOrEqualTo(customer.getReportEndDateEnd());
+            }
+
+            if(!StringUtils.isEmpty(customer.getRealmName())){
+                criteria.andRealmNameLike(customer.getRealmName());
+            }
+
+
         }
 
         example.setOrderByClause(" create_time desc ");
