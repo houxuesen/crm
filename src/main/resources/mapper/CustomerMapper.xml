@@ -35,7 +35,7 @@
     <result column="realm_name" jdbcType="VARCHAR" property="realmName" />
     <result column="end_Date" jdbcType="TIMESTAMP" property="endDate" />
     <result column="user_Num" jdbcType="VARCHAR" property="userNum" />
-
+    <result column="report_End_Date" jdbcType="TIMESTAMP" property="reportEndDate" />
 
 
   </resultMap>
@@ -101,7 +101,8 @@
     id, `name`, `type`, `level`, `status`, credit, area, company_address, company_phone, 
     post_code, fax_address, company_website, license_number, corporation, annual_sale, 
     deposit_bank, bank_account, land_tax_number, national_tax_number, `source`, description, 
-    maturity, document, delete_status, manager_id, product_id, creater, create_time,realm_name,end_Date,user_Num
+    maturity, document, delete_status, manager_id, product_id, creater, create_time,realm_name,
+    end_Date,user_Num,report_End_Date
   </sql>
   <select id="selectByExample" parameterType="com.neuedu.crm.pojo.CustomerExample" resultMap="BaseResultMap">
     select
@@ -150,7 +151,7 @@
       bank_account, land_tax_number, national_tax_number, 
       `source`, description, maturity, 
       document, delete_status, manager_id, 
-      product_id, creater, create_time,realm_name,end_Date,user_Num
+      product_id, creater, create_time,realm_name,end_Date,user_Num,report_End_Date
       )
     values (#{name,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, 
       #{status,jdbcType=VARCHAR}, #{credit,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, 
@@ -161,7 +162,7 @@
       #{source,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{maturity,jdbcType=VARCHAR}, 
       #{document,jdbcType=VARCHAR}, #{deleteStatus,jdbcType=INTEGER}, #{managerId,jdbcType=INTEGER}, 
       #{productId,jdbcType=INTEGER}, #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{realmName,jdbcType=VARCHAR},
-      #{endDate,jdbcType=TIMESTAMP},#{userNum,jdbcType=VARCHAR}
+      #{endDate,jdbcType=TIMESTAMP},#{userNum,jdbcType=VARCHAR},#{reportEndDate,jdbcType=TIMESTAMP}
 
       )
   </insert>
@@ -260,7 +261,11 @@
       <if test="userNum != null">
         user_Num,
       </if>
+      <if test="reportEndDate != null">
+        report_End_Date,
+      </if>
 
+      #{reportEndDate,jdbcType=TIMESTAMP}
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="name != null">
@@ -353,6 +358,12 @@
       <if test="userNum != null">
         #{userNum,jdbcType=VARCHAR},
       </if>
+
+      <if test="reportEndDate != null">
+        #{reportEndDate,jdbcType=TIMESTAMP},
+      </if>
+
+
 
     </trim>
   </insert>
@@ -460,6 +471,10 @@
         user_Num =  #{record.userNum,jdbcType=VARCHAR},
       </if>
 
+      <if test="record.reportEndDate != null">
+        report_End_Date = #{record.reportEndDate,jdbcType=TIMESTAMP},
+      </if>
+
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -496,8 +511,9 @@
       creater = #{record.creater,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       realm_Name =  #{record.realmName,jdbcType=VARCHAR},
-        end_Date =  #{record.endDate,jdbcType=TIMESTAMP},
-    user_Num = #{record.userNum,jdbcType=VARCHAR}
+      end_Date =  #{record.endDate,jdbcType=TIMESTAMP},
+      user_Num = #{record.userNum,jdbcType=VARCHAR},
+      report_End_Date = #{record.reportEndDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -596,7 +612,9 @@
       <if test="userNum != null">
         user_Num =  #{userNum,jdbcType=VARCHAR},
       </if>
-
+      <if test="reportEndDate != null">
+        report_End_Date = #{reportEndDate,jdbcType=TIMESTAMP},
+      </if>
 
     </set>
     where id = #{id,jdbcType=INTEGER}
@@ -632,7 +650,8 @@
       create_time = #{createTime,jdbcType=TIMESTAMP},
       realm_Name =  #{realmName,jdbcType=VARCHAR},
       end_Date = #{endDate,jdbcType=TIMESTAMP},
-        user_Num =  #{userNum,jdbcType=VARCHAR}
+        user_Num =  #{userNum,jdbcType=VARCHAR},
+        report_End_Date = #{reportEndDate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -167,8 +167,15 @@ public class Customer implements Serializable {
      */
     private  String userNum;
 
+    /**
+     * 报备截止日期
+     */
+    private LocalDate reportEndDate;
 
-    //赋值查询用
+
+    /**
+     * 赋值查询用
+     */
     private LocalDate endDateBegin;
     private LocalDate endDateEnd;
     private String managerName;
@@ -179,7 +186,8 @@ public class Customer implements Serializable {
     private LocalDateTime lastDateBegin;
     private LocalDateTime lastDateEnd;
 
-
+    private LocalDate reportEndDateBegin;
+    private LocalDate reportEndDateEnd;
 
     private static final long serialVersionUID = 1L;
 
@@ -531,6 +539,30 @@ public class Customer implements Serializable {
 
     public void setLastTime(LocalDateTime lastTime) {
         this.lastTime = lastTime;
+    }
+
+    public LocalDate getReportEndDate() {
+        return reportEndDate;
+    }
+
+    public void setReportEndDate(LocalDate reportEndDate) {
+        this.reportEndDate = reportEndDate;
+    }
+
+    public LocalDate getReportEndDateBegin() {
+        return reportEndDateBegin;
+    }
+
+    public void setReportEndDateBegin(LocalDate reportEndDateBegin) {
+        this.reportEndDateBegin = reportEndDateBegin;
+    }
+
+    public LocalDate getReportEndDateEnd() {
+        return reportEndDateEnd;
+    }
+
+    public void setReportEndDateEnd(LocalDate reportEndDateEnd) {
+        this.reportEndDateEnd = reportEndDateEnd;
     }
 
     @Override
