@@ -110,7 +110,8 @@ public class ImportExcelUtil {
             case Cell.CELL_TYPE_NUMERIC:
                 if("General".equals(cell.getCellStyle().getDataFormatString())){
                     value = df.format(cell.getNumericCellValue());
-                }else if("m/d/yy".equals(cell.getCellStyle().getDataFormatString())){
+                }else if("m/d/yy".equals(cell.getCellStyle().getDataFormatString())
+                    || "yyyy/mm/dd".equals(cell.getCellStyle().getDataFormatString())){
                     value = sdf.format(cell.getDateCellValue());
                 }else{
                     value = df2.format(cell.getNumericCellValue());
