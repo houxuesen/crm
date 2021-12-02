@@ -236,8 +236,16 @@ public class CustomerController {
                                            String customerLevel,
                                            HttpServletRequest request){
         Map<String, Object> map = new HashMap<String,Object>(16);
-        
-        this.getUser(request);
+
+        //获取用户
+        user = this.getUser(request);
+
+        //检验用户正确性
+        if(user == null || user.getId() == null) {
+            map.put("code", -1);
+            map.put("msg", "用户不存在，无法执行操作.");
+            return map;
+        }
         
         //检测是否存在customer对象
         if(customer == null || linkman == null) {
@@ -377,8 +385,18 @@ public class CustomerController {
     @Operation(name="根据名字查找客户")
     @RequestMapping("findByName")
     @ResponseBody
-    public Map<String, Object> findByName(Customer customer){
+    public Map<String, Object> findByName(Customer customer,HttpServletRequest request){
         Map<String, Object> map = new HashMap<String,Object>(16);
+
+        //获取用户
+        user = this.getUser(request);
+
+        //检验用户正确性
+        if(user == null || user.getId() == null) {
+            map.put("code", -1);
+            map.put("msg", "用户不存在，无法执行操作.");
+            return map;
+        }
 
         CustomerExample example = new CustomerExample();
         example.setLimit(50);
@@ -432,8 +450,12 @@ public class CustomerController {
     @Operation(name="上传客户信息")
     @RequestMapping("upload")
     @ResponseBody
-    public Map<String, Object> upload(MultipartFile file){
+    public Map<String, Object> upload(MultipartFile file
+            ,HttpServletRequest request){
         Map<String, Object> map = new HashMap<String,Object>(16);
+        //获取用户
+        user = this.getUser(request);
+
         if(user == null){
             map.put("msg", "更新失败，请重新登录");
             map.put("success", false);

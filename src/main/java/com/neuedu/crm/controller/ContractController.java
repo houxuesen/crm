@@ -167,8 +167,15 @@ public class ContractController {
     @ResponseBody
     public Map<String, Object> addContract(Contract contract,HttpServletRequest request){
         Map<String, Object> map = new HashMap<String,Object>(16);
-        
-        this.getUser(request);
+
+        //获取用户
+        user = this.getUser(request);
+        //检验用户正确性
+        if(user == null || user.getId() == null) {
+            map.put("code", -1);
+            map.put("msg", "用户不存在，无法执行操作.");
+            return map;
+        }
         //检测是否存在contract对象
         if(contract == null ) {
             map.put("msg", "参数为空");
@@ -253,8 +260,18 @@ public class ContractController {
     @Operation(name="更新合同信息")
     @RequestMapping("update")
     @ResponseBody
-    public Map<String, Object> updateContract(Contract contract){
+    public Map<String, Object> updateContract(Contract contract,HttpServletRequest request){
         Map<String, Object> map = new HashMap<String,Object>(16);
+
+        //获取用户
+        user = this.getUser(request);
+        //检验用户正确性
+        if(user == null || user.getId() == null) {
+            map.put("code", -1);
+            map.put("msg", "用户不存在，无法执行操作.");
+            return map;
+        }
+
         //检测是否存在contract对象
         if(contract == null ) {
             map.put("msg", "参数为空");
@@ -361,8 +378,17 @@ public class ContractController {
     @Operation(name="合同审核")
     @RequestMapping("auditCont")
     @ResponseBody
-    public Map<String, Object> auditCont(Contract contract){
+    public Map<String, Object> auditCont(Contract contract,HttpServletRequest request){
         Map<String, Object> map = new HashMap<String,Object>(16);
+
+        //获取用户
+        user = this.getUser(request);
+        //检验用户正确性
+        if(user == null || user.getId() == null) {
+            map.put("code", -1);
+            map.put("msg", "用户不存在，无法执行操作.");
+            return map;
+        }
 
         if(contractService.updateContractByPrimaryKey(contract)) {
             map.put("msg", "审批成功");

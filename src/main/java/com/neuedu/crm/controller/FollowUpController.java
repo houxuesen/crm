@@ -174,6 +174,14 @@ public class FollowUpController {
         Map<String, Object> map = new HashMap<String,Object>(16);
         
         User user = (User)request.getSession().getAttribute("user");
+
+        //检验用户正确性
+        if(user == null || user.getId() == null) {
+            map.put("code", -1);
+            map.put("msg", "用户不存在，无法执行操作.");
+            return map;
+        }
+
         Integer managerId = user.getId();
         
         if(followUp == null) {
@@ -223,9 +231,18 @@ public class FollowUpController {
     @Operation(name="更新跟踪记录")
     @RequestMapping("update")
     @ResponseBody
-    public Map<String, Object> updateLinkman(FollowUp followUp){
+    public Map<String, Object> updateLinkman(FollowUp followUp,HttpServletRequest request){
         Map<String, Object> map = new HashMap<String,Object>(16);
-        
+
+        User user = (User)request.getSession().getAttribute("user");
+
+        //检验用户正确性
+        if(user == null || user.getId() == null) {
+            map.put("code", -1);
+            map.put("msg", "用户不存在，无法执行操作.");
+            return map;
+        }
+
         if(followUp == null) {
             map.put("code", -1);
             map.put("msg", "非法查询");
@@ -256,8 +273,17 @@ public class FollowUpController {
     @Operation(name="更新跟踪记录")
     @RequestMapping("updatePart")
     @ResponseBody
-    public Map<String, Object> updatePart(FollowUp followUp){
+    public Map<String, Object> updatePart(FollowUp followUp,HttpServletRequest request){
         Map<String, Object> map = new HashMap<String,Object>(16);
+
+        User user = (User)request.getSession().getAttribute("user");
+
+        //检验用户正确性
+        if(user == null || user.getId() == null) {
+            map.put("code", -1);
+            map.put("msg", "用户不存在，无法执行操作.");
+            return map;
+        }
 
         if(followUp == null) {
             map.put("code", -1);
