@@ -42,7 +42,7 @@ public class ImportExcelUtil {
         Row row = null;
         Cell cell = null;
 
-        list = new ArrayList<List<Object>>();
+        list = new ArrayList<>();
         //遍历Excel中所有的sheet
         for (int i = 0; i < work.getNumberOfSheets(); i++) {
             sheet = work.getSheetAt(i);
@@ -57,7 +57,7 @@ public class ImportExcelUtil {
                 }
 
                 //遍历所有的列
-                List<Object> li = new ArrayList<Object>();
+                List<Object> li = new ArrayList<>();
                 for (int y = row.getFirstCellNum(); y < lastNum; y++) {
                     cell = row.getCell(y);
                     li.add(getCellValue(cell));
