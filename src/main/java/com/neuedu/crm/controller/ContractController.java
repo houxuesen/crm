@@ -40,8 +40,7 @@ public class ContractController {
     @Autowired
     private RoleMapper roleMapper;
     
-    
-    private User user = null;
+
 
     /**
      * @author huangwanzong
@@ -49,7 +48,10 @@ public class ContractController {
      */
     private User getUser(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        user = (User)session.getAttribute("user");
+        User user  = (User)session.getAttribute("user");
+        if(user == null){
+            return user;
+        }
         user.setRole(roleMapper.selectByPrimaryKey(user.getRoleId()));
         return user;
     }
@@ -79,7 +81,7 @@ public class ContractController {
         Map<String, Object> map = new HashMap<String,Object>(16);
         
         //获取用户
-        user = this.getUser(request);
+        User user  = this.getUser(request);
         //检验用户正确性
         if(user == null || user.getId() == null) {
             map.put("code", -1);
@@ -169,7 +171,7 @@ public class ContractController {
         Map<String, Object> map = new HashMap<String,Object>(16);
 
         //获取用户
-        user = this.getUser(request);
+        User user  = this.getUser(request);
         //检验用户正确性
         if(user == null || user.getId() == null) {
             map.put("code", -1);
@@ -264,7 +266,7 @@ public class ContractController {
         Map<String, Object> map = new HashMap<String,Object>(16);
 
         //获取用户
-        user = this.getUser(request);
+        User user  = this.getUser(request);
         //检验用户正确性
         if(user == null || user.getId() == null) {
             map.put("code", -1);
@@ -382,7 +384,7 @@ public class ContractController {
         Map<String, Object> map = new HashMap<String,Object>(16);
 
         //获取用户
-        user = this.getUser(request);
+        User user  = this.getUser(request);
         //检验用户正确性
         if(user == null || user.getId() == null) {
             map.put("code", -1);

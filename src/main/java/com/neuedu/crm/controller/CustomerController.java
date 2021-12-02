@@ -46,7 +46,7 @@ public class CustomerController {
     @Autowired
     private IFollowUpService followupService;
     
-    private User user = null;
+
 
     /**
      * @author huangwanzong
@@ -54,7 +54,10 @@ public class CustomerController {
      */
     private User getUser(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        user = (User)session.getAttribute("user");
+        User user  = (User)session.getAttribute("user");
+        if(user == null){
+            return user;
+        }
         user.setRole(roleMapper.selectByPrimaryKey(user.getRoleId()));
         return user;
     }
@@ -84,7 +87,7 @@ public class CustomerController {
         Map<String, Object> map = new HashMap<String,Object>(16);
         
         //获取用户
-        user = this.getUser(request);
+        User user = this.getUser(request);
         //检验用户正确性
         if(user == null || user.getId() == null) {
             map.put("code", -1);
@@ -238,7 +241,7 @@ public class CustomerController {
         Map<String, Object> map = new HashMap<String,Object>(16);
 
         //获取用户
-        user = this.getUser(request);
+        User   user = this.getUser(request);
 
         //检验用户正确性
         if(user == null || user.getId() == null) {
@@ -389,7 +392,7 @@ public class CustomerController {
         Map<String, Object> map = new HashMap<String,Object>(16);
 
         //获取用户
-        user = this.getUser(request);
+        User   user = this.getUser(request);
 
         //检验用户正确性
         if(user == null || user.getId() == null) {
@@ -454,7 +457,7 @@ public class CustomerController {
             ,HttpServletRequest request){
         Map<String, Object> map = new HashMap<String,Object>(16);
         //获取用户
-        user = this.getUser(request);
+        User  user = this.getUser(request);
 
         if(user == null){
             map.put("msg", "更新失败，请重新登录");
@@ -483,7 +486,7 @@ public class CustomerController {
     public Map<String, Object> updateCustomerDev(Customer customer,HttpServletRequest request){
         Map<String, Object> map = new HashMap<String,Object>(16);
         //获取用户
-        user = this.getUser(request);
+        User user = this.getUser(request);
         if(customerService.updateCustomerByPrimaryKeySelective(customer)) {
 
             if(!StringUtils.isEmpty(customer.getContent())){
