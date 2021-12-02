@@ -480,9 +480,10 @@ public class CustomerController {
     @Operation(name="更新客户信息")
     @RequestMapping("updateDev")
     @ResponseBody
-    public Map<String, Object> updateCustomerDev(Customer customer){
+    public Map<String, Object> updateCustomerDev(Customer customer,HttpServletRequest request){
         Map<String, Object> map = new HashMap<String,Object>(16);
-
+        //获取用户
+        user = this.getUser(request);
         if(customerService.updateCustomerByPrimaryKeySelective(customer)) {
 
             if(!StringUtils.isEmpty(customer.getContent())){
