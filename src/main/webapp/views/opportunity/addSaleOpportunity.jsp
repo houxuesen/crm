@@ -95,22 +95,24 @@
         </div>
 
         <hr size="1">
-        
-        <div style="margin-top: 15px;margin-left:35px;" class="layui-form-item">
-            <label class="layui-form-label">机会概要：</label>
-            <div class="layui-input-block" style="width: 600px;">
-                <textarea name="general" style="height:100px;" placeholder="请输入机会概要的内容，不超过100字" class="layui-textarea"  lay-verify="required"></textarea>
-            </div>
-        </div>
-        
-        <hr size="1">
-        
+
         <div style="margin-top: 15px;margin-left:35px;" class="layui-form-item">
             <label class="layui-form-label">机会描述：</label>
             <div id="descriptionContent" class="layui-input-block" style="width: 700px;">
                 <!-- <textarea name="description" style="height:200px;" placeholder="请输入机会描述的内容" class="layui-textarea"  lay-verify="required"></textarea> -->
             </div>
         </div>
+
+        <hr size="1">
+        
+        <div style="margin-top: 15px;margin-left:35px;" class="layui-form-item">
+            <label class="layui-form-label">商机核定：</label>
+            <div class="layui-input-block" style="width: 600px;">
+                <textarea name="general" style="height:100px;" placeholder="请输入机会概要的内容，不超过100字" class="layui-textarea"  lay-verify="required"></textarea>
+            </div>
+        </div>
+        
+
         
         <div class="layui-form-item">
 	        <div class="layui-input-block">

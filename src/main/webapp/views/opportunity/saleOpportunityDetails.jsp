@@ -101,25 +101,27 @@
 			                <input type="text" name="status" class="layui-input" value="" readonly="readonly" />
 			            </div>
 			        </div>
+
+					<hr>
+
+					<div class="layui-form-item">
+						<label class="layui-form-label">机会描述：</label>
+						<div class="layui-input-block" style="width: 700px;">
+							<div name="description" style="padding: 9px 15px;"></div>
+						</div>
+					</div>
 			        
 			        <hr>
 			        
 			        <div class="layui-form-item">
-						<label class="layui-form-label">机会概要：</label>
+						<label class="layui-form-label">商机核定：</label>
 						<div class="layui-input-block" style="width: 500px;">
 							<textarea name="general" style="height: 100px;"
 								class="layui-textarea"  readonly="readonly"></textarea>
 						</div>
 					</div>
 			        
-			        <hr>
-			        
-			        <div class="layui-form-item">
-						<label class="layui-form-label">机会描述：</label>
-						<div class="layui-input-block" style="width: 700px;">
-							<div name="description" style="padding: 9px 15px;"></div>
-						</div>
-					</div>
+
 			        
 			        <hr>
 					<shiro:hasPermission name="80006">
