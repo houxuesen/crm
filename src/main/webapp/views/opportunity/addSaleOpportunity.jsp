@@ -108,7 +108,7 @@
         <div style="margin-top: 15px;margin-left:35px;" class="layui-form-item">
             <label class="layui-form-label">商机核定：</label>
             <div class="layui-input-block" style="width: 600px;">
-                <textarea name="general" style="height:100px;" placeholder="请输入机会概要的内容，不超过100字" class="layui-textarea"  lay-verify="required"></textarea>
+                <textarea name="general" style="height:100px;" placeholder="请输入商机核定的内容，不超过100字" class="layui-textarea"  lay-verify="required"></textarea>
             </div>
         </div>
         
