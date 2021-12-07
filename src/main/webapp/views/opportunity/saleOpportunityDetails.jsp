@@ -194,7 +194,7 @@
         				$("#customerName").val(result.data[0].customer.name);
         				$("#successName").val(result.data[0].success+'%');
         				$("div[name='description']").html(result.data[0].description);
-						$("div[name='general']").html(result.data[0].general);
+						$("div[name='general']")[0].innerText = result.data[0].general;
         				$("#id").val(result.data[0].id)
         			}
         		}
