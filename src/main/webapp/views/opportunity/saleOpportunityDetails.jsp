@@ -116,8 +116,9 @@
 			        <div class="layui-form-item">
 						<label class="layui-form-label">商机核定：</label>
 						<div class="layui-input-block" style="width: 500px;">
-							<textarea name="general" style="height: 100px;"
-								class="layui-textarea"  readonly="readonly"></textarea>
+							<%--<textarea name="general" style="height: 100px;"
+								class="layui-textarea"  readonly="readonly"></textarea>--%>
+							<div name="general" style="padding: 9px 15px;"></div>
 						</div>
 					</div>
 			        
@@ -193,6 +194,7 @@
         				$("#customerName").val(result.data[0].customer.name);
         				$("#successName").val(result.data[0].success+'%');
         				$("div[name='description']").html(result.data[0].description);
+						$("div[name='general']").html(result.data[0].general);
         				$("#id").val(result.data[0].id)
         			}
         		}
