@@ -176,11 +176,15 @@
                     field: 'contactPhone',
                     title: '联系人电话',
                     align: 'center',
-                    width: '12%',
                     width: '100',
                     templet: function (data) {
                         return data.linkman.officePhone;
                     }
+                },{
+                    field: 'source',
+                    title: '拜访状态',
+                    width: '150',
+                    align: 'center'
                 }, {
                     fixed: "right",
                     title: "操作",

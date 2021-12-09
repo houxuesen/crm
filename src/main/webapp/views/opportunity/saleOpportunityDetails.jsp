@@ -92,7 +92,7 @@
 			        <hr>
 			        
 			        <div class="layui-form-item">  
-			            <label class="layui-form-label">机会来源：</label>
+			            <label class="layui-form-label">拜访状态：</label>
 			            <div class="layui-input-inline" style="width: 250px;">
 			                <input type="text" name="source" class="layui-input" value="" readonly="readonly"  />
 			            </div>

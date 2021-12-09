@@ -53,7 +53,7 @@
                        <input type="text" name="customerName" lay-verify="required"  id="customerName" class="layui-input"  />
                    </div>
             </div>
-            <label class="layui-form-label">机会来源:</label>
+            <label class="layui-form-label">拜访状态:</label>
             <div id="sourceSelectDiv" class="layui-input-inline" style="width: 250px;">
                 <select id="sourceSelect" name="source" lay-search  lay-verify="required">
                 	<option>数据加载中...</option>
