@@ -79,7 +79,7 @@
 
                   <tr>
                       <td>用户数：</td>
-                      <td id="userNum"></td>
+                      <td id="userNumContract"></td>
                       <td>购买年限</td>
                       <td id="limitYears"></td>
                   </tr>
@@ -248,7 +248,7 @@ layui.use(['element','table','flow'],function(){
                     $('#baseAmount').text(contract.baseAmount);
                     $('#contractType').text(contract.contractType);
                     $('#payType').text(contract.payType);
-                    $('#userNum').text(contract.userNum);
+                    $('#userNumContract').text(contract.userNum);
                     $('#limitYears').text(contract.limitYears);
 
                     $('#cont_li_run').text(contract.contractAmount - contract.baseAmount - contract.discountAmount);
