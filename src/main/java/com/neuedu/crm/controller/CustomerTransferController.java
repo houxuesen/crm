@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.neuedu.crm.pojo.*;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,14 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.neuedu.crm.pojo.Customer;
-import com.neuedu.crm.pojo.CustomerCare;
-import com.neuedu.crm.pojo.CustomerCareExample;
-import com.neuedu.crm.pojo.CustomerTransfer;
-import com.neuedu.crm.pojo.CustomerTransferExample;
 import com.neuedu.crm.pojo.CustomerTransferExample.Criteria;
-import com.neuedu.crm.pojo.SaleOpportunity;
-import com.neuedu.crm.pojo.SaleOpportunityExample;
 import com.neuedu.crm.service.ICustomerCareService;
 import com.neuedu.crm.service.ICustomerService;
 import com.neuedu.crm.service.ICustomerTransferService;
@@ -265,6 +259,34 @@ public class CustomerTransferController {
         }
 
         map = customerTransferService.insertManySelective(transfer,customers);
+
+        return map;
+    }
+
+
+    @Operation(name="客户分享")
+    @RequestMapping("share")
+    @ResponseBody
+    public Map<String, Object> shareCustomer(CustomerShare share, @RequestParam(value = "customers[]") int[] customers){
+        Map<String,Object> map = new HashMap<String,Object>(16);
+
+        //检测 transfer对象是否存在
+        if(share == null || customers == null ) {
+            map.put("code", -1);
+            map.put("status", false);
+            map.put("msg", "非法操作");
+            return map;
+        }
+
+
+        if(share.getCustomerId() == null || userService.findById(share.getCustomerId()) == null) {
+            map.put("code", -4);
+            map.put("status", false);
+            map.put("msg", "转移终点不存在");
+            return map;
+        }
+
+        map =  customerTransferService.shareCustomers(share,customers);
 
         return map;
     }

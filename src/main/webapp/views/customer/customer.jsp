@@ -73,6 +73,12 @@
                 <i class="layui-icon  layui-icon-help"></i>导出
             </button>
         </div>
+
+        <div class="layui-inline">
+            <button type="button" class="layui-btn layui-bg-orange" id="customer-share-button">
+                <i class="layui-icon  layui-icon-senior"></i>共享
+            </button>
+        </div>
     </blockquote>
 </form>
 
@@ -395,6 +401,29 @@
             var toExcel = new ExportJsonExcel(option);
             toExcel.saveExcel();
         });
+
+        //分享客户
+        $('#customer-share-button').click(function (){
+            var checkStatus = table.checkStatus('customer-table')
+                , data = checkStatus.data;
+
+            if (data.length == 0) {
+                layer.msg('请至少选一行数据');
+                return;
+            }
+            checkJson = JSON.stringify(data);
+            layer.open({
+                type: 2,
+                title: '分享客户',
+                area: ['750px', '92%'],
+                shadeClose: false,
+                closeBtn: 1,
+                content: 'views/customer/customerShare.jsp',
+                end: function () {
+                    table.reload('customer-table');
+                }
+            });
+        })
 
     });
 

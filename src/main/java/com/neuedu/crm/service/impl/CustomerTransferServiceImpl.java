@@ -1,10 +1,12 @@
 package com.neuedu.crm.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.neuedu.crm.mapper.CustomerShareMapper;
 import com.neuedu.crm.pojo.*;
 import com.neuedu.crm.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,9 @@ public class CustomerTransferServiceImpl implements ICustomerTransferService{
 
 	@Autowired
 	private ICustomerCareService customerCareService;
+
+	@Autowired
+	private CustomerShareMapper customerShareMapper;
 	
 	@Override
 	public long countByCustomerTransferExample(CustomerTransferExample customerTransferExample) {
@@ -215,4 +220,30 @@ public class CustomerTransferServiceImpl implements ICustomerTransferService{
 		return customerTransferMapper.updateByPrimaryKey(customerTransfer) > 0 ? true : false ;
 	}
 
+	@Override
+	public Map<String, Object> shareCustomers(CustomerShare share, int[] customers) {
+		Map<String,Object> map = new HashMap<String,Object>(16);
+		//进行客户转移
+		try {
+			for(int i:customers){
+				CustomerShare customerShare = new CustomerShare();
+				customerShare.setUserId(share.getCustomerId());
+				customerShare.setCustomerId(i);
+				customerShareMapper.insert(customerShare);
+			}
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			map.put("code", -1000);
+			map.put("status", false);
+			map.put("msg", "操作失败");
+			return map;
+		}
+
+		map.put("code", 0);
+		map.put("status", true);
+		map.put("msg", "操作成功");
+
+		return map;
+	}
 }

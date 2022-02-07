@@ -113,7 +113,8 @@ public class CustomerController {
         }
         if("客户经理".equals(user.getRole().getName())) {
             //设置管理者ID
-            criteria.andManagerIdEqualTo(user.getId());
+            //criteria.andManagerIdEqualTo(user.getId());
+            criteria.andSql(" manager_Id = " + user.getId() + " or  id in ( select customer_Id from customer_share where user_id = "+user.getId()+" ) ");
         }
 
         //只查询未删除的客户
@@ -169,7 +170,6 @@ public class CustomerController {
             if(customer.getLastDateEnd() != null){
                 criteria.andSql(" id in (select customer_id from Follow_Up where time <= '"+dtf2.format(customer.getLastDateEnd())+"' ) ");
             }
-
 
             if(customer.getReportEndDateBegin() !=  null){
                 criteria.andReportEndDateGreaterThanOrEqualTo(customer.getReportEndDateBegin());
