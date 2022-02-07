@@ -92,9 +92,9 @@
         </div>
 
         <!-- 客户类别 -->
-        <label class="layui-form-label">客户规模<strong style="color: red">*</strong>：</label>
+        <label class="layui-form-label">客户规模：</label>
         <div class="layui-input-inline" style="width: 135px;">
-          <select name="type" lay-verify="required" >
+          <select name="type">
                <option value="">--数据加载中--</option>
           </select>
         </div>
