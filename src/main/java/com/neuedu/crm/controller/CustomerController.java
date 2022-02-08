@@ -114,7 +114,7 @@ public class CustomerController {
         if("客户经理".equals(user.getRole().getName())) {
             //设置管理者ID
             //criteria.andManagerIdEqualTo(user.getId());
-            criteria.andSql(" manager_Id = " + user.getId() + " or  id in ( select customer_Id from customer_share where user_id = "+user.getId()+" ) ");
+            criteria.andSql(" (manager_Id = " + user.getId() + " or  id in ( select customer_Id from customer_share where user_id = "+user.getId()+" ) )");
         }
 
         //只查询未删除的客户
