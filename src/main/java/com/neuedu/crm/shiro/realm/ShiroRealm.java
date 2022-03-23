@@ -111,7 +111,7 @@ public class ShiroRealm extends AuthorizingRealm{
                 info.addRoles(roles);
                 info.addStringPermissions(permissions);
                 //把info存入redis缓存中,缓存时间为1800秒，30分钟
-                redisUtil.set("rolePermission-" + user.getRoleId(), info, 1800L);
+                redisUtil.set("rolePermission-" + user.getRoleId(), info, 7200L);
             }
             return info;
         }
