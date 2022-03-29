@@ -49,11 +49,10 @@
 </tr>
 
 <tr>
-
+    <td >即时通讯</td>
+    <td id="instantMessage"></td>
     <td>报备到期：</td>
-    <td id="reportEndDate"></td>
-    <td></td>
-    <td ></td>
+    <td  id="reportEndDate"></td>
 </tr>
 <tr>
     <td>备注：</td>
