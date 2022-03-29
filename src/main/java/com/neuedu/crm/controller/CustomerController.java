@@ -183,6 +183,10 @@ public class CustomerController {
                 criteria.andRealmNameLike(customer.getRealmName());
             }
 
+            if(!StringUtils.isEmpty(customer.getInstantMessage())){
+                criteria.andInstantMessageEqualTo(customer.getInstantMessage());
+            }
+
 
         }
 

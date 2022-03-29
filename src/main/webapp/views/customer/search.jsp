@@ -117,6 +117,14 @@
 			<div class="layui-input-inline">
 				<input type="text" name="realmName" class="layui-input">
 			</div>
+
+			<label class="layui-form-label">即时通讯：</label>
+			<div class="layui-input-inline">
+				<select name="instantMessage" lay-filter="instantMessage">
+					<option value="">--数据加载中--</option>
+				</select>
+			</div>
+
 		</div>
 	    <div class="layui-form-item"  style="width: 450px;margin-top: 40px;">
             <div class="layui-input-block">
@@ -160,6 +168,8 @@ layui.use(['form','laydate'],function(){
 		parent$('input[name=reportEndDateBegin]').val(formdata.reportEndDateBegin);
 		parent$('input[name=reportEndDateEnd]').val(formdata.reportEndDateEnd);
 		parent$('input[name=realmName]').val(formdata.realmName);
+		parent$('input[name=instantMessage]').val(formdata.instantMessage);
+
 
 		//执行查询功能
 		parent$('#search-button').click();
@@ -244,7 +254,9 @@ layui.use(['form','laydate'],function(){
     //获取客户成熟度字典并加载下拉框
     setTimeout(getSelectData('客户成熟度','maturity'),3000);
     //getSelectData('客户成熟度','maturity');
-    
+
+	setTimeout(getSelectData('即时通讯','instantMessage'),3500);
+
     
     function getSelectData(dictionaryName,selectName){
         $.post('${pageContext.request.contextPath}/dictionary/find',{'name':dictionaryName},function(data){

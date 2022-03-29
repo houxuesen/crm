@@ -2063,6 +2063,12 @@ public class CustomerExample {
             return (Criteria) this;
         }
 
+
+        public Criteria andInstantMessageEqualTo(String value) {
+            addCriterion("instant_Message =", value, "instantMessage");
+            return (Criteria) this;
+        }
+
         public Criteria andSql(String val) {
             addCriterion(val);
             return (Criteria) this;

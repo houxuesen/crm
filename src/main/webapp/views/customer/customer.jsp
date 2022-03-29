@@ -107,6 +107,8 @@
     <input type="text" name="reportEndDateBegin"/>
     <input type="text" name="reportEndDateEnd"/>
     <input type="text" name="realmName"/>
+    <input type="text" name="instantMessage"/>
+
 
     <button type="button" data-type="reload" id="search-button">搜索</button>
 </div>
@@ -200,7 +202,8 @@
                     'lastDateEnd': $('input[name=lastDateEnd]').val(),
                     'reportEndDateBegin': $('input[name=reportEndDateBegin]').val(),
                     'reportEndDateEnd': $('input[name=reportEndDateEnd]').val(),
-                    'realmName': $('input[name=realmName]').val()
+                    'realmName': $('input[name=realmName]').val(),
+                    'instantMessage':$('input[name=instantMessage]').val()
 
                 }
             });

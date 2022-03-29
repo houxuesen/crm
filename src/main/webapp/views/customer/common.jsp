@@ -109,9 +109,21 @@
 
 </div>
 
+<div class="layui-form-item">
 
+    <label class="layui-form-label">即时通讯：</label>
+    <div class="layui-input-inline" style="width: 135px;">
+        <select name="instantMessage">
+            <option value="">--数据加载中--</option>
+        </select>
+    </div>
+    <div class="layui-form-mid layui-word-aux">
+        <a href="#" name="即时通讯" id="field-instantMessage"  style="color: blue;">
+            <i class="layui-icon  layui-icon-add-1"></i>编辑
+        </a>
+    </div>
 
-
+</div>
 
 <%--<div class="layui-form-item">
     <!-- 客户所在地区 -->

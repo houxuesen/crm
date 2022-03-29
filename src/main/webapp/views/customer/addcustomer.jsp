@@ -174,7 +174,9 @@ layui.use(['form','upload','laydate'],function(){
     
     //获取客户成熟度字典并加载下拉框
     getSelectData('客户成熟度','maturity');
-    
+
+    //即时通讯
+    getSelectData('即时通讯','instantMessage');
     
     function getSelectData(dictionaryName,selectName){
     	$.post('${pageContext.request.contextPath}/dictionary/find',{'name':dictionaryName},function(data){

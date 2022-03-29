@@ -142,7 +142,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           
           <div class="layui-form-item">
             <div class="layui-input-block">
-                <button style="margin-top: 10px; type="submit" class="layui-btn layui-btn-default" id="loginButton" lay-submit lay-filter="loginForm">
+                <button style="margin-top: 10px;" type="submit" class="layui-btn layui-btn-default" id="loginButton" lay-submit lay-filter="loginForm">
                     <i class="layui-icon">စ</i>&nbsp;登录系统
                 </button>
                 

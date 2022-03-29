@@ -172,6 +172,11 @@ public class Customer implements Serializable {
      */
     private LocalDate reportEndDate;
 
+    /**
+     * 即时通讯
+     */
+    private String instantMessage;
+
 
     /**
      * 赋值查询用
@@ -563,6 +568,14 @@ public class Customer implements Serializable {
 
     public void setReportEndDateEnd(LocalDate reportEndDateEnd) {
         this.reportEndDateEnd = reportEndDateEnd;
+    }
+
+    public String getInstantMessage() {
+        return instantMessage;
+    }
+
+    public void setInstantMessage(String instantMessage) {
+        this.instantMessage = instantMessage;
     }
 
     @Override

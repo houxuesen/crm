@@ -127,6 +127,21 @@
 
     </div>
 
+    <div class="layui-form-item">
+
+        <label class="layui-form-label">即时通讯：</label>
+        <div class="layui-input-inline" style="width: 135px;">
+            <select name="instantMessage">
+                <option value="">--数据加载中--</option>
+            </select>
+        </div>
+        <div class="layui-form-mid layui-word-aux">
+            <a href="#" name="即时通讯" id="field-instantMessage"  style="color: blue;">
+                <i class="layui-icon  layui-icon-add-1"></i>编辑
+            </a>
+        </div>
+
+    </div>
 
 	<!-- 详细地址 -->
 	<div class="layui-form-item">
@@ -241,6 +256,9 @@ layui.use(['form','upload','laydate'],function(){
     
     //获取客户成熟度字典并加载下拉框
     getSelectData('客户成熟度','maturity');
+
+    //即时通讯
+    getSelectData('即时通讯','instantMessage');
 
 
     function getSelectData(dictionaryName,selectName){
