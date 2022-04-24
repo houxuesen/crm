@@ -72,7 +72,16 @@
 	<input type="text" name="lastDateEnd" />
 
 
-    <button type="button" data-type="reload" id="search-button">搜索</button>
+	<input type="text" name="reportEndDateBegin"/>
+	<input type="text" name="reportEndDateEnd"/>
+	<input type="text" name="realmName"/>
+	<input type="text" name="instantMessage"/>
+
+	<input type="text" name="userNumBegin"/>
+	<input type="text" name="userNumEnd"/>
+
+
+	<button type="button" data-type="reload" id="search-button">搜索</button>
 </div>
 
 
@@ -125,7 +134,7 @@ layui.use(['table','form','laydate'], function(){
     	layer.open({
             type:2,
             title:'搜索条件',
-            area:['700px','550px'],
+            area:['700px','90%'],
             clostBtn:1,
             shadeClose: true,
             maxmin: false,
@@ -154,7 +163,13 @@ layui.use(['table','form','laydate'], function(){
 				'endDateEnd':$('input[name=endDateEnd]').val(),
 				'managerName':$('input[name=managerName]').val(),
 				'lastDateBegin':$('input[name=lastDateBegin]').val(),
-				'lastDateEnd':$('input[name=lastDateEnd]').val()
+				'lastDateEnd':$('input[name=lastDateEnd]').val(),
+				'reportEndDateBegin': $('input[name=reportEndDateBegin]').val(),
+				'reportEndDateEnd': $('input[name=reportEndDateEnd]').val(),
+				'realmName': $('input[name=realmName]').val(),
+				'instantMessage':$('input[name=instantMessage]').val(),
+				'userNumBegin': $('input[name=userNumBegin]').val(),
+				'userNumEnd':$('input[name=userNumEnd]').val()
           }
         });
       });
