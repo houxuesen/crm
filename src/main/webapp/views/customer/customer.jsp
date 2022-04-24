@@ -109,6 +109,9 @@
     <input type="text" name="realmName"/>
     <input type="text" name="instantMessage"/>
 
+    <input type="text" name="userNumBegin"/>
+    <input type="text" name="userNumEnd"/>
+
 
     <button type="button" data-type="reload" id="search-button">搜索</button>
 </div>
@@ -170,7 +173,7 @@
             layer.open({
                 type: 2,
                 title: '搜索条件',
-                area: ['700px', '80%'],
+                area: ['700px', '90%'],
                 clostBtn: 1,
                 shadeClose: true,
                 maxmin: false,
@@ -203,7 +206,9 @@
                     'reportEndDateBegin': $('input[name=reportEndDateBegin]').val(),
                     'reportEndDateEnd': $('input[name=reportEndDateEnd]').val(),
                     'realmName': $('input[name=realmName]').val(),
-                    'instantMessage':$('input[name=instantMessage]').val()
+                    'instantMessage':$('input[name=instantMessage]').val(),
+                    'userNumBegin': $('input[name=userNumBegin]').val(),
+                    'userNumEnd':$('input[name=userNumEnd]').val()
 
                 }
             });

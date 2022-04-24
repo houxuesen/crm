@@ -2069,6 +2069,17 @@ public class CustomerExample {
             return (Criteria) this;
         }
 
+
+        public Criteria andUserNumBegin(Integer value) {
+            addCriterion(" user_Num+0 >=", value, "userNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserNumEnd(Integer value) {
+            addCriterion(" user_Num+0 <=", value, "userNum");
+            return (Criteria) this;
+        }
+
         public Criteria andSql(String val) {
             addCriterion(val);
             return (Criteria) this;

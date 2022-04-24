@@ -57,10 +57,13 @@
 		            <option value="">--数据加载中--</option>
 		          </select>
 	        </div>  
-	    </div>  
-	    
+	    </div>
+
+
+
+
 	    <div class="layui-form-item">
-			<label class="layui-form-label">过期范围：</label>
+			<label class="layui-form-label">邮箱过期：</label>
 			<div class="layui-input-inline" >
 				<input type="text" name="endDateBegin" id="endDateBegin" class="layui-input">
 			</div>
@@ -69,6 +72,17 @@
 				<input type="text"  id="endDateEnd" name="endDateEnd" class="layui-input" >
 			</div>
 	    </div>
+
+		<div class="layui-form-item">
+			<label class="layui-form-label">用户数量范围：</label>
+			<div class="layui-input-inline" >
+				<input type="text" name="userNumBegin" id="userNumBegin" class="layui-input">
+			</div>
+			<div class="layui-input-inline" style="width: 20px;">--</div>
+			<div class="layui-input-inline" >
+				<input type="text"  id="userNumEnd" name="userNumEnd" class="layui-input" >
+			</div>
+		</div>
 
 
 		<div class="layui-form-item">
@@ -169,6 +183,12 @@ layui.use(['form','laydate'],function(){
 		parent$('input[name=reportEndDateEnd]').val(formdata.reportEndDateEnd);
 		parent$('input[name=realmName]').val(formdata.realmName);
 		parent$('input[name=instantMessage]').val(formdata.instantMessage);
+
+
+		parent$('input[name=userNumBegin]').val(formdata.userNumBegin);
+		parent$('input[name=userNumEnd]').val(formdata.userNumEnd);
+
+
 
 
 		//执行查询功能

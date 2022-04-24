@@ -187,6 +187,13 @@ public class CustomerController {
                 criteria.andInstantMessageEqualTo(customer.getInstantMessage());
             }
 
+            if(customer.getUserNumBegin() != null){
+                criteria.andUserNumBegin(customer.getUserNumBegin());
+            }
+
+            if(customer.getUserNumEnd() != null){
+                criteria.andUserNumEnd(customer.getUserNumEnd());
+            }
 
         }
 

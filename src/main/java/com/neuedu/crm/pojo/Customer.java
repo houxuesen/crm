@@ -194,6 +194,10 @@ public class Customer implements Serializable {
     private LocalDate reportEndDateBegin;
     private LocalDate reportEndDateEnd;
 
+
+    private Integer userNumBegin;
+    private Integer userNumEnd;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -576,6 +580,22 @@ public class Customer implements Serializable {
 
     public void setInstantMessage(String instantMessage) {
         this.instantMessage = instantMessage;
+    }
+
+    public Integer getUserNumBegin() {
+        return userNumBegin;
+    }
+
+    public void setUserNumBegin(Integer userNumBegin) {
+        this.userNumBegin = userNumBegin;
+    }
+
+    public Integer getUserNumEnd() {
+        return userNumEnd;
+    }
+
+    public void setUserNumEnd(Integer userNumEnd) {
+        this.userNumEnd = userNumEnd;
     }
 
     @Override
