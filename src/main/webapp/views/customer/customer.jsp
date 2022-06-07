@@ -145,6 +145,7 @@
                 }
                 , {field: 'status', title: '客户状态'}
                 , {field: 'type', title: '客户规模'}
+                , {field: 'userNum', title: '客户数量'}
                 , {field: 'source', title: '现服务商'}
                 , {
                     field: 'endDate', title: '到期时间', templet(data) {

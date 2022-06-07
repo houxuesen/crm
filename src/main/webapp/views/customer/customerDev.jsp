@@ -113,6 +113,10 @@ layui.use(['table','form','laydate'], function(){
           }}
           ,{field:'realmName',title:'域名',width: 100}
           ,{field:'source',title:'现服务商',width: 130}
+          ,{field:'endDate',title:'到期时间',width: 130, templet(data) {
+					return getDate(data.endDate)
+				}
+			}
           ,{field:'status',title:'客户状态',width: 130}
           ,{field:'companyPhone',title:'联系电话',edit:'text',width: 200}
           ,{field:'userNum',title:'用户数',edit:'text',width: 100}
